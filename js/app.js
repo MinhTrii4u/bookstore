@@ -284,7 +284,23 @@ const GoldPage = (() => {
 
   // ========== Cart State ==========
   let cart = [];
-  let wishlist = [];
+
+  // ========== Wishlist State (persisted) ==========
+  let wishlist;
+  try {
+    const storedWishlist = localStorage.getItem('goldpage_wishlist');
+    wishlist = storedWishlist ? JSON.parse(storedWishlist) : [];
+  } catch(e) {
+    wishlist = [];
+  }
+
+  function saveWishlist() {
+    try {
+      localStorage.setItem('goldpage_wishlist', JSON.stringify(wishlist));
+    } catch(e) {
+      console.warn('Could not save wishlist:', e);
+    }
+  }
 
   // ========== Utility Functions ==========
   function formatPrice(price) {
@@ -444,10 +460,142 @@ const GoldPage = (() => {
       wishlist.push(bookId);
       showToast('Đã thêm vào danh sách yêu thích ❤️');
     }
+    saveWishlist();
+  }
+
+  function removeFromWishlist(bookId) {
+    const idx = wishlist.indexOf(bookId);
+    if (idx > -1) {
+      wishlist.splice(idx, 1);
+      saveWishlist();
+      showToast('Đã xóa khỏi danh sách yêu thích');
+    }
+  }
+
+  function getWishlistBooks() {
+    return wishlist.map(id => books.find(b => b.id === id)).filter(Boolean);
   }
 
   function isInWishlist(bookId) {
     return wishlist.includes(bookId);
+  }
+
+  // ========== Voucher / Coupon System ==========
+  const defaultVouchers = [
+    {
+      code: 'CHAOMUNG2024',
+      description: 'Giảm 20% cho đơn hàng đầu tiên',
+      discount: 20,
+      type: 'percent',
+      minOrder: 200000,
+      maxDiscount: 100000,
+      expiry: '2027-12-31',
+      icon: 'gift',
+      color: '#D4AF37'
+    },
+    {
+      code: 'FREESHIP50',
+      description: 'Miễn phí vận chuyển cho đơn từ 300K',
+      discount: 50000,
+      type: 'fixed',
+      minOrder: 300000,
+      maxDiscount: 50000,
+      expiry: '2027-06-30',
+      icon: 'truck',
+      color: '#22c55e'
+    },
+    {
+      code: 'GOLDMEMBER',
+      description: 'Giảm 15% cho thành viên Gold',
+      discount: 15,
+      type: 'percent',
+      minOrder: 500000,
+      maxDiscount: 200000,
+      expiry: '2027-12-31',
+      icon: 'crown',
+      color: '#A67C00'
+    },
+    {
+      code: 'SACH100K',
+      description: 'Giảm 100.000đ cho đơn hàng từ 800K',
+      discount: 100000,
+      type: 'fixed',
+      minOrder: 800000,
+      maxDiscount: 100000,
+      expiry: '2027-03-31',
+      icon: 'tag',
+      color: '#ef4444'
+    },
+    {
+      code: 'BOOKWORM30',
+      description: 'Giảm 30% cho tất cả sách văn học',
+      discount: 30,
+      type: 'percent',
+      minOrder: 150000,
+      maxDiscount: 150000,
+      expiry: '2027-09-30',
+      icon: 'book-open',
+      color: '#8b5cf6'
+    },
+    {
+      code: 'LIMITED2024',
+      description: 'Giảm 10% cho ấn bản giới hạn',
+      discount: 10,
+      type: 'percent',
+      minOrder: 1000000,
+      maxDiscount: 500000,
+      expiry: '2027-12-31',
+      icon: 'sparkles',
+      color: '#f59e0b'
+    }
+  ];
+
+  let vouchers;
+  try {
+    const storedVouchers = localStorage.getItem('goldpage_vouchers');
+    vouchers = storedVouchers ? JSON.parse(storedVouchers) : [...defaultVouchers];
+  } catch(e) {
+    vouchers = [...defaultVouchers];
+  }
+
+  // Track saved/used vouchers
+  let savedVouchers;
+  try {
+    const stored = localStorage.getItem('goldpage_saved_vouchers');
+    savedVouchers = stored ? JSON.parse(stored) : [];
+  } catch(e) {
+    savedVouchers = [];
+  }
+
+  function saveVoucherState() {
+    try {
+      localStorage.setItem('goldpage_saved_vouchers', JSON.stringify(savedVouchers));
+    } catch(e) {
+      console.warn('Could not save vouchers:', e);
+    }
+  }
+
+  function collectVoucher(code) {
+    if (!savedVouchers.includes(code)) {
+      savedVouchers.push(code);
+      saveVoucherState();
+      showToast(`Đã lưu mã "${code}" vào kho voucher! 🎉`);
+      return true;
+    }
+    showToast('Bạn đã lưu mã này rồi', 'info');
+    return false;
+  }
+
+  function isVoucherSaved(code) {
+    return savedVouchers.includes(code);
+  }
+
+  function getVouchers() {
+    return vouchers;
+  }
+
+  function getSavedVouchers() {
+    return savedVouchers;
   }
 
   // ========== Public API ==========
@@ -455,6 +603,7 @@ const GoldPage = (() => {
     books,
     defaultBooks,
     cart,
+    wishlist,
     formatPrice,
     generateStars,
     addToCart,
@@ -466,7 +615,14 @@ const GoldPage = (() => {
     showToast,
     renderCartPanel,
     toggleWishlist,
+    removeFromWishlist,
+    getWishlistBooks,
     isInWishlist,
+    // Voucher
+    getVouchers,
+    getSavedVouchers,
+    collectVoucher,
+    isVoucherSaved,
     // Admin CRUD
     addBook,
     updateBook,

@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoldPage — Đăng Nhập / Đăng Ký</title>
+  <meta name="description" content="Đăng nhập hoặc đăng ký tài khoản GoldPage để trải nghiệm thế giới sách cao cấp, ấn bản giới hạn và ưu đãi độc quyền.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory: '#FFFDF7',
+            dark: '#12100D',
+            gold: { DEFAULT: '#D4AF37', light: '#F4E5A1', dark: '#A67C00' },
+            wine: '#5C1A1B',
+            navy: '#0B1E3D',
+            cream: '#FDF6E3',
+            charcoal: '#1A1A1A',
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'Cormorant Garamond', 'serif'],
+            sans: ['Inter', 'Be Vietnam Pro', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    /* ===== Auth Page Specific Styles ===== */
+
+    .auth-page {
+      min-height: 100vh;
+      display: flex;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Left panel - decorative */
+    .auth-left {
+      flex: 1;
+      position: relative;
+      display: none;
+    }
+    @media (min-width: 1024px) {
+      .auth-left { display: flex; }
+    }
+
+    .auth-left-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        linear-gradient(135deg, rgba(11,30,61,0.92) 0%, rgba(18,16,13,0.88) 100%),
+        url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1200&h=1600&fit=crop') center/cover;
+    }
+
+    .auth-left-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem;
+      height: 100%;
+    }
+
+    /* Right panel - forms */
+    .auth-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: var(--ivory);
+      position: relative;
+    }
+
+    /* Form container */
+    .auth-form-container {
+      width: 100%;
+      max-width: 460px;
+      position: relative;
+    }
+
+    /* Animated form panels */
+    .auth-panel {
+      width: 100%;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .auth-panel.hidden-panel {
+      opacity: 0;
+      transform: translateX(40px);
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .auth-panel.active-panel {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+      position: relative;
+    }
+
+    /* Input with icon */
+    .auth-input-group {
+      position: relative;
+    }
+    .auth-input-group .input-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #b5a67a;
+      transition: color 0.3s ease;
+    }
+    .auth-input-group input:focus ~ .input-icon {
+      color: var(--gold);
+    }
+    .auth-input-group input {
+      padding-left: 48px;
+    }
+
+    /* Password toggle */
+    .password-toggle {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #b5a67a;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      padding: 4px;
+    }
+    .password-toggle:hover {
+      color: var(--gold);
+    }
+
+    /* Social buttons */
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 20px;
+      border: 1.5px solid #e0d8c8;
+      border-radius: 12px;
+      background: white;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex: 1;
+    }
+    .social-btn:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+      transform: translateY(-2px);
+    }
+    .social-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Divider with text */
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 28px 0;
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #e0d8c8, transparent);
+    }
+    .auth-divider span {
+      font-size: 13px;
+      color: #999;
+      white-space: nowrap;
+    }
+
+    /* Checkbox custom */
+    .auth-checkbox {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid #d0c8b0;
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    .auth-checkbox:checked {
+      background: var(--gold-gradient);
+      border-color: var(--gold);
+    }
+    .auth-checkbox:checked::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--dark);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Strength meter */
+    .strength-meter {
+      display: flex;
+      gap: 4px;
+      margin-top: 8px;
+    }
+    .strength-bar {
+      flex: 1;
+      height: 4px;
+      border-radius: 2px;
+      background: #e0d8c8;
+      transition: all 0.3s ease;
+    }
+    .strength-bar.active.weak { background: #ef4444; }
+    .strength-bar.active.medium { background: #f59e0b; }
+    .strength-bar.active.strong { background: #22c55e; }
+    .strength-bar.active.very-strong { background: var(--gold); }
+
+    /* Floating particles */
+    .auth-particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0;
+      animation: floatParticle 6s ease-in-out infinite;
+    }
+    @keyframes floatParticle {
+      0%, 100% { opacity: 0; transform: translateY(0) scale(0); }
+      20% { opacity: 0.6; }
+      50% { opacity: 0.3; transform: translateY(-100px) scale(1); }
+      80% { opacity: 0; }
+    }
+
+    /* Left panel features */
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 0;
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: fadeInLeft 0.6s ease forwards;
+    }
+    .feature-item:nth-child(1) { animation-delay: 0.3s; }
+    .feature-item:nth-child(2) { animation-delay: 0.5s; }
+    .feature-item:nth-child(3) { animation-delay: 0.7s; }
+
+    @keyframes fadeInLeft {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Tab indicator */
+    .auth-tabs {
+      display: flex;
+      background: rgba(212, 175, 55, 0.08);
+      border-radius: 14px;
+      padding: 4px;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .auth-tab {
+      flex: 1;
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: #888;
+      cursor: pointer;
+      border-radius: 11px;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+    .auth-tab.active {
+      color: var(--dark);
+    }
+    .auth-tab-indicator {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: calc(50% - 4px);
+      height: calc(100% - 8px);
+      background: var(--gold-gradient);
+      border-radius: 11px;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+    }
+    .auth-tab-indicator.right {
+      transform: translateX(calc(100% + 4px));
+    }
+
+    /* Success animation */
+    @keyframes successPop {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .success-icon {
+      animation: successPop 0.5s ease forwards;
+    }
+
+    /* Form appear */
+    .form-appear {
+      animation: formAppear 0.6s ease forwards;
+    }
+    @keyframes formAppear {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-ivory font-sans text-charcoal">
+
+  <div class="auth-page">
+    <!-- ============================================================
+         LEFT PANEL — Decorative branding
+         ============================================================ -->
+    <div class="auth-left">
+      <div class="auth-left-bg"></div>
+
+      <!-- Floating particles -->
+      <div class="auth-particle" style="width:6px;height:6px;top:15%;left:20%;animation-delay:0s;"></div>
+      <div class="auth-particle" style="width:4px;height:4px;top:35%;left:65%;animation-delay:1.5s;"></div>
+      <div class="auth-particle" style="width:8px;height:8px;top:60%;left:30%;animation-delay:3s;"></div>
+      <div class="auth-particle" style="width:5px;height:5px;top:80%;left:70%;animation-delay:4.5s;"></div>
+      <div class="auth-particle" style="width:3px;height:3px;top:25%;left:80%;animation-delay:2s;"></div>
+
+      <div class="auth-left-content">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 mb-12">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00);">
+            <i data-lucide="book-open" class="w-6 h-6 text-dark"></i>
+          </div>
+          <div>
+            <span class="font-serif text-3xl font-bold" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">GoldPage</span>
+            <p class="text-[11px] text-gray-400 -mt-1 tracking-[0.2em] uppercase">Thư Viện Sách Cao Cấp</p>
+          </div>
+        </a>
+
+        <!-- Headline -->
+        <div class="mb-12">
+          <h1 class="font-serif text-4xl xl:text-5xl font-bold text-cream leading-tight mb-4">
+            Chào Mừng Đến Với<br>
+            <span style="background: linear-gradient(135deg, #F4E5A1, #D4AF37); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Thế Giới Tri Thức</span>
+          </h1>
+          <p class="text-gray-400 text-base leading-relaxed max-w-md">
+            Đăng nhập để trải nghiệm bộ sưu tập sách cao cấp, ấn bản giới hạn và những ưu đãi độc quyền dành riêng cho bạn.
+          </p>
+        </div>
+
+        <!-- Features -->
+        <div class="space-y-1">
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i data-lucide="crown" class="w-5 h-5 text-gold"></i>
+            </div>
+            <div>
+              <h3 class="text-cream font-semibold text-sm">Ưu Đãi Thành Viên</h3>
+              <p class="text-gray-400 text-sm mt-1">Giảm giá đến 30% và truy cập sớm ấn bản giới hạn.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i data-lucide="bookmark" class="w-5 h-5 text-gold"></i>
+            </div>
+            <div>
+              <h3 class="text-cream font-semibold text-sm">Tủ Sách Cá Nhân</h3>
+              <p class="text-gray-400 text-sm mt-1">Lưu trữ và quản lý danh sách yêu thích của riêng bạn.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i data-lucide="truck" class="w-5 h-5 text-gold"></i>
+            </div>
+            <div>
+              <h3 class="text-cream font-semibold text-sm">Miễn Phí Vận Chuyển</h3>
+              <p class="text-gray-400 text-sm mt-1">Freeship toàn quốc cho thành viên với đơn từ 300K.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust badges -->
+        <div class="mt-auto pt-12 flex items-center gap-6">
+          <div class="flex items-center gap-2 text-gray-500 text-xs">
+            <i data-lucide="shield-check" class="w-4 h-4 text-gold"></i>
+            Bảo mật SSL
+          </div>
+          <div class="flex items-center gap-2 text-gray-500 text-xs">
+            <i data-lucide="lock" class="w-4 h-4 text-gold"></i>
+            Mã hóa dữ liệu
+          </div>
+          <div class="flex items-center gap-2 text-gray-500 text-xs">
+            <i data-lucide="users" class="w-4 h-4 text-gold"></i>
+            50,000+ thành viên
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         RIGHT PANEL — Login / Register Forms
+         ============================================================ -->
+    <div class="auth-right">
+      <!-- Back to homepage link -->
+      <a href="index.html" class="absolute top-6 left-6 lg:hidden flex items-center gap-2 text-sm text-gray-500 hover:text-gold transition-colors">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        Trang chủ
+      </a>
+
+      <!-- Mobile Logo -->
+      <a href="index.html" class="absolute top-6 right-6 lg:hidden flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00);">
+          <i data-lucide="book-open" class="w-4 h-4 text-dark"></i>
+        </div>
+        <span class="font-serif text-lg font-bold" style="background: linear-gradient(135deg, #D4AF37, #A67C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">GoldPage</span>
+      </a>
+
+      <div class="auth-form-container form-appear">
+        <!-- Tabs -->
+        <div class="auth-tabs" id="auth-tabs">
+          <div class="auth-tab-indicator" id="tab-indicator"></div>
+          <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Đăng Nhập</button>
+          <button class="auth-tab" id="tab-register" onclick="switchTab('register')">Đăng Ký</button>
+        </div>
+
+        <!-- ========== LOGIN PANEL ========== -->
+        <div class="auth-panel active-panel" id="login-panel">
+          <div class="mb-8">
+            <h2 class="font-serif text-2xl font-bold text-charcoal">Chào mừng trở lại! 👋</h2>
+            <p class="text-gray-500 text-sm mt-2">Đăng nhập để tiếp tục khám phá thế giới sách.</p>
+          </div>
+
+          <form id="login-form" onsubmit="handleLogin(event)">
+            <!-- Email -->
+            <div class="auth-input-group mb-4">
+              <input
+                type="email"
+                id="login-email"
+                placeholder="Email của bạn"
+                required
+                class="w-full py-3.5 pr-4 rounded-xl text-sm input-gold"
+              >
+              <i data-lucide="mail" class="w-5 h-5 input-icon"></i>
+            </div>
+
+            <!-- Password -->
+            <div class="auth-input-group mb-4">
+              <input
+                type="password"
+                id="login-password"
+                placeholder="Mật khẩu"
+                required
+                class="w-full py-3.5 pr-12 rounded-xl text-sm input-gold"
+              >
+              <i data-lucide="lock" class="w-5 h-5 input-icon"></i>
+              <button type="button" class="password-toggle" onclick="togglePassword('login-password', this)">
+                <i data-lucide="eye" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Remember & Forgot -->
+            <div class="flex items-center justify-between mb-6">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="auth-checkbox" id="remember-me">
+                <span class="text-sm text-gray-600">Ghi nhớ đăng nhập</span>
+              </label>
+              <a href="#" class="text-sm font-medium hover:underline" style="color: var(--gold-dark);">Quên mật khẩu?</a>
+            </div>
+
+            <!-- Login Button -->
+            <button type="submit" id="login-btn" class="btn-gold ripple w-full py-3.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2">
+              <i data-lucide="log-in" class="w-4 h-4"></i>
+              Đăng Nhập
+            </button>
+          </form>
+
+          <!-- Divider -->
+          <div class="auth-divider">
+            <span>hoặc đăng nhập với</span>
+          </div>
+
+          <!-- Social Login -->
+          <div class="flex gap-3">
+            <button class="social-btn" onclick="socialLogin('Google')">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              Google
+            </button>
+            <button class="social-btn" onclick="socialLogin('Facebook')">
+              <svg viewBox="0 0 24 24" fill="#1877F2">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+              Facebook
+            </button>
+          </div>
+
+          <!-- Switch to register -->
+          <p class="text-center text-sm text-gray-500 mt-8">
+            Chưa có tài khoản?
+            <button onclick="switchTab('register')" class="font-semibold hover:underline" style="color: var(--gold-dark);">Đăng ký ngay</button>
+          </p>
+        </div>
+
+        <!-- ========== REGISTER PANEL ========== -->
+        <div class="auth-panel hidden-panel" id="register-panel">
+          <div class="mb-8">
+            <h2 class="font-serif text-2xl font-bold text-charcoal">Tạo tài khoản mới ✨</h2>
+            <p class="text-gray-500 text-sm mt-2">Tham gia GoldPage và nhận ưu đãi chào mừng.</p>
+          </div>
+
+          <form id="register-form" onsubmit="handleRegister(event)">
+            <!-- Full Name -->
+            <div class="auth-input-group mb-4">
+              <input
+                type="text"
+                id="register-name"
+                placeholder="Họ và tên"
+                required
+                class="w-full py-3.5 pr-4 rounded-xl text-sm input-gold"
+              >
+              <i data-lucide="user" class="w-5 h-5 input-icon"></i>
+            </div>
+
+            <!-- Email -->
+            <div class="auth-input-group mb-4">
+              <input
+                type="email"
+                id="register-email"
+                placeholder="Email của bạn"
+                required
+                class="w-full py-3.5 pr-4 rounded-xl text-sm input-gold"
+              >
+              <i data-lucide="mail" class="w-5 h-5 input-icon"></i>
+            </div>
+
+            <!-- Phone -->
+            <div class="auth-input-group mb-4">
+              <input
+                type="tel"
+                id="register-phone"
+                placeholder="Số điện thoại"
+                pattern="[0-9]{10,11}"
+                class="w-full py-3.5 pr-4 rounded-xl text-sm input-gold"
+              >
+              <i data-lucide="phone" class="w-5 h-5 input-icon"></i>
+            </div>
+
+            <!-- Password -->
+            <div class="auth-input-group mb-1">
+              <input
+                type="password"
+                id="register-password"
+                placeholder="Mật khẩu (tối thiểu 8 ký tự)"
+                required
+                minlength="8"
+                class="w-full py-3.5 pr-12 rounded-xl text-sm input-gold"
+                oninput="checkPasswordStrength(this.value)"
+              >
+              <i data-lucide="lock" class="w-5 h-5 input-icon"></i>
+              <button type="button" class="password-toggle" onclick="togglePassword('register-password', this)">
+                <i data-lucide="eye" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Password Strength Meter -->
+            <div class="strength-meter mb-1" id="strength-meter">
+              <div class="strength-bar" id="str-1"></div>
+              <div class="strength-bar" id="str-2"></div>
+              <div class="strength-bar" id="str-3"></div>
+              <div class="strength-bar" id="str-4"></div>
+            </div>
+            <p class="text-xs mb-4" id="strength-text" style="color: #999;">Độ mạnh mật khẩu</p>
+
+            <!-- Confirm Password -->
+            <div class="auth-input-group mb-4">
+              <input
+                type="password"
+                id="register-confirm"
+                placeholder="Xác nhận mật khẩu"
+                required
+                class="w-full py-3.5 pr-12 rounded-xl text-sm input-gold"
+              >
+              <i data-lucide="shield-check" class="w-5 h-5 input-icon"></i>
+              <button type="button" class="password-toggle" onclick="togglePassword('register-confirm', this)">
+                <i data-lucide="eye" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Terms -->
+            <label class="flex items-start gap-3 mb-6 cursor-pointer">
+              <input type="checkbox" class="auth-checkbox mt-0.5" id="agree-terms" required>
+              <span class="text-sm text-gray-600 leading-relaxed">
+                Tôi đồng ý với
+                <a href="#" class="font-medium hover:underline" style="color: var(--gold-dark);">Điều khoản dịch vụ</a>
+                và
+                <a href="#" class="font-medium hover:underline" style="color: var(--gold-dark);">Chính sách bảo mật</a>
+                của GoldPage.
+              </span>
+            </label>
+
+            <!-- Register Button -->
+            <button type="submit" id="register-btn" class="btn-gold ripple w-full py-3.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2">
+              <i data-lucide="user-plus" class="w-4 h-4"></i>
+              Tạo Tài Khoản
+            </button>
+          </form>
+
+          <!-- Divider -->
+          <div class="auth-divider">
+            <span>hoặc đăng ký với</span>
+          </div>
+
+          <!-- Social -->
+          <div class="flex gap-3">
+            <button class="social-btn" onclick="socialLogin('Google')">
+              <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              Google
+            </button>
+            <button class="social-btn" onclick="socialLogin('Facebook')">
+              <svg viewBox="0 0 24 24" fill="#1877F2" width="20" height="20">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+              Facebook
+            </button>
+          </div>
+
+          <!-- Switch to login -->
+          <p class="text-center text-sm text-gray-500 mt-8">
+            Đã có tài khoản?
+            <button onclick="switchTab('login')" class="font-semibold hover:underline" style="color: var(--gold-dark);">Đăng nhập ngay</button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script src="js/app.js"></script>
+
+  <script>
+    // ===== Initialize Lucide Icons =====
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+
+    // ===== Tab Switching =====
+    function switchTab(tab) {
+      const loginPanel = document.getElementById('login-panel');
+      const registerPanel = document.getElementById('register-panel');
+      const tabLogin = document.getElementById('tab-login');
+      const tabRegister = document.getElementById('tab-register');
+      const indicator = document.getElementById('tab-indicator');
+
+      if (tab === 'login') {
+        loginPanel.classList.remove('hidden-panel');
+        loginPanel.classList.add('active-panel');
+        registerPanel.classList.remove('active-panel');
+        registerPanel.classList.add('hidden-panel');
+        tabLogin.classList.add('active');
+        tabRegister.classList.remove('active');
+        indicator.classList.remove('right');
+      } else {
+        registerPanel.classList.remove('hidden-panel');
+        registerPanel.classList.add('active-panel');
+        loginPanel.classList.remove('active-panel');
+        loginPanel.classList.add('hidden-panel');
+        tabRegister.classList.add('active');
+        tabLogin.classList.remove('active');
+        indicator.classList.add('right');
+      }
+    }
+
+    // ===== Toggle Password Visibility =====
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const icon = btn.querySelector('[data-lucide]');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.setAttribute('data-lucide', 'eye-off');
+      } else {
+        input.type = 'password';
+        icon.setAttribute('data-lucide', 'eye');
+      }
+      lucide.createIcons();
+    }
+
+    // ===== Password Strength Checker =====
+    function checkPasswordStrength(password) {
+      const bars = [
+        document.getElementById('str-1'),
+        document.getElementById('str-2'),
+        document.getElementById('str-3'),
+        document.getElementById('str-4')
+      ];
+      const text = document.getElementById('strength-text');
+
+      let strength = 0;
+      if (password.length >= 8) strength++;
+      if (/[A-Z]/.test(password)) strength++;
+      if (/[0-9]/.test(password)) strength++;
+      if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+      const levels = ['', 'weak', 'medium', 'strong', 'very-strong'];
+      const labels = ['Độ mạnh mật khẩu', 'Yếu', 'Trung bình', 'Mạnh', 'Rất mạnh'];
+      const colors = ['#999', '#ef4444', '#f59e0b', '#22c55e', '#D4AF37'];
+
+      bars.forEach((bar, i) => {
+        bar.classList.remove('active', 'weak', 'medium', 'strong', 'very-strong');
+        if (i < strength) {
+          bar.classList.add('active', levels[strength]);
+        }
+      });
+
+      text.textContent = labels[strength];
+      text.style.color = colors[strength];
+    }
+
+    // ===== Handle Login =====
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const btn = document.getElementById('login-btn');
+
+      // Loading state
+      btn.innerHTML = `
+        <svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+        </svg>
+        Đang đăng nhập...
+      `;
+      btn.disabled = true;
+
+      // Simulate login (localStorage based)
+      setTimeout(() => {
+        const users = JSON.parse(localStorage.getItem('goldpage_users') || '[]');
+        const user = users.find(u => u.email === email && u.password === password);
+
+        if (user) {
+          localStorage.setItem('goldpage_current_user', JSON.stringify(user));
+          GoldPage.showToast(`Chào mừng ${user.name}! Đang chuyển hướng...`);
+          setTimeout(() => {
+            window.location.href = 'profile.html';
+          }, 1500);
+        } else {
+          // Demo mode: any valid email/password works
+          const demoUser = { name: email.split('@')[0], email: email };
+          localStorage.setItem('goldpage_current_user', JSON.stringify(demoUser));
+          GoldPage.showToast(`Chào mừng! Đăng nhập thành công 🎉`);
+          setTimeout(() => {
+            window.location.href = 'profile.html';
+          }, 1500);
+        }
+
+        btn.innerHTML = `
+          <i data-lucide="check-circle" class="w-4 h-4"></i>
+          Thành công!
+        `;
+        lucide.createIcons();
+      }, 1200);
+    }
+
+    // ===== Handle Register =====
+    function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('register-name').value;
+      const email = document.getElementById('register-email').value;
+      const phone = document.getElementById('register-phone').value;
+      const password = document.getElementById('register-password').value;
+      const confirm = document.getElementById('register-confirm').value;
+      const btn = document.getElementById('register-btn');
+
+      // Validate password match
+      if (password !== confirm) {
+        GoldPage.showToast('Mật khẩu xác nhận không khớp!', 'error');
+        document.getElementById('register-confirm').classList.add('invalid');
+        return;
+      }
+
+      // Loading state
+      btn.innerHTML = `
+        <svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+        </svg>
+        Đang tạo tài khoản...
+      `;
+      btn.disabled = true;
+
+      // Simulate registration (localStorage)
+      setTimeout(() => {
+        const users = JSON.parse(localStorage.getItem('goldpage_users') || '[]');
+
+        // Check if email exists
+        if (users.find(u => u.email === email)) {
+          GoldPage.showToast('Email đã được sử dụng!', 'error');
+          btn.innerHTML = `
+            <i data-lucide="user-plus" class="w-4 h-4"></i>
+            Tạo Tài Khoản
+          `;
+          btn.disabled = false;
+          lucide.createIcons();
+          return;
+        }
+
+        const newUser = { 
+          id: Date.now(),
+          name, 
+          email, 
+          phone, 
+          password,
+          createdAt: new Date().toISOString() 
+        };
+        users.push(newUser);
+        localStorage.setItem('goldpage_users', JSON.stringify(users));
+        localStorage.setItem('goldpage_current_user', JSON.stringify(newUser));
+
+        btn.innerHTML = `
+          <i data-lucide="check-circle" class="w-4 h-4 success-icon"></i>
+          Đăng ký thành công!
+        `;
+        lucide.createIcons();
+        GoldPage.showToast(`Chào mừng ${name}! Tài khoản đã được tạo 🎉`);
+
+        setTimeout(() => {
+          window.location.href = 'profile.html';
+        }, 1500);
+      }, 1500);
+    }
+
+    // ===== Social Login =====
+    function socialLogin(provider) {
+      GoldPage.showToast(`Đang kết nối với ${provider}...`);
+      setTimeout(() => {
+        const user = { 
+          name: `Người dùng ${provider}`, 
+          email: `user@${provider.toLowerCase()}.com`,
+          provider: provider 
+        };
+        localStorage.setItem('goldpage_current_user', JSON.stringify(user));
+        GoldPage.showToast(`Đăng nhập bằng ${provider} thành công! 🎉`);
+        setTimeout(() => {
+          window.location.href = 'profile.html';
+        }, 1200);
+      }, 1000);
+    }
+
+    // ===== Check URL for tab param =====
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('tab') === 'register') {
+        switchTab('register');
+      }
+    });
+  </script>
+</body>
+</html>

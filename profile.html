@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoldPage — Thông Tin Tài Khoản</title>
+  <meta name="description" content="Quản lý thông tin cá nhân tài khoản GoldPage — cập nhật tên, email, số điện thoại và giới tính.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory: '#FFFDF7',
+            dark: '#12100D',
+            gold: { DEFAULT: '#D4AF37', light: '#F4E5A1', dark: '#A67C00' },
+            wine: '#5C1A1B',
+            navy: '#0B1E3D',
+            cream: '#FDF6E3',
+            charcoal: '#1A1A1A',
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'Cormorant Garamond', 'serif'],
+            sans: ['Inter', 'Be Vietnam Pro', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    /* ===== Profile Page Specific Styles ===== */
+
+    /* Avatar upload area */
+    .avatar-wrapper {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      margin: 0 auto;
+    }
+    .avatar-img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+      transition: all 0.4s ease;
+    }
+    .avatar-wrapper:hover .avatar-img {
+      box-shadow: 0 0 35px rgba(212, 175, 55, 0.45);
+    }
+    .avatar-upload-btn {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--gold-gradient);
+      border: 3px solid var(--ivory);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+    .avatar-upload-btn:hover {
+      transform: scale(1.1);
+      box-shadow: var(--gold-glow);
+    }
+
+    /* Sidebar navigation */
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #666;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .sidebar-link:hover {
+      background: rgba(212, 175, 55, 0.06);
+      color: var(--charcoal);
+    }
+    .sidebar-link.active {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--gold-dark);
+      font-weight: 600;
+      border-left: 3px solid var(--gold);
+    }
+    .sidebar-link .link-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Info card */
+    .info-card {
+      background: white;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+    .info-card:hover {
+      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.1);
+    }
+
+    /* Section title with gold accent */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    }
+    .section-title-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(212, 175, 55, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Gender radio custom */
+    .gender-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      border: 1.5px solid #e0d8c8;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex: 1;
+      justify-content: center;
+    }
+    .gender-option:hover {
+      border-color: var(--gold);
+      background: rgba(212, 175, 55, 0.03);
+    }
+    .gender-option.selected {
+      border-color: var(--gold);
+      background: rgba(212, 175, 55, 0.08);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    }
+    .gender-radio {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #d0c8b0;
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    .gender-radio:checked {
+      border-color: var(--gold);
+      background: transparent;
+    }
+    .gender-radio:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold-gradient);
+    }
+
+    /* Stat card */
+    .stat-card {
+      background: white;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
+      border-color: var(--gold);
+    }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #D4AF37, #A67C00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Status badge */
+    .member-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .member-badge.gold {
+      background: linear-gradient(135deg, rgba(244,229,161,0.2), rgba(212,175,55,0.15));
+      color: var(--gold-dark);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    /* Edit mode animation */
+    .field-editable {
+      transition: all 0.3s ease;
+    }
+    .field-editable.editing {
+      transform: scale(1.01);
+    }
+
+    /* Success checkmark */
+    @keyframes checkPop {
+      0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+      50% { transform: scale(1.2) rotate(0deg); }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    .check-anim {
+      animation: checkPop 0.4s ease forwards;
+    }
+
+    /* Profile header banner */
+    .profile-banner {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3a6b 50%, var(--navy) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .profile-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1600&h=400&fit=crop') center/cover;
+      opacity: 0.08;
+    }
+    .profile-banner::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(to top, var(--ivory), transparent);
+    }
+
+    /* Toast override for profile */
+    .save-indicator {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--navy);
+      color: var(--cream);
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      z-index: 999;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .save-indicator.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Voucher Card */
+    .voucher-card {
+      background: white;
+      border: 1.5px dashed rgba(212, 175, 55, 0.4);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .voucher-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      border-radius: 0 4px 4px 0;
+    }
+    .voucher-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.12);
+      transform: translateY(-2px);
+    }
+    .voucher-icon-box {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .voucher-code {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      color: var(--gold-dark);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .voucher-code:hover {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: var(--gold);
+    }
+    .voucher-code.copied {
+      background: rgba(34, 197, 94, 0.1);
+      border-color: #22c55e;
+      color: #16a34a;
+    }
+    .voucher-expiry {
+      font-size: 11px;
+      color: #999;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .voucher-discount {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .voucher-saved-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 10px;
+      background: rgba(34, 197, 94, 0.1);
+      color: #16a34a;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Wishlist Item */
+    .wishlist-item {
+      background: white;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .wishlist-item:hover {
+      border-color: var(--gold);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.12);
+      transform: translateY(-4px);
+    }
+    .wishlist-remove {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    .wishlist-item:hover .wishlist-remove {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .wishlist-remove:hover {
+      background: #fef2f2;
+      border-color: #ef4444;
+      color: #ef4444;
+    }
+
+    /* Empty wishlist animation */
+    @keyframes heartFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .heart-float {
+      animation: heartFloat 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-ivory font-sans text-charcoal">
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header id="main-header" class="sticky top-0 z-50 bg-ivory/95 backdrop-blur-md border-b transition-shadow duration-300" style="border-color: var(--gold);">
+    <!-- Top bar -->
+    <div class="bg-navy text-cream text-xs py-2">
+      <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+        <p class="hidden sm:block">✨ Miễn phí vận chuyển cho đơn hàng trên 500.000đ</p>
+        <p class="sm:hidden text-center w-full">✨ Freeship từ 500K</p>
+        <div class="hidden sm:flex items-center gap-4">
+          <a href="#" class="hover:text-gold transition-colors">Theo dõi đơn hàng</a>
+          <span class="text-gold/30">|</span>
+          <a href="#" class="hover:text-gold transition-colors">Trợ giúp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main header -->
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <div class="flex items-center justify-between gap-4">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-2 flex-shrink-0">
+          <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00);">
+            <i data-lucide="book-open" class="w-5 h-5 text-dark"></i>
+          </div>
+          <div>
+            <span class="font-serif text-2xl font-bold tracking-tight" style="background: linear-gradient(135deg, #D4AF37, #A67C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">GoldPage</span>
+            <p class="text-[10px] text-gray-400 -mt-1 tracking-widest uppercase">Thư Viện Sách Cao Cấp</p>
+          </div>
+        </a>
+
+        <!-- Search Bar -->
+        <div class="hidden md:block flex-1 max-w-xl relative search-wrapper">
+          <div class="relative">
+            <i data-lucide="search" class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gold"></i>
+            <input type="text" id="search-input" placeholder="Tìm kiếm sách, tác giả, thể loại..." class="w-full pl-12 pr-4 py-3 rounded-xl text-sm input-gold bg-white">
+          </div>
+          <div id="search-dropdown" class="search-dropdown absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gold/20 overflow-hidden z-50">
+            <div id="search-results" class="max-h-80 overflow-y-auto"></div>
+          </div>
+        </div>
+
+        <!-- Right Actions -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <button id="mobile-search-btn" class="md:hidden p-2.5 rounded-xl hover:bg-gold/10 transition-colors">
+            <i data-lucide="search" class="w-5 h-5 text-gold"></i>
+          </button>
+          <a href="profile.html" class="hidden sm:flex items-center gap-2 px-3 py-2.5 rounded-xl bg-gold/10 transition-colors group">
+            <i data-lucide="user" class="w-5 h-5 text-gold transition-colors"></i>
+            <span class="text-sm font-medium text-gold-dark hidden lg:inline transition-colors">Tài khoản</span>
+          </a>
+          <a href="#" class="relative p-2.5 rounded-xl hover:bg-gold/10 transition-colors group">
+            <i data-lucide="heart" class="w-5 h-5 text-gray-500 group-hover:text-gold transition-colors"></i>
+          </a>
+          <button id="cart-btn" class="relative p-2.5 rounded-xl hover:bg-gold/10 transition-colors group">
+            <i data-lucide="shopping-bag" class="w-5 h-5 text-gray-500 group-hover:text-gold transition-colors"></i>
+            <span class="cart-badge absolute -top-0.5 -right-0.5 w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center text-dark" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37); display: none;">0</span>
+          </button>
+          <button id="mobile-menu-btn" class="lg:hidden p-2.5 rounded-xl hover:bg-gold/10 transition-colors">
+            <i data-lucide="menu" class="w-5 h-5 text-charcoal"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="hidden lg:block border-t border-gold/10">
+      <div class="max-w-7xl mx-auto px-4">
+        <ul class="flex items-center gap-0">
+          <li><a href="index.html" class="px-4 py-3 text-sm font-medium text-charcoal hover:text-gold transition-colors inline-block">Trang chủ</a></li>
+          <li><a href="products.html" class="px-4 py-3 text-sm font-medium text-charcoal hover:text-gold transition-colors inline-block">Danh mục</a></li>
+          <li><a href="products.html" class="px-4 py-3 text-sm font-medium text-charcoal hover:text-gold transition-colors inline-block">Bán chạy</a></li>
+          <li><a href="products.html" class="px-4 py-3 text-sm font-medium text-charcoal hover:text-gold transition-colors inline-block">Khuyến mãi</a></li>
+          <li><a href="products.html" class="px-4 py-3 text-sm font-medium inline-block flex items-center gap-1" style="color: var(--gold-dark);"><i data-lucide="crown" class="w-4 h-4"></i> Limited Edition</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ============================================================
+       PROFILE BANNER
+       ============================================================ -->
+  <section class="profile-banner py-16 md:py-20 relative">
+    <div class="relative z-10 max-w-7xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center gap-6">
+        <!-- Avatar -->
+        <div class="avatar-wrapper">
+          <img id="profile-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop&crop=face" alt="Avatar" class="avatar-img">
+          <label for="avatar-input" class="avatar-upload-btn">
+            <i data-lucide="camera" class="w-4 h-4 text-dark"></i>
+          </label>
+          <input type="file" id="avatar-input" accept="image/*" class="hidden" onchange="changeAvatar(event)">
+        </div>
+
+        <!-- User info preview -->
+        <div class="text-center md:text-left">
+          <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
+            <h1 id="banner-name" class="font-serif text-2xl md:text-3xl font-bold text-cream">Người Dùng GoldPage</h1>
+            <span class="member-badge gold">
+              <i data-lucide="crown" class="w-3.5 h-3.5"></i>
+              Thành viên Gold
+            </span>
+          </div>
+          <p id="banner-email" class="text-gray-400 text-sm">email@goldpage.vn</p>
+          <p class="text-gray-500 text-xs mt-1">Tham gia từ <span id="banner-joined">Tháng 9, 2026</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MAIN CONTENT
+       ============================================================ -->
+  <main class="max-w-7xl mx-auto px-4 py-10 -mt-6 relative z-10">
+    <div class="flex flex-col lg:flex-row gap-8">
+
+      <!-- ===== SIDEBAR ===== -->
+      <aside class="lg:w-64 flex-shrink-0">
+        <div class="info-card p-4 lg:sticky lg:top-40">
+          <nav class="space-y-1">
+            <a href="#info" class="sidebar-link active" data-section="info">
+              <i data-lucide="user-circle" class="link-icon"></i>
+              Thông tin cá nhân
+            </a>
+            <a href="#security" class="sidebar-link" data-section="security">
+              <i data-lucide="shield" class="link-icon"></i>
+              Bảo mật
+            </a>
+            <a href="#orders" class="sidebar-link" data-section="orders">
+              <i data-lucide="package" class="link-icon"></i>
+              Đơn hàng
+            </a>
+            <a href="#wishlist" class="sidebar-link" data-section="wishlist">
+              <i data-lucide="heart" class="link-icon"></i>
+              Yêu thích
+              <span id="sidebar-wishlist-count" class="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-full" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37); color: var(--dark); display: none;">0</span>
+            </a>
+            <a href="#vouchers" class="sidebar-link" data-section="vouchers">
+              <i data-lucide="ticket" class="link-icon"></i>
+              Mã khuyến mãi
+            </a>
+            <a href="#addresses" class="sidebar-link" data-section="addresses">
+              <i data-lucide="map-pin" class="link-icon"></i>
+              Địa chỉ
+            </a>
+            <div class="border-t border-gold/10 my-2"></div>
+            <button onclick="handleLogout()" class="sidebar-link w-full text-left text-red-400 hover:text-red-500 hover:bg-red-50">
+              <i data-lucide="log-out" class="link-icon"></i>
+              Đăng xuất
+            </button>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- ===== MAIN SECTION ===== -->
+      <div class="flex-1 space-y-8">
+
+        <!-- Stats Row -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 fade-in-up">
+          <div class="stat-card">
+            <div class="stat-number" id="stat-orders">0</div>
+            <p class="text-xs text-gray-500 mt-1">Đơn hàng</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="stat-wishlist">0</div>
+            <p class="text-xs text-gray-500 mt-1">Yêu thích</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="stat-reviews">0</div>
+            <p class="text-xs text-gray-500 mt-1">Đánh giá</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="stat-points">150</div>
+            <p class="text-xs text-gray-500 mt-1">Điểm thưởng</p>
+          </div>
+        </div>
+
+        <!-- ===== PERSONAL INFO SECTION ===== -->
+        <div class="info-card fade-in-up" id="section-info">
+          <div class="section-title">
+            <div class="section-title-icon">
+              <i data-lucide="user-circle" class="w-5 h-5 text-gold"></i>
+            </div>
+            <div>
+              <h2 class="font-serif text-xl font-bold text-charcoal">Thông Tin Cá Nhân</h2>
+              <p class="text-xs text-gray-400 mt-0.5">Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+            </div>
+            <button id="edit-toggle" onclick="toggleEditMode()" class="ml-auto btn-gold-outline px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2">
+              <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+              Chỉnh sửa
+            </button>
+          </div>
+
+          <form id="profile-form" onsubmit="saveProfile(event)">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+              <!-- Họ và tên -->
+              <div class="field-editable">
+                <label class="block text-sm font-medium text-charcoal mb-2">
+                  <span class="flex items-center gap-1.5">
+                    <i data-lucide="user" class="w-3.5 h-3.5 text-gold"></i>
+                    Họ và tên
+                  </span>
+                </label>
+                <input
+                  type="text"
+                  id="profile-name"
+                  placeholder="Nhập họ và tên"
+                  required
+                  class="w-full px-4 py-3 rounded-xl text-sm input-gold"
+                  disabled
+                >
+              </div>
+
+              <!-- Email -->
+              <div class="field-editable">
+                <label class="block text-sm font-medium text-charcoal mb-2">
+                  <span class="flex items-center gap-1.5">
+                    <i data-lucide="mail" class="w-3.5 h-3.5 text-gold"></i>
+                    Email
+                  </span>
+                </label>
+                <input
+                  type="email"
+                  id="profile-email"
+                  placeholder="email@example.com"
+                  required
+                  class="w-full px-4 py-3 rounded-xl text-sm input-gold"
+                  disabled
+                >
+              </div>
+
+              <!-- Số điện thoại -->
+              <div class="field-editable">
+                <label class="block text-sm font-medium text-charcoal mb-2">
+                  <span class="flex items-center gap-1.5">
+                    <i data-lucide="phone" class="w-3.5 h-3.5 text-gold"></i>
+                    Số điện thoại
+                  </span>
+                </label>
+                <input
+                  type="tel"
+                  id="profile-phone"
+                  placeholder="0123 456 789"
+                  pattern="[0-9]{10,11}"
+                  class="w-full px-4 py-3 rounded-xl text-sm input-gold"
+                  disabled
+                >
+              </div>
+
+              <!-- Ngày sinh -->
+              <div class="field-editable">
+                <label class="block text-sm font-medium text-charcoal mb-2">
+                  <span class="flex items-center gap-1.5">
+                    <i data-lucide="calendar" class="w-3.5 h-3.5 text-gold"></i>
+                    Ngày sinh
+                  </span>
+                </label>
+                <input
+                  type="date"
+                  id="profile-birthday"
+                  class="w-full px-4 py-3 rounded-xl text-sm input-gold"
+                  disabled
+                >
+              </div>
+
+              <!-- Giới tính -->
+              <div class="field-editable md:col-span-2">
+                <label class="block text-sm font-medium text-charcoal mb-3">
+                  <span class="flex items-center gap-1.5">
+                    <i data-lucide="users" class="w-3.5 h-3.5 text-gold"></i>
+                    Giới tính
+                  </span>
+                </label>
+                <div class="flex gap-3" id="gender-group">
+                  <label class="gender-option" id="gender-male" onclick="selectGender('male')">
+                    <input type="radio" name="gender" value="male" class="gender-radio" disabled>
+                    <i data-lucide="user" class="w-4 h-4 text-blue-400"></i>
+                    <span class="text-sm font-medium">Nam</span>
+                  </label>
+                  <label class="gender-option" id="gender-female" onclick="selectGender('female')">
+                    <input type="radio" name="gender" value="female" class="gender-radio" disabled>
+                    <i data-lucide="user" class="w-4 h-4 text-pink-400"></i>
+                    <span class="text-sm font-medium">Nữ</span>
+                  </label>
+                  <label class="gender-option" id="gender-other" onclick="selectGender('other')">
+                    <input type="radio" name="gender" value="other" class="gender-radio" disabled>
+                    <i data-lucide="smile" class="w-4 h-4 text-purple-400"></i>
+                    <span class="text-sm font-medium">Khác</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Save / Cancel buttons (hidden by default) -->
+            <div id="save-actions" class="mt-8 flex items-center gap-3" style="display: none;">
+              <button type="submit" class="btn-gold ripple px-8 py-3 rounded-xl text-sm font-bold flex items-center gap-2">
+                <i data-lucide="save" class="w-4 h-4"></i>
+                Lưu Thay Đổi
+              </button>
+              <button type="button" onclick="cancelEdit()" class="btn-gold-outline px-6 py-3 rounded-xl text-sm font-semibold">
+                Hủy
+              </button>
+              <span id="save-status" class="text-sm text-gray-400 ml-2"></span>
+            </div>
+          </form>
+        </div>
+
+        <!-- ===== SECURITY SECTION ===== -->
+        <div class="info-card fade-in-up" id="section-security">
+          <div class="section-title">
+            <div class="section-title-icon">
+              <i data-lucide="shield" class="w-5 h-5 text-gold"></i>
+            </div>
+            <div>
+              <h2 class="font-serif text-xl font-bold text-charcoal">Bảo Mật</h2>
+              <p class="text-xs text-gray-400 mt-0.5">Đổi mật khẩu và cài đặt bảo mật</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <!-- Change Password -->
+            <div class="flex items-center justify-between p-4 rounded-xl bg-cream/50 border border-gold/10">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center">
+                  <i data-lucide="key" class="w-5 h-5 text-gold"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-charcoal">Mật khẩu</p>
+                  <p class="text-xs text-gray-400">Thay đổi lần cuối: Chưa bao giờ</p>
+                </div>
+              </div>
+              <button onclick="showChangePassword()" class="btn-gold-outline px-4 py-2 rounded-lg text-xs font-semibold">
+                Đổi mật khẩu
+              </button>
+            </div>
+
+            <!-- Two-factor -->
+            <div class="flex items-center justify-between p-4 rounded-xl bg-cream/50 border border-gold/10">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center">
+                  <i data-lucide="smartphone" class="w-5 h-5 text-gold"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-charcoal">Xác thực 2 bước</p>
+                  <p class="text-xs text-gray-400">Bảo vệ tài khoản an toàn hơn</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-gray-400">Chưa bật</span>
+                <button class="w-12 h-6 rounded-full border border-gold/30 bg-gray-100 relative transition-colors cursor-pointer" onclick="this.classList.toggle('bg-gold'); this.classList.toggle('bg-gray-100'); GoldPage.showToast('Tính năng đang phát triển');">
+                  <div class="w-5 h-5 rounded-full bg-white shadow-sm absolute top-0.5 left-0.5 transition-transform"></div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== RECENT ORDERS PREVIEW ===== -->
+        <div class="info-card fade-in-up" id="section-orders">
+          <div class="section-title">
+            <div class="section-title-icon">
+              <i data-lucide="package" class="w-5 h-5 text-gold"></i>
+            </div>
+            <div>
+              <h2 class="font-serif text-xl font-bold text-charcoal">Đơn Hàng Gần Đây</h2>
+              <p class="text-xs text-gray-400 mt-0.5">Theo dõi trạng thái đơn hàng</p>
+            </div>
+          </div>
+
+          <div class="text-center py-10">
+            <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4" style="background: rgba(212,175,55,0.08); border: 1px dashed var(--gold);">
+              <i data-lucide="package-open" class="w-8 h-8 text-gold opacity-40"></i>
+            </div>
+            <p class="text-gray-400 text-sm">Bạn chưa có đơn hàng nào.</p>
+            <a href="products.html" class="inline-flex items-center gap-2 mt-4 text-sm font-semibold hover:underline" style="color: var(--gold-dark);">
+              Khám phá sách ngay <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- ===== VOUCHER / COUPON SECTION ===== -->
+        <div class="info-card fade-in-up" id="section-vouchers">
+          <div class="section-title">
+            <div class="section-title-icon">
+              <i data-lucide="ticket" class="w-5 h-5 text-gold"></i>
+            </div>
+            <div>
+              <h2 class="font-serif text-xl font-bold text-charcoal">Mã Khuyến Mãi</h2>
+              <p class="text-xs text-gray-400 mt-0.5">Nhận và sử dụng voucher giảm giá</p>
+            </div>
+            <div class="ml-auto flex items-center gap-2">
+              <span class="text-xs text-gray-400" id="voucher-count">0 mã có sẵn</span>
+            </div>
+          </div>
+
+          <!-- Voucher Input -->
+          <div class="flex gap-3 mb-6">
+            <div class="relative flex-1">
+              <i data-lucide="ticket" class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-gold"></i>
+              <input type="text" id="voucher-input" placeholder="Nhập mã khuyến mãi..." class="w-full pl-11 pr-4 py-3 rounded-xl text-sm input-gold uppercase" style="letter-spacing: 1px; font-weight: 600;">
+            </div>
+            <button onclick="applyVoucherCode()" class="btn-gold ripple px-6 py-3 rounded-xl text-sm font-bold flex items-center gap-2 whitespace-nowrap">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              Áp dụng
+            </button>
+          </div>
+
+          <!-- Voucher Grid -->
+          <div id="voucher-grid" class="space-y-4">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- ===== WISHLIST / YÊU THÍCH SECTION ===== -->
+        <div class="info-card fade-in-up" id="section-wishlist">
+          <div class="section-title">
+            <div class="section-title-icon">
+              <i data-lucide="heart" class="w-5 h-5 text-gold"></i>
+            </div>
+            <div>
+              <h2 class="font-serif text-xl font-bold text-charcoal">Sản Phẩm Yêu Thích</h2>
+              <p class="text-xs text-gray-400 mt-0.5">Danh sách sách bạn đã lưu</p>
+            </div>
+            <span class="ml-auto text-xs text-gray-400" id="wishlist-total">0 sản phẩm</span>
+          </div>
+
+          <!-- Wishlist Grid -->
+          <div id="wishlist-grid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="section-navy pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-gold/10">
+        <div>
+          <div class="flex items-center gap-2 mb-5">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37);">
+              <i data-lucide="book-open" class="w-4 h-4 text-dark"></i>
+            </div>
+            <span class="font-serif text-xl font-bold text-gold">GoldPage</span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">Thư viện sách trực tuyến cao cấp — nơi mỗi cuốn sách là một hành trình tri thức đáng giá.</p>
+          <div class="flex gap-3 mt-6">
+            <a href="#" class="social-icon"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+            <a href="#" class="social-icon"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+            <a href="#" class="social-icon"><i data-lucide="youtube" class="w-4 h-4"></i></a>
+            <a href="#" class="social-icon"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-serif font-bold text-cream mb-5">Danh Mục</h4>
+          <ul class="space-y-2.5">
+            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Văn học</a></li>
+            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Kỹ năng sống</a></li>
+            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Kinh doanh</a></li>
+            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Thiếu nhi</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif font-bold text-cream mb-5">Hỗ Trợ</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">Hướng dẫn mua hàng</a></li>
+            <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">Chính sách đổi trả</a></li>
+            <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">Chính sách vận chuyển</a></li>
+            <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">Câu hỏi thường gặp</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif font-bold text-cream mb-5">Liên Hệ</h4>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3"><i data-lucide="map-pin" class="w-4 h-4 text-gold mt-0.5 flex-shrink-0"></i><span class="text-gray-400 text-sm">123 Nguyễn Huệ, Q.1, TP.HCM</span></li>
+            <li class="flex items-center gap-3"><i data-lucide="phone" class="w-4 h-4 text-gold flex-shrink-0"></i><span class="text-gray-400 text-sm">1900-GOLD-PAGE</span></li>
+            <li class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4 text-gold flex-shrink-0"></i><span class="text-gray-400 text-sm">hello@goldpage.vn</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-gray-500 text-xs">© 2024 GoldPage. All rights reserved.</p>
+        <div class="flex items-center gap-4">
+          <div class="text-gray-500 text-xs flex items-center gap-1">
+            <i data-lucide="shield-check" class="w-4 h-4 text-gold"></i>
+            SSL Secured
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       CART SLIDE-IN PANEL
+       ============================================================ -->
+  <div id="cart-overlay" class="cart-overlay"></div>
+  <div id="cart-panel" class="cart-panel">
+    <div class="px-6 py-4 flex items-center justify-between" style="background: var(--navy);">
+      <h3 class="font-serif font-bold text-lg text-gold flex items-center gap-2">
+        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Giỏ Hàng Của Bạn
+      </h3>
+      <button id="cart-close" class="text-gray-400 hover:text-cream transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div id="cart-empty" class="flex-1 flex flex-col items-center justify-center px-6" style="display: flex;">
+      <div class="w-24 h-24 rounded-full flex items-center justify-center mb-6" style="background: rgba(212,175,55,0.1); border: 1px dashed var(--gold);">
+        <i data-lucide="book-open" class="w-10 h-10 text-gold opacity-40"></i>
+      </div>
+      <h4 class="font-serif text-lg font-bold text-charcoal mb-2">Giỏ hàng trống</h4>
+      <p class="text-gray-400 text-sm text-center mb-6">Hãy khám phá bộ sưu tập sách<br>của chúng tôi nhé!</p>
+      <button onclick="closeCart()" class="btn-gold ripple px-6 py-2.5 rounded-xl text-sm font-bold">Tiếp tục mua sắm</button>
+    </div>
+    <div id="cart-content" class="flex-1 flex flex-col" style="display: none;">
+      <div id="cart-items" class="flex-1 overflow-y-auto"></div>
+      <div class="px-6 py-5 border-t" style="border-color: var(--gold);">
+        <div class="flex justify-between items-center mb-4">
+          <span class="text-gray-600 font-medium">Tổng cộng:</span>
+          <span id="cart-total" class="price-gold text-2xl">0đ</span>
+        </div>
+        <a href="checkout.html" class="btn-gold ripple w-full py-3.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 text-center block">
+          Tiến Hành Thanh Toán <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Save Indicator -->
+  <div id="save-indicator" class="save-indicator">
+    <i data-lucide="check-circle" class="w-5 h-5 text-gold"></i>
+    <span>Đã lưu thay đổi thành công!</span>
+  </div>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script src="js/app.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/chatbox.js"></script>
+
+  <script>
+    // ===== State =====
+    let isEditing = false;
+    let originalData = {};
+
+    // ===== Load Profile =====
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      loadProfile();
+    });
+
+    function loadProfile() {
+      const user = JSON.parse(localStorage.getItem('goldpage_current_user') || 'null');
+      const profile = JSON.parse(localStorage.getItem('goldpage_profile') || 'null');
+
+      // Merge user and profile data
+      const data = {
+        name: profile?.name || user?.name || '',
+        email: profile?.email || user?.email || '',
+        phone: profile?.phone || user?.phone || '',
+        birthday: profile?.birthday || '',
+        gender: profile?.gender || '',
+        avatar: profile?.avatar || '',
+        joinedAt: profile?.joinedAt || user?.createdAt || new Date().toISOString(),
+      };
+
+      // Populate fields
+      document.getElementById('profile-name').value = data.name;
+      document.getElementById('profile-email').value = data.email;
+      document.getElementById('profile-phone').value = data.phone;
+      document.getElementById('profile-birthday').value = data.birthday;
+
+      // Set gender
+      if (data.gender) {
+        selectGender(data.gender, false);
+      }
+
+      // Set avatar
+      if (data.avatar) {
+        document.getElementById('profile-avatar').src = data.avatar;
+      }
+
+      // Banner info
+      document.getElementById('banner-name').textContent = data.name || 'Người Dùng GoldPage';
+      document.getElementById('banner-email').textContent = data.email || 'email@goldpage.vn';
+
+      // Joined date
+      if (data.joinedAt) {
+        const date = new Date(data.joinedAt);
+        const months = ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
+        document.getElementById('banner-joined').textContent = `${months[date.getMonth()]}, ${date.getFullYear()}`;
+      }
+
+      // If no user is logged in, redirect to auth
+      if (!user && !profile) {
+        // Allow viewing but show message
+        GoldPage.showToast('Vui lòng đăng nhập để xem thông tin tài khoản', 'info');
+      }
+
+      // Store original data for cancel
+      originalData = { ...data };
+    }
+
+    // ===== Toggle Edit Mode =====
+    function toggleEditMode() {
+      isEditing = !isEditing;
+      const fields = document.querySelectorAll('.field-editable input, .field-editable select');
+      const radios = document.querySelectorAll('.gender-radio');
+      const saveActions = document.getElementById('save-actions');
+      const editBtn = document.getElementById('edit-toggle');
+
+      fields.forEach(field => {
+        field.disabled = !isEditing;
+        if (isEditing) {
+          field.closest('.field-editable')?.classList.add('editing');
+        } else {
+          field.closest('.field-editable')?.classList.remove('editing');
+        }
+      });
+
+      radios.forEach(radio => radio.disabled = !isEditing);
+      saveActions.style.display = isEditing ? 'flex' : 'none';
+
+      if (isEditing) {
+        editBtn.innerHTML = '<i data-lucide="x" class="w-3.5 h-3.5"></i> Hủy';
+        editBtn.onclick = cancelEdit;
+        // Focus first field
+        document.getElementById('profile-name').focus();
+      } else {
+        editBtn.innerHTML = '<i data-lucide="pencil" class="w-3.5 h-3.5"></i> Chỉnh sửa';
+        editBtn.onclick = toggleEditMode;
+      }
+      lucide.createIcons();
+    }
+
+    // ===== Cancel Edit =====
+    function cancelEdit() {
+      isEditing = true; // will be flipped in toggleEditMode
+      toggleEditMode();
+
+      // Restore original data
+      document.getElementById('profile-name').value = originalData.name || '';
+      document.getElementById('profile-email').value = originalData.email || '';
+      document.getElementById('profile-phone').value = originalData.phone || '';
+      document.getElementById('profile-birthday').value = originalData.birthday || '';
+      if (originalData.gender) {
+        selectGender(originalData.gender, false);
+      } else {
+        document.querySelectorAll('.gender-option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('.gender-radio').forEach(radio => radio.checked = false);
+      }
+    }
+
+    // ===== Select Gender =====
+    function selectGender(value, requireEdit = true) {
+      if (requireEdit && !isEditing) return;
+
+      document.querySelectorAll('.gender-option').forEach(opt => opt.classList.remove('selected'));
+      document.querySelectorAll('.gender-radio').forEach(radio => radio.checked = false);
+
+      const option = document.getElementById(`gender-${value}`);
+      const radio = option?.querySelector('.gender-radio');
+      if (option) option.classList.add('selected');
+      if (radio) radio.checked = true;
+    }
+
+    // ===== Save Profile =====
+    function saveProfile(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('profile-name').value;
+      const email = document.getElementById('profile-email').value;
+      const phone = document.getElementById('profile-phone').value;
+      const birthday = document.getElementById('profile-birthday').value;
+      const genderRadio = document.querySelector('input[name="gender"]:checked');
+      const gender = genderRadio ? genderRadio.value : '';
+
+      const profileData = {
+        name,
+        email,
+        phone,
+        birthday,
+        gender,
+        avatar: document.getElementById('profile-avatar').src,
+        joinedAt: originalData.joinedAt || new Date().toISOString(),
+      };
+
+      // Save to localStorage
+      localStorage.setItem('goldpage_profile', JSON.stringify(profileData));
+
+      // Also update current user
+      const currentUser = JSON.parse(localStorage.getItem('goldpage_current_user') || '{}');
+      currentUser.name = name;
+      currentUser.email = email;
+      currentUser.phone = phone;
+      localStorage.setItem('goldpage_current_user', JSON.stringify(currentUser));
+
+      // Update banner
+      document.getElementById('banner-name').textContent = name || 'Người Dùng GoldPage';
+      document.getElementById('banner-email').textContent = email || 'email@goldpage.vn';
+
+      // Update original data
+      originalData = { ...profileData };
+
+      // Exit edit mode
+      isEditing = true;
+      toggleEditMode();
+
+      // Show save indicator
+      const indicator = document.getElementById('save-indicator');
+      indicator.classList.add('show');
+      setTimeout(() => indicator.classList.remove('show'), 3000);
+    }
+
+    // ===== Change Avatar =====
+    function changeAvatar(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        document.getElementById('profile-avatar').src = e.target.result;
+
+        // Save to profile
+        const profile = JSON.parse(localStorage.getItem('goldpage_profile') || '{}');
+        profile.avatar = e.target.result;
+        localStorage.setItem('goldpage_profile', JSON.stringify(profile));
+
+        GoldPage.showToast('Ảnh đại diện đã được cập nhật! 📸');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // ===== Change Password =====
+    function showChangePassword() {
+      GoldPage.showToast('Tính năng đổi mật khẩu đang được phát triển', 'info');
+    }
+
+    // ===== Logout =====
+    function handleLogout() {
+      localStorage.removeItem('goldpage_current_user');
+      GoldPage.showToast('Đã đăng xuất thành công!');
+      setTimeout(() => {
+        window.location.href = 'auth.html';
+      }, 1000);
+    }
+
+    // ===== Sidebar Active on Scroll =====
+    window.addEventListener('scroll', () => {
+      const sections = ['info', 'security', 'orders', 'vouchers', 'wishlist'];
+      const links = document.querySelectorAll('.sidebar-link[data-section]');
+
+      for (const id of sections) {
+        const section = document.getElementById(`section-${id}`);
+        if (!section) continue;
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 200 && rect.bottom > 200) {
+          links.forEach(link => {
+            link.classList.toggle('active', link.dataset.section === id);
+          });
+          break;
+        }
+      }
+    });
+
+    // ===== Render Vouchers =====
+    function renderVouchers() {
+      const grid = document.getElementById('voucher-grid');
+      const vouchers = GoldPage.getVouchers();
+      const countEl = document.getElementById('voucher-count');
+      countEl.textContent = `${vouchers.length} mã có sẵn`;
+
+      grid.innerHTML = vouchers.map(v => {
+        const isSaved = GoldPage.isVoucherSaved(v.code);
+        const expDate = new Date(v.expiry);
+        const now = new Date();
+        const daysLeft = Math.ceil((expDate - now) / (1000 * 60 * 60 * 24));
+        const isExpired = daysLeft <= 0;
+        const discountText = v.type === 'percent' ? `${v.discount}%` : GoldPage.formatPrice(v.discount);
+
+        return `
+          <div class="voucher-card ${isExpired ? 'opacity-50' : ''}" style="--vc: ${v.color};" id="voucher-${v.code}">
+            <div style="position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:0 4px 4px 0;background:${v.color};"></div>
+            ${isSaved ? '<div class="voucher-saved-badge"><i data-lucide="check" class="w-3 h-3"></i> Đã lưu</div>' : ''}
+            <div class="voucher-icon-box" style="background: ${v.color}15;">
+              <i data-lucide="${v.icon}" class="w-6 h-6" style="color: ${v.color};"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-semibold text-charcoal mb-1">${v.description}</p>
+              <div class="flex items-center gap-3 flex-wrap">
+                <span class="voucher-code ${isSaved ? 'copied' : ''}" onclick="copyVoucherCode('${v.code}', this)" title="Nhấn để sao chép">
+                  ${v.code}
+                  <i data-lucide="${isSaved ? 'check' : 'copy'}" class="w-3 h-3"></i>
+                </span>
+                <span class="voucher-expiry">
+                  <i data-lucide="clock" class="w-3 h-3"></i>
+                  ${isExpired ? 'Đã hết hạn' : `Còn ${daysLeft} ngày`}
+                </span>
+              </div>
+              <p class="text-[11px] text-gray-400 mt-1.5">Đơn tối thiểu: ${GoldPage.formatPrice(v.minOrder)} • Giảm tối đa: ${GoldPage.formatPrice(v.maxDiscount)}</p>
+            </div>
+            <div class="text-right flex-shrink-0">
+              <p class="voucher-discount" style="color: ${v.color};">${discountText}</p>
+              <p class="text-[10px] text-gray-400 mt-1">${v.type === 'percent' ? 'Giảm giá' : 'Giảm trực tiếp'}</p>
+              ${!isSaved && !isExpired ? `<button onclick="collectVoucher('${v.code}')" class="mt-2 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all hover:shadow-md" style="background: ${v.color}15; color: ${v.color}; border: 1px solid ${v.color}40;">Lưu mã</button>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    function copyVoucherCode(code, el) {
+      navigator.clipboard.writeText(code).then(() => {
+        el.classList.add('copied');
+        const icon = el.querySelector('[data-lucide]');
+        if (icon) icon.setAttribute('data-lucide', 'check');
+        lucide.createIcons();
+        GoldPage.showToast(`Đã sao chép mã "${code}"! 📋`);
+        setTimeout(() => {
+          el.classList.remove('copied');
+          if (icon) icon.setAttribute('data-lucide', 'copy');
+          lucide.createIcons();
+        }, 2000);
+      }).catch(() => {
+        // Fallback
+        GoldPage.showToast(`Mã: ${code}`, 'info');
+      });
+    }
+
+    function collectVoucher(code) {
+      if (GoldPage.collectVoucher(code)) {
+        renderVouchers();
+      }
+    }
+
+    function applyVoucherCode() {
+      const input = document.getElementById('voucher-input');
+      const code = input.value.trim().toUpperCase();
+      if (!code) {
+        GoldPage.showToast('Vui lòng nhập mã khuyến mãi', 'error');
+        return;
+      }
+      const vouchers = GoldPage.getVouchers();
+      const voucher = vouchers.find(v => v.code === code);
+      if (voucher) {
+        GoldPage.collectVoucher(code);
+        input.value = '';
+        renderVouchers();
+        // Scroll to voucher
+        const el = document.getElementById(`voucher-${code}`);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        GoldPage.showToast('Mã khuyến mãi không hợp lệ!', 'error');
+        input.classList.add('invalid');
+        setTimeout(() => input.classList.remove('invalid'), 2000);
+      }
+    }
+
+    // ===== Render Wishlist =====
+    function renderWishlist() {
+      const grid = document.getElementById('wishlist-grid');
+      const totalEl = document.getElementById('wishlist-total');
+      const sidebarCount = document.getElementById('sidebar-wishlist-count');
+      const statEl = document.getElementById('stat-wishlist');
+      const books = GoldPage.getWishlistBooks();
+
+      totalEl.textContent = `${books.length} sản phẩm`;
+      if (statEl) statEl.textContent = books.length;
+
+      // Sidebar badge
+      if (sidebarCount) {
+        sidebarCount.textContent = books.length;
+        sidebarCount.style.display = books.length > 0 ? 'inline-block' : 'none';
+      }
+
+      if (books.length === 0) {
+        grid.innerHTML = `
+          <div class="text-center py-12">
+            <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 heart-float" style="background: rgba(212,175,55,0.08); border: 1px dashed var(--gold);">
+              <i data-lucide="heart" class="w-8 h-8 text-gold opacity-40"></i>
+            </div>
+            <p class="text-gray-400 text-sm">Bạn chưa có sản phẩm yêu thích nào.</p>
+            <p class="text-gray-300 text-xs mt-1">Nhấn <i data-lucide="heart" class="w-3 h-3 inline-block text-gold"></i> trên sản phẩm để thêm vào danh sách.</p>
+            <a href="products.html" class="inline-flex items-center gap-2 mt-5 btn-gold ripple px-6 py-2.5 rounded-xl text-sm font-bold">
+              <i data-lucide="compass" class="w-4 h-4"></i>
+              Khám phá sách
+            </a>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      grid.innerHTML = `
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+          ${books.map(book => `
+            <div class="wishlist-item relative">
+              <button onclick="removeWishlistItem(${book.id})" class="wishlist-remove" title="Xóa khỏi yêu thích">
+                <i data-lucide="x" class="w-4 h-4 text-gray-400"></i>
+              </button>
+              <div class="relative overflow-hidden">
+                <a href="product-detail.html?id=${book.id}">
+                  <img src="${book.image}" alt="${book.title}" class="w-full h-48 object-cover transition-transform duration-500 hover:scale-105">
+                </a>
+                ${book.badge === 'bestseller' ? '<div class="badge-bestseller">Bestseller</div>' : ''}
+                ${book.badge === 'limited' ? '<div class="badge-limited">Limited</div>' : ''}
+              </div>
+              <div class="p-4">
+                <p class="text-[11px] text-gray-400 mb-1">${book.category}</p>
+                <a href="product-detail.html?id=${book.id}" class="font-serif font-bold text-sm text-charcoal hover:text-gold-dark transition-colors line-clamp-1 block">${book.title}</a>
+                <p class="text-xs text-gray-500 mt-1">${book.author}</p>
+                <div class="flex items-center gap-2 mt-2">
+                  <div class="star-rating text-xs">★★★★★</div>
+                  <span class="text-xs text-gray-400">(${book.reviews})</span>
+                </div>
+                <div class="flex items-center justify-between mt-3">
+                  <div class="flex items-center gap-2">
+                    <span class="price-sale text-sm">${GoldPage.formatPrice(book.price)}</span>
+                    ${book.originalPrice > book.price ? `<span class="price-original text-xs">${GoldPage.formatPrice(book.originalPrice)}</span>` : ''}
+                  </div>
+                  <button onclick="GoldPage.addToCart(${book.id})" class="btn-gold ripple px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center gap-1">
+                    <i data-lucide="shopping-bag" class="w-3 h-3"></i>
+                    Mua
+                  </button>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      lucide.createIcons();
+    }
+
+    function removeWishlistItem(bookId) {
+      GoldPage.removeFromWishlist(bookId);
+      renderWishlist();
+    }
+
+    // ===== Initialize all sections on load =====
+    document.addEventListener('DOMContentLoaded', () => {
+      renderVouchers();
+      renderWishlist();
+    });
+  </script>
+</body>
+</html>
