@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    GoldPage — Core App Logic
    Shared state, toast notifications, cart badge, utilities
    ============================================================ */
@@ -480,6 +480,84 @@ const GoldPage = (() => {
     return wishlist.includes(bookId);
   }
 
+  // ========== Order / Revenue Tracking ==========
+  let orders;
+  try {
+    const storedOrders = localStorage.getItem('goldpage_orders');
+    orders = storedOrders ? JSON.parse(storedOrders) : [];
+  } catch(e) {
+    orders = [];
+  }
+
+  function saveOrders() {
+    try {
+      localStorage.setItem('goldpage_orders', JSON.stringify(orders));
+    } catch(e) {
+      console.warn('Could not save orders:', e);
+    }
+  }
+
+  function addOrder(orderData) {
+    const order = {
+      id: 'GP-' + Date.now(),
+      code: orderData.code || Math.floor(10000 + Math.random() * 90000),
+      customer: {
+        name: orderData.customerName || 'Khách hàng',
+        phone: orderData.phone || '',
+        email: orderData.email || '',
+        address: orderData.address || ''
+      },
+      items: (orderData.items || []).map(item => ({
+        id: item.id,
+        title: item.title,
+        author: item.author,
+        price: item.price,
+        qty: item.qty,
+        image: item.image,
+        category: item.category || ''
+      })),
+      subtotal: orderData.subtotal || 0,
+      shipping: orderData.shipping || 0,
+      discount: orderData.discount || 0,
+      total: orderData.total || 0,
+      paymentMethod: orderData.paymentMethod || 'cod',
+      status: orderData.status || 'completed',
+      date: new Date().toISOString()
+    };
+    orders.unshift(order);
+    saveOrders();
+    return order;
+  }
+
+  function getOrders() {
+    return orders;
+  }
+
+  function getRevenueStats() {
+    const now = new Date();
+    const today = now.toISOString().slice(0, 10);
+    const thisMonth = now.toISOString().slice(0, 7);
+
+    const todayOrders = orders.filter(o => o.date && o.date.slice(0, 10) === today);
+    const monthOrders = orders.filter(o => o.date && o.date.slice(0, 7) === thisMonth);
+
+    return {
+      totalOrders: orders.length,
+      totalRevenue: orders.reduce((sum, o) => sum + (o.total || 0), 0),
+      todayOrders: todayOrders.length,
+      todayRevenue: todayOrders.reduce((sum, o) => sum + (o.total || 0), 0),
+      monthOrders: monthOrders.length,
+      monthRevenue: monthOrders.reduce((sum, o) => sum + (o.total || 0), 0),
+      avgOrderValue: orders.length > 0 ? Math.round(orders.reduce((sum, o) => sum + (o.total || 0), 0) / orders.length) : 0,
+      totalItemsSold: orders.reduce((sum, o) => sum + (o.items || []).reduce((s, i) => s + (i.qty || 0), 0), 0)
+    };
+  }
+
+  function clearOrders() {
+    orders.length = 0;
+    saveOrders();
+  }
+
   // ========== Voucher / Coupon System ==========
   const defaultVouchers = [
     {
@@ -623,6 +701,11 @@ const GoldPage = (() => {
     getSavedVouchers,
     collectVoucher,
     isVoucherSaved,
+    // Orders / Revenue
+    addOrder,
+    getOrders,
+    getRevenueStats,
+    clearOrders,
     // Admin CRUD
     addBook,
     updateBook,

@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    GoldPage — Chatbox Module
    Floating chat widget with quick replies
    ============================================================ */
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <i data-lucide="book-open" class="w-5 h-5 text-gray-900"></i>
         </div>
         <div>
-          <h4 class="font-semibold text-sm" style="color: var(--gold);">Trợ lý GoldPage</h4>
+          <h4 class="font-semibold text-sm" style="color: var(--gold);">Trợ lý Hành Tinh Chữ</h4>
           <p class="text-xs text-gray-400 flex items-center gap-1">
             <span class="w-2 h-2 bg-green-400 rounded-full inline-block"></span>
             Đang trực tuyến
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <i data-lucide="bot" class="w-4 h-4 text-gray-900"></i>
           </div>
           <div class="bg-white rounded-2xl rounded-tl-sm px-4 py-3 max-w-[80%] shadow-sm border border-gray-100">
-            <p class="text-sm text-gray-700">Xin chào! 📚 Tôi là trợ lý của <strong>GoldPage</strong>. Tôi có thể giúp bạn:</p>
+            <p class="text-sm text-gray-700">Xin chào! 📚 Tôi là trợ lý của <strong>Hành Tinh Chữ</strong>. Tôi có thể giúp bạn:</p>
             <ul class="text-sm text-gray-600 mt-2 space-y-1">
               <li>• Tìm sách theo sở thích</li>
               <li>• Theo dõi đơn hàng</li>

@@ -865,3 +865,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
   background: rgba(212, 175, 55, 0.1);
   box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
 }
+
+
+@keyframes flag-wave { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(15deg); } 75% { transform: rotate(-15deg); } }
+.flag-wave { display: inline-block; animation: flag-wave 1.5s ease-in-out infinite; transform-origin: bottom center; margin-left: 4px; }

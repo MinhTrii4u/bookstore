@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GoldPage — Thư Viện Sách Cao Cấp | Trang Chủ</title>
+  <title>Hành Tinh Chữ — Thư Viện Sách Cao Cấp | Trang Chủ</title>
   <meta name="description" content="GoldPage — Thư viện sách trực tuyến cao cấp. Khám phá bộ sưu tập sách quý hiếm, bestseller và ấn bản giới hạn bìa da mạ vàng.">
 
   <!-- Google Fonts -->
@@ -47,16 +47,107 @@
        HEADER — Sticky, ivory bg, gold border bottom
        ============================================================ -->
   <header id="main-header" class="sticky top-0 z-50 bg-ivory/95 backdrop-blur-md border-b transition-shadow duration-300" style="border-color: var(--gold);">
-    <!-- Top bar -->
-    <div class="bg-navy text-cream text-xs py-2">
-      <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
-        <p class="hidden sm:block">✨ Miễn phí vận chuyển cho đơn hàng trên 500.000đ</p>
-        <p class="sm:hidden text-center w-full">✨ Freeship từ 500K</p>
-        <div class="hidden sm:flex items-center gap-4">
-          <a href="#" class="hover:text-gold transition-colors">Theo dõi đơn hàng</a>
-          <span class="text-gold/30">|</span>
-          <a href="#" class="hover:text-gold transition-colors">Trợ giúp</a>
-        </div>
+    <!-- Top bar — Scrolling Marquee Ticker -->
+    <div class="bg-navy text-cream text-xs py-2 overflow-hidden relative">
+      <style>
+        @keyframes marquee-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .marquee-track {
+          display: flex;
+          white-space: nowrap;
+          animation: marquee-scroll 40s linear infinite;
+          width: max-content;
+        }
+        .marquee-track:hover {
+          animation-play-state: paused;
+        }
+        .marquee-item {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 0 24px;
+          flex-shrink: 0;
+        }
+        .marquee-divider {
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #F4E5A1, #D4AF37);
+          flex-shrink: 0;
+          opacity: 0.6;
+        }
+        .marquee-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          padding: 1px 8px;
+          border-radius: 9999px;
+          font-weight: 700;
+          font-size: 9px;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+        .marquee-badge-hot {
+          background: rgba(239,68,68,0.2);
+          color: #f87171;
+          border: 1px solid rgba(239,68,68,0.3);
+        }
+        .marquee-badge-new {
+          background: rgba(34,197,94,0.2);
+          color: #4ade80;
+          border: 1px solid rgba(34,197,94,0.3);
+        }
+        .marquee-badge-gold {
+          background: rgba(212,175,55,0.2);
+          color: #F4E5A1;
+          border: 1px solid rgba(212,175,55,0.3);
+        }
+      </style>
+      <div class="marquee-track">
+        <!-- Set 1 -->
+        <span class="marquee-item">✨ Miễn phí vận chuyển cho đơn hàng trên 500.000đ</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item">📚 Hơn 15.000 đầu sách cao cấp đang chờ bạn</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item"><span class="marquee-badge marquee-badge-hot">HOT</span> Giảm 20% tất cả sách Kỹ năng sống — Dùng mã BOOK20</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item">🏆 THẮP SÁNG TRI THỨC — KẾT NỐI MỌI NHÀ</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item"><span class="marquee-badge marquee-badge-new">MỚI</span> Bộ sưu tập bìa da mạ vàng 2024 — Số lượng giới hạn</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item">💳 Thanh toán an toàn — Hỗ trợ COD, Visa, MoMo, ZaloPay</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item"><span class="marquee-badge marquee-badge-gold">VIP</span> Tích điểm đổi quà — Thành viên thân thiết giảm thêm 10%</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item">📦 Đóng gói sang trọng như quà tặng — Giao hàng toàn quốc 1-3 ngày</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item">🎁 Ưu đãi đặc biệt cho đơn hàng đầu tiên — Giảm ngay 10% mã GOLD10</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item">⭐ 50.000+ khách hàng tin tưởng — Đánh giá 4.9/5 sao</span>
+        <span class="marquee-divider"></span>
+        <!-- Set 2 (duplicate for seamless loop) -->
+        <span class="marquee-item">✨ Miễn phí vận chuyển cho đơn hàng trên 500.000đ</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item">📚 Hơn 15.000 đầu sách cao cấp đang chờ bạn</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item"><span class="marquee-badge marquee-badge-hot">HOT</span> Giảm 20% tất cả sách Kỹ năng sống — Dùng mã BOOK20</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item">🏆 THẮP SÁNG TRI THỨC — KẾT NỐI MỌI NHÀ</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item"><span class="marquee-badge marquee-badge-new">MỚI</span> Bộ sưu tập bìa da mạ vàng 2024 — Số lượng giới hạn</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item">💳 Thanh toán an toàn — Hỗ trợ COD, Visa, MoMo, ZaloPay</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item"><span class="marquee-badge marquee-badge-gold">VIP</span> Tích điểm đổi quà — Thành viên thân thiết giảm thêm 10%</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item">📦 Đóng gói sang trọng như quà tặng — Giao hàng toàn quốc 1-3 ngày</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item">🎁 Ưu đãi đặc biệt cho đơn hàng đầu tiên — Giảm ngay 10% mã GOLD10</span>
+        <span class="marquee-divider"></span>
+        <span class="marquee-item">⭐ 50.000+ khách hàng tin tưởng — Đánh giá 4.9/5 sao</span>
+        <span class="marquee-divider"></span>
       </div>
     </div>
 
@@ -66,10 +157,10 @@
         <!-- Logo -->
         <a href="index.html" class="flex items-center gap-2 flex-shrink-0">
           <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00);">
-            <i data-lucide="book-open" class="w-5 h-5 text-dark"></i>
+            <i data-lucide="globe" class="w-5 h-5 text-dark"></i>
           </div>
           <div>
-            <span class="font-serif text-2xl font-bold tracking-tight" style="background: linear-gradient(135deg, #D4AF37, #A67C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">GoldPage</span>
+            <span class="font-serif text-2xl font-bold tracking-tight" style="background: linear-gradient(135deg, #D4AF37, #A67C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Hành Tinh Chữ <span class="flag-wave">🇻🇳</span></span>
             <p class="text-[10px] text-gray-400 -mt-1 tracking-widest uppercase">Thư Viện Sách Cao Cấp</p>
           </div>
         </a>
@@ -450,9 +541,9 @@
         <div>
           <div class="flex items-center gap-2 mb-5">
             <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37);">
-              <i data-lucide="book-open" class="w-4 h-4 text-dark"></i>
+              <i data-lucide="globe" class="w-4 h-4 text-dark"></i>
             </div>
-            <span class="font-serif text-xl font-bold text-gold">GoldPage</span>
+            <span class="font-serif text-xl font-bold text-gold">Hành Tinh Chữ <span class="flag-wave">🇻🇳</span></span>
           </div>
           <p class="text-gray-400 text-sm leading-relaxed">
             Thư viện sách trực tuyến cao cấp — nơi mỗi cuốn sách là một hành trình tri thức đáng giá.
@@ -504,7 +595,7 @@
             </li>
             <li class="flex items-center gap-3">
               <i data-lucide="mail" class="w-4 h-4 text-gold flex-shrink-0"></i>
-              <span class="text-gray-400 text-sm">hello@goldpage.vn</span>
+              <span class="text-gray-400 text-sm">hello@hanhtinhchu.vn</span>
             </li>
             <li class="flex items-center gap-3">
               <i data-lucide="clock" class="w-4 h-4 text-gold flex-shrink-0"></i>
@@ -516,7 +607,7 @@
 
       <!-- Bottom bar -->
       <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <p class="text-gray-500 text-xs">© 2024 GoldPage. All rights reserved.</p>
+        <p class="text-gray-500 text-xs">© 2024 Hành Tinh Chữ. All rights reserved.</p>
         <div class="flex items-center gap-4">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/100px-MasterCard_Logo.svg.png" alt="Mastercard" class="h-6 opacity-60 hover:opacity-100 transition-opacity">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/100px-Visa_Inc._logo.svg.png" alt="Visa" class="h-5 opacity-60 hover:opacity-100 transition-opacity">

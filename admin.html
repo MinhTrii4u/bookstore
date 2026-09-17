@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Panel — GoldPage | Quản Lý Sách</title>
+  <title>Admin Panel — Hành Tinh Chữ | Quản Lý Sách</title>
   <meta name="description" content="Trang quản trị GoldPage — Quản lý sách, thêm, sửa, xóa sản phẩm.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,53 +33,145 @@
   <link rel="stylesheet" href="css/styles.css">
 
   <style>
-    /* Admin-specific styles */
-    .admin-sidebar {
-      background: linear-gradient(180deg, #0B1E3D 0%, #12100D 100%);
+    /* ===== ADMIN DARK GOLD THEME ===== */
+
+    /* Background pattern */
+    .admin-bg {
+      background: #0c0a09;
+      background-image:
+        radial-gradient(ellipse at 0% 0%, rgba(212, 175, 55, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 100% 100%, rgba(212, 175, 55, 0.04) 0%, transparent 50%);
       min-height: 100vh;
     }
 
+    /* Sidebar */
+    .admin-sidebar {
+      background: linear-gradient(180deg, #141210 0%, #0c0a08 100%);
+      border-right: 1px solid rgba(212, 175, 55, 0.08);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .admin-sidebar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(180deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+    }
+
+    /* Nav Items */
     .nav-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 12px 20px;
-      border-radius: 12px;
-      color: #9ca3af;
+      gap: 14px;
+      padding: 12px 18px;
+      border-radius: 14px;
+      color: #6b6660;
       font-size: 14px;
       font-weight: 500;
-      transition: all 0.2s;
+      transition: all 0.25s ease;
       cursor: pointer;
+      position: relative;
+      text-decoration: none;
     }
 
     .nav-item:hover {
-      color: #FDF6E3;
-      background: rgba(212, 175, 55, 0.08);
+      color: #e8d5a3;
+      background: rgba(212, 175, 55, 0.06);
     }
 
     .nav-item.active {
-      color: var(--gold);
-      background: rgba(212, 175, 55, 0.12);
+      color: #D4AF37;
+      background: rgba(212, 175, 55, 0.1);
       font-weight: 600;
     }
 
-    .nav-item.active i {
-      color: var(--gold);
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 24px;
+      background: linear-gradient(180deg, #F4E5A1, #D4AF37);
+      border-radius: 0 4px 4px 0;
     }
 
+    .nav-item.active i {
+      color: #D4AF37;
+    }
+
+    /* Top Header Bar */
+    .admin-topbar {
+      background: rgba(12, 10, 9, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+    }
+
+    /* Glassmorphism Card */
+    .glass-card {
+      background: rgba(20, 18, 16, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      border-radius: 20px;
+      transition: all 0.35s ease;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(212, 175, 55, 0.25);
+      box-shadow: 0 8px 40px rgba(212, 175, 55, 0.08);
+    }
+
+    /* Stat Cards */
     .stat-card {
-      background: white;
-      border-radius: 16px;
-      padding: 24px;
-      border: 1px solid rgba(212, 175, 55, 0.15);
-      transition: all 0.3s;
+      background: rgba(20, 18, 16, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      border-radius: 20px;
+      padding: 28px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
     .stat-card:hover {
-      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.12);
-      transform: translateY(-2px);
+      border-color: rgba(212, 175, 55, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(212, 175, 55, 0.12);
     }
 
+    .stat-card:hover::before {
+      opacity: 1;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Admin Table */
     .admin-table {
       width: 100%;
       border-collapse: separate;
@@ -87,42 +179,42 @@
     }
 
     .admin-table thead th {
-      background: #faf8f2;
-      padding: 14px 16px;
+      background: rgba(212, 175, 55, 0.05);
+      padding: 16px 18px;
       text-align: left;
-      font-size: 12px;
-      font-weight: 600;
-      color: #6b7280;
+      font-size: 11px;
+      font-weight: 700;
+      color: #8b8580;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
     }
 
     .admin-table thead th:first-child {
-      border-radius: 12px 0 0 0;
+      border-radius: 14px 0 0 0;
     }
 
     .admin-table thead th:last-child {
-      border-radius: 0 12px 0 0;
+      border-radius: 0 14px 0 0;
     }
 
     .admin-table tbody td {
-      padding: 14px 16px;
+      padding: 16px 18px;
       font-size: 14px;
-      color: #374151;
-      border-bottom: 1px solid #f3f4f6;
+      color: #c4bfb8;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
       vertical-align: middle;
     }
 
     .admin-table tbody tr {
-      transition: background 0.15s;
+      transition: all 0.2s ease;
     }
 
     .admin-table tbody tr:hover {
       background: rgba(212, 175, 55, 0.04);
     }
 
-    /* Modal animation */
+    /* Modal styling */
     .admin-modal {
       position: fixed;
       inset: 0;
@@ -130,7 +222,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s;
@@ -142,24 +235,206 @@
     }
 
     .admin-modal .modal-box {
-      background: var(--ivory);
-      border: 2px solid var(--gold);
-      border-radius: 20px;
+      background: linear-gradient(145deg, #1a1714, #12100d);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 24px;
       width: 95%;
       max-width: 720px;
       max-height: 90vh;
       overflow-y: auto;
-      transform: scale(0.9) translateY(20px);
-      transition: transform 0.3s ease;
+      transform: scale(0.92) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(212, 175, 55, 0.08);
     }
 
     .admin-modal.active .modal-box {
       transform: scale(1) translateY(0);
     }
 
-    /* Delete confirm */
     .delete-modal .modal-box {
-      max-width: 420px;
+      max-width: 440px;
+    }
+
+    /* Modal scrollbar */
+    .modal-box::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .modal-box::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .modal-box::-webkit-scrollbar-thumb {
+      background: rgba(212, 175, 55, 0.3);
+      border-radius: 10px;
+    }
+
+    /* Form inputs dark theme */
+    .input-dark {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1.5px solid rgba(212, 175, 55, 0.12);
+      color: #e8e0d4;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .input-dark:focus {
+      border-color: rgba(212, 175, 55, 0.5);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .input-dark::placeholder {
+      color: #5a554e;
+    }
+
+    .input-dark option {
+      background: #1a1714;
+      color: #e8e0d4;
+    }
+
+    /* Category progress bar */
+    .cat-progress-bg {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .cat-progress-fill {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Gold animated gradient text */
+    .gold-text-gradient {
+      background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00, #D4AF37);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: goldShimmer 6s ease infinite;
+    }
+
+    @keyframes goldShimmer {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    /* Animate number count */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-in {
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    /* Section divider */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+      margin: 8px 0;
+    }
+
+    /* Quick action button dark */
+    .action-btn {
+      background: rgba(212, 175, 55, 0.06);
+      border: 1px solid rgba(212, 175, 55, 0.12);
+      color: #D4AF37;
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .action-btn:hover {
+      background: rgba(212, 175, 55, 0.12);
+      border-color: rgba(212, 175, 55, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.1);
+    }
+
+    .action-btn.danger {
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.15);
+      background: rgba(239, 68, 68, 0.06);
+    }
+
+    .action-btn.danger:hover {
+      background: rgba(239, 68, 68, 0.12);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    /* Badge styles dark */
+    .badge-bestseller-dark {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.1));
+      color: #D4AF37;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+    }
+
+    .badge-limited-dark {
+      background: rgba(168, 85, 247, 0.12);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.25);
+    }
+
+    /* Recent book item */
+    .recent-book-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .recent-book-item:hover {
+      background: rgba(212, 175, 55, 0.05);
+    }
+
+    /* Logo dot pulse */
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+      }
     }
 
     /* Mobile sidebar */
@@ -181,7 +456,8 @@
       .sidebar-overlay {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
         z-index: 989;
         display: none;
       }
@@ -190,33 +466,104 @@
         display: block;
       }
     }
+
+    /* Smooth section transitions */
+    .admin-section {
+      animation: fadeInUp 0.4s ease forwards;
+    }
+
+    /* Search bar dark */
+    .search-dark {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1.5px solid rgba(212, 175, 55, 0.1);
+      color: #e8e0d4;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .search-dark:focus {
+      border-color: rgba(212, 175, 55, 0.4);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.08);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .search-dark::placeholder {
+      color: #5a554e;
+    }
+
+    /* Select dark */
+    .select-dark {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1.5px solid rgba(212, 175, 55, 0.1);
+      color: #c4bfb8;
+      transition: all 0.3s ease;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .select-dark:focus {
+      border-color: rgba(212, 175, 55, 0.4);
+    }
+
+    .select-dark option {
+      background: #1a1714;
+      color: #e8e0d4;
+    }
+
+    /* Btn gold dark version */
+    .btn-gold-dark {
+      background: linear-gradient(135deg, #D4AF37, #A67C00);
+      color: #0c0a09;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-gold-dark:hover {
+      box-shadow: 0 0 24px rgba(212, 175, 55, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* Empty state dark */
+    .empty-dark {
+      text-align: center;
+      padding: 60px 20px;
+    }
   </style>
 </head>
 
-<body class="bg-gray-50 font-sans text-charcoal">
+<body class="admin-bg font-sans">
 
   <!-- Mobile Sidebar Overlay -->
   <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
   <div class="flex">
     <!-- ============================================================
-         ADMIN SIDEBAR
+         SIDEBAR — Navigation
          ============================================================ -->
     <aside id="admin-sidebar" class="admin-sidebar w-[280px] flex-shrink-0 p-6 flex flex-col">
       <!-- Logo -->
-      <a href="index.html" class="flex items-center gap-3 mb-10">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center"
+      <a href="index.html" class="flex items-center gap-3 mb-10 group">
+        <div class="w-11 h-11 rounded-2xl flex items-center justify-center relative"
           style="background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00);">
-          <i data-lucide="book-open" class="w-5 h-5 text-dark"></i>
+          <i data-lucide="globe" class="w-5 h-5 text-dark"></i>
         </div>
         <div>
-          <span class="font-serif text-xl font-bold text-gold">GoldPage</span>
-          <p class="text-[10px] text-gray-500 -mt-0.5 tracking-widest uppercase">Admin Panel</p>
+          <span class="font-serif text-xl font-bold gold-text-gradient">Hành Tinh Chữ <span class="flag-wave">🇻🇳</span></span>
+          <div class="flex items-center gap-2 -mt-0.5">
+            <div class="logo-dot"></div>
+            <p class="text-[10px] text-gray-500 tracking-widest uppercase">Admin Panel</p>
+          </div>
         </div>
       </a>
 
       <!-- Navigation -->
       <nav class="space-y-1.5 flex-1">
+        <p class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold px-4 mb-3">Tổng quan</p>
         <div class="nav-item active" data-section="dashboard" onclick="showSection('dashboard')">
           <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
           Dashboard
@@ -225,14 +572,14 @@
           <i data-lucide="library" class="w-5 h-5"></i>
           Quản lý sách
         </div>
-        <div class="nav-item" data-section="add-book" onclick="openAddModal()">
-          <i data-lucide="plus-circle" class="w-5 h-5"></i>
-          Thêm sách mới
+        <div class="nav-item" data-section="revenue" onclick="showSection('revenue')">
+          <i data-lucide="trending-up" class="w-5 h-5"></i>
+          Doanh thu
         </div>
 
-        <div class="mt-6 mb-3 px-4">
-          <p class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold">Liên kết nhanh</p>
-        </div>
+        <div class="section-divider my-5"></div>
+
+        <p class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold px-4 mb-3">Liên kết nhanh</p>
         <a href="index.html" class="nav-item">
           <i data-lucide="home" class="w-5 h-5"></i>
           Xem cửa hàng
@@ -244,173 +591,219 @@
       </nav>
 
       <!-- Admin Profile -->
-      <div class="mt-auto pt-6 border-t border-gold/10">
+      <div class="mt-auto pt-6 border-t border-white/5">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-full flex items-center justify-center"
-            style="background: linear-gradient(135deg, #F4E5A1, #D4AF37);">
-            <i data-lucide="user" class="w-5 h-5 text-dark"></i>
+            style="background: linear-gradient(135deg, #D4AF37, #A67C00);">
+            <i data-lucide="crown" class="w-4 h-4 text-dark"></i>
           </div>
-          <div>
-            <p class="text-sm font-semibold text-cream">Admin</p>
-            <p class="text-[11px] text-gray-500">admin@goldpage.vn</p>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-semibold text-gray-200">Admin</p>
+            <p class="text-[11px] text-gray-500 truncate">admin@goldpage.vn</p>
           </div>
+          <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 flex-shrink-0"></div>
         </div>
       </div>
     </aside>
 
     <!-- ============================================================
-         MAIN CONTENT
+         MAIN CONTENT AREA
          ============================================================ -->
     <main class="flex-1 min-h-screen">
       <!-- Top Bar -->
-      <header class="bg-white border-b border-gray-100 sticky top-0 z-40">
-        <div class="px-6 py-4 flex items-center justify-between">
+      <header class="admin-topbar sticky top-0 z-40">
+        <div class="px-6 lg:px-8 py-4 flex items-center justify-between">
           <div class="flex items-center gap-4">
-            <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-gray-100 transition-colors">
-              <i data-lucide="menu" class="w-5 h-5 text-charcoal"></i>
+            <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-white/5 transition-colors">
+              <i data-lucide="menu" class="w-5 h-5 text-gray-400"></i>
             </button>
-            <h1 id="page-title" class="font-serif text-xl font-bold text-charcoal">Dashboard</h1>
+            <div>
+              <h1 id="page-title" class="font-serif text-xl font-bold text-gray-100">Dashboard</h1>
+              <p id="page-subtitle" class="text-xs text-gray-500 mt-0.5">Tổng quan hệ thống</p>
+            </div>
           </div>
           <div class="flex items-center gap-3">
+            <div class="hidden sm:flex items-center gap-2 text-xs text-gray-500 mr-3">
+              <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+              <span id="current-date"></span>
+            </div>
             <button onclick="openAddModal()"
-              class="btn-gold ripple px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
+              class="btn-gold-dark ripple px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
               <i data-lucide="plus" class="w-4 h-4"></i>
-              <span class="hidden sm:inline">Thêm sách mới</span>
+              <span class="hidden sm:inline">Thêm sách</span>
             </button>
           </div>
         </div>
       </header>
 
-      <div class="p-6 md:p-8">
-        <!-- ===== DASHBOARD SECTION ===== -->
-        <section id="section-dashboard">
-          <!-- Stats Grid -->
+      <div class="p-6 lg:p-8">
+        <!-- ===== SECTION 1: DASHBOARD ===== -->
+        <section id="section-dashboard" class="admin-section">
+
+          <!-- 1.1 — Statistics Row -->
           <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
+            <!-- Total Books -->
             <div class="stat-card">
-              <div class="flex items-center justify-between mb-3">
-                <div class="w-11 h-11 rounded-xl flex items-center justify-center bg-blue-50">
-                  <i data-lucide="library" class="w-5 h-5 text-blue-500"></i>
+              <div class="flex items-center justify-between mb-4">
+                <div class="stat-icon" style="background: rgba(59, 130, 246, 0.12);">
+                  <i data-lucide="library" class="w-5 h-5 text-blue-400"></i>
                 </div>
-                <span class="text-xs px-2 py-1 rounded-full bg-green-50 text-green-600 font-semibold">Live</span>
+                <span
+                  class="text-[10px] px-2.5 py-1 rounded-full font-bold tracking-wider uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Live</span>
               </div>
-              <p id="stat-total" class="text-3xl font-bold text-charcoal">0</p>
-              <p class="text-sm text-gray-400 mt-1">Tổng số sách</p>
+              <p id="stat-total" class="text-3xl font-bold text-gray-100 mb-1">0</p>
+              <p class="text-xs text-gray-500 font-medium">Tổng số sách</p>
             </div>
+
+            <!-- Bestsellers -->
             <div class="stat-card">
-              <div class="flex items-center justify-between mb-3">
-                <div class="w-11 h-11 rounded-xl flex items-center justify-center bg-amber-50">
-                  <i data-lucide="flame" class="w-5 h-5 text-amber-500"></i>
+              <div class="flex items-center justify-between mb-4">
+                <div class="stat-icon" style="background: rgba(245, 158, 11, 0.12);">
+                  <i data-lucide="flame" class="w-5 h-5 text-amber-400"></i>
                 </div>
-                <span class="text-xs px-2 py-1 rounded-full bg-amber-50 text-amber-600 font-semibold">Hot</span>
+                <span
+                  class="text-[10px] px-2.5 py-1 rounded-full font-bold tracking-wider uppercase bg-amber-500/10 text-amber-400 border border-amber-500/20">Hot</span>
               </div>
-              <p id="stat-bestseller" class="text-3xl font-bold text-charcoal">0</p>
-              <p class="text-sm text-gray-400 mt-1">Bestsellers</p>
+              <p id="stat-bestseller" class="text-3xl font-bold text-gray-100 mb-1">0</p>
+              <p class="text-xs text-gray-500 font-medium">Bestsellers</p>
             </div>
+
+            <!-- Limited -->
             <div class="stat-card">
-              <div class="flex items-center justify-between mb-3">
-                <div class="w-11 h-11 rounded-xl flex items-center justify-center bg-purple-50">
-                  <i data-lucide="crown" class="w-5 h-5 text-purple-500"></i>
+              <div class="flex items-center justify-between mb-4">
+                <div class="stat-icon" style="background: rgba(168, 85, 247, 0.12);">
+                  <i data-lucide="gem" class="w-5 h-5 text-purple-400"></i>
                 </div>
-                <span class="text-xs px-2 py-1 rounded-full bg-purple-50 text-purple-600 font-semibold">Exclusive</span>
+                <span
+                  class="text-[10px] px-2.5 py-1 rounded-full font-bold tracking-wider uppercase bg-purple-500/10 text-purple-400 border border-purple-500/20">Exclusive</span>
               </div>
-              <p id="stat-limited" class="text-3xl font-bold text-charcoal">0</p>
-              <p class="text-sm text-gray-400 mt-1">Limited Edition</p>
+              <p id="stat-limited" class="text-3xl font-bold text-gray-100 mb-1">0</p>
+              <p class="text-xs text-gray-500 font-medium">Limited Edition</p>
             </div>
+
+            <!-- Revenue -->
             <div class="stat-card">
-              <div class="flex items-center justify-between mb-3">
-                <div class="w-11 h-11 rounded-xl flex items-center justify-center bg-green-50">
-                  <i data-lucide="banknote" class="w-5 h-5 text-green-500"></i>
+              <div class="flex items-center justify-between mb-4">
+                <div class="stat-icon" style="background: rgba(212, 175, 55, 0.12);">
+                  <i data-lucide="banknote" class="w-5 h-5 text-gold"></i>
                 </div>
+                <span
+                  class="text-[10px] px-2.5 py-1 rounded-full font-bold tracking-wider uppercase bg-gold/10 text-gold border border-gold/20">Value</span>
               </div>
-              <p id="stat-revenue" class="text-3xl font-bold text-charcoal">0</p>
-              <p class="text-sm text-gray-400 mt-1">Tổng giá trị kho</p>
+              <p id="stat-revenue" class="text-3xl font-bold text-gray-100 mb-1">0</p>
+              <p class="text-xs text-gray-500 font-medium">Tổng giá trị kho</p>
             </div>
           </div>
 
-          <!-- Category Breakdown -->
+          <!-- 1.2 — Category Breakdown & Recent Books -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             <!-- Categories -->
-            <div class="bg-white rounded-2xl p-6 border border-gray-100">
-              <h3 class="font-serif text-lg font-bold text-charcoal mb-5 flex items-center gap-2">
-                <i data-lucide="pie-chart" class="w-5 h-5 text-gold"></i>
-                Theo thể loại
-              </h3>
-              <div id="category-breakdown" class="space-y-3">
+            <div class="glass-card p-6">
+              <div class="flex items-center justify-between mb-6">
+                <h3 class="font-serif text-lg font-bold text-gray-100 flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-xl flex items-center justify-center"
+                    style="background: rgba(212, 175, 55, 0.1);">
+                    <i data-lucide="pie-chart" class="w-4 h-4 text-gold"></i>
+                  </div>
+                  Theo thể loại
+                </h3>
+                <span class="text-xs text-gray-500 font-medium" id="cat-total-label">0 thể loại</span>
+              </div>
+              <div id="category-breakdown" class="space-y-4">
                 <!-- Generated by JS -->
               </div>
             </div>
 
             <!-- Recent Books -->
-            <div class="bg-white rounded-2xl p-6 border border-gray-100">
-              <h3 class="font-serif text-lg font-bold text-charcoal mb-5 flex items-center gap-2">
-                <i data-lucide="clock" class="w-5 h-5 text-gold"></i>
-                Sách mới thêm gần đây
-              </h3>
-              <div id="recent-books" class="space-y-3">
+            <div class="glass-card p-6">
+              <div class="flex items-center justify-between mb-6">
+                <h3 class="font-serif text-lg font-bold text-gray-100 flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-xl flex items-center justify-center"
+                    style="background: rgba(212, 175, 55, 0.1);">
+                    <i data-lucide="clock" class="w-4 h-4 text-gold"></i>
+                  </div>
+                  Sách mới thêm gần đây
+                </h3>
+                <button onclick="showSection('books')"
+                  class="text-xs text-gold hover:text-gold-light font-medium transition-colors flex items-center gap-1">
+                  Xem tất cả
+                  <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </button>
+              </div>
+              <div id="recent-books" class="space-y-1">
                 <!-- Generated by JS -->
               </div>
             </div>
           </div>
 
-          <!-- Quick Actions -->
-          <div class="bg-white rounded-2xl p-6 border border-gray-100">
-            <h3 class="font-serif text-lg font-bold text-charcoal mb-5 flex items-center gap-2">
-              <i data-lucide="zap" class="w-5 h-5 text-gold"></i>
+          <!-- 1.3 — Quick Actions -->
+          <div class="glass-card p-6">
+            <h3 class="font-serif text-lg font-bold text-gray-100 flex items-center gap-3 mb-6">
+              <div class="w-9 h-9 rounded-xl flex items-center justify-center"
+                style="background: rgba(212, 175, 55, 0.1);">
+                <i data-lucide="zap" class="w-4 h-4 text-gold"></i>
+              </div>
               Thao tác nhanh
             </h3>
-            <div class="flex flex-wrap gap-3">
-              <button onclick="openAddModal()"
-                class="btn-gold ripple px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
-                <i data-lucide="plus" class="w-4 h-4"></i> Thêm sách mới
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <button onclick="openAddModal()" class="action-btn">
+                <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                Thêm sách mới
               </button>
-              <button onclick="showSection('books')"
-                class="btn-gold-outline px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
-                <i data-lucide="list" class="w-4 h-4"></i> Xem tất cả sách
+              <button onclick="showSection('books')" class="action-btn">
+                <i data-lucide="list" class="w-4 h-4"></i>
+                Xem tất cả sách
               </button>
-              <button onclick="exportData()"
-                class="btn-gold-outline px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
-                <i data-lucide="download" class="w-4 h-4"></i> Xuất dữ liệu JSON
+              <button onclick="exportData()" class="action-btn">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                Xuất dữ liệu JSON
               </button>
-              <button onclick="confirmResetAll()"
-                class="px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 border border-red-200 text-red-600 hover:bg-red-50 transition-colors">
-                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Khôi phục mặc định
+              <button onclick="confirmResetAll()" class="action-btn danger">
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                Khôi phục mặc định
               </button>
             </div>
           </div>
         </section>
 
-        <!-- ===== BOOKS MANAGEMENT SECTION ===== -->
-        <section id="section-books" class="hidden">
-          <!-- Search + Filter Bar -->
-          <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-6">
-            <div class="relative flex-1 max-w-md">
-              <i data-lucide="search" class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-              <input type="text" id="admin-search" placeholder="Tìm theo tên sách, tác giả..."
-                class="w-full pl-11 pr-4 py-2.5 rounded-xl text-sm input-gold bg-white" oninput="filterBooks()">
-            </div>
-            <div class="flex items-center gap-3">
-              <select id="admin-category-filter"
-                class="px-4 py-2.5 rounded-xl text-sm input-gold bg-white cursor-pointer" onchange="filterBooks()">
-                <option value="">Tất cả thể loại</option>
-                <option value="Văn học">Văn học</option>
-                <option value="Kỹ năng sống">Kỹ năng sống</option>
-                <option value="Kinh doanh">Kinh doanh</option>
-                <option value="Thiếu nhi">Thiếu nhi</option>
-                <option value="Ngoại văn">Ngoại văn</option>
-                <option value="Sách quý hiếm">Sách quý hiếm</option>
-              </select>
-              <select id="admin-badge-filter" class="px-4 py-2.5 rounded-xl text-sm input-gold bg-white cursor-pointer"
-                onchange="filterBooks()">
-                <option value="">Tất cả badge</option>
-                <option value="bestseller">Bestseller</option>
-                <option value="limited">Limited</option>
-                <option value="">Không badge</option>
-              </select>
+        <!-- ===== SECTION 2: BOOKS MANAGEMENT ===== -->
+        <section id="section-books" class="hidden admin-section">
+
+          <!-- 2.1 — Search & Filter Bar -->
+          <div class="glass-card p-5 mb-6">
+            <div class="flex flex-col lg:flex-row items-stretch lg:items-center gap-4">
+              <!-- Search -->
+              <div class="relative flex-1">
+                <i data-lucide="search" class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                <input type="text" id="admin-search" placeholder="Tìm theo tên sách, tác giả..."
+                  class="w-full pl-11 pr-4 py-3 rounded-xl text-sm search-dark" oninput="filterBooks()">
+              </div>
+
+              <!-- Filters -->
+              <div class="flex items-center gap-3 flex-wrap">
+                <select id="admin-category-filter" class="px-4 py-3 rounded-xl text-sm select-dark"
+                  onchange="filterBooks()">
+                  <option value="">Tất cả thể loại</option>
+                  <option value="Văn học">Văn học</option>
+                  <option value="Kỹ năng sống">Kỹ năng sống</option>
+                  <option value="Kinh doanh">Kinh doanh</option>
+                  <option value="Thiếu nhi">Thiếu nhi</option>
+                  <option value="Ngoại văn">Ngoại văn</option>
+                  <option value="Sách quý hiếm">Sách quý hiếm</option>
+                </select>
+                <select id="admin-badge-filter" class="px-4 py-3 rounded-xl text-sm select-dark"
+                  onchange="filterBooks()">
+                  <option value="">Tất cả badge</option>
+                  <option value="bestseller">Bestseller</option>
+                  <option value="limited">Limited</option>
+                  <option value="">Không badge</option>
+                </select>
+              </div>
             </div>
           </div>
 
-          <!-- Books Table -->
-          <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+          <!-- 2.2 — Books Table -->
+          <div class="glass-card overflow-hidden">
             <div class="overflow-x-auto">
               <table class="admin-table">
                 <thead>
@@ -431,22 +824,160 @@
             </div>
 
             <!-- Empty State -->
-            <div id="books-empty" class="hidden text-center py-16 px-6">
-              <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4"
-                style="background: rgba(212,175,55,0.1); border: 1px dashed var(--gold);">
+            <div id="books-empty" class="hidden empty-dark py-20 px-6">
+              <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5"
+                style="background: rgba(212,175,55,0.08); border: 1px dashed rgba(212,175,55,0.25);">
                 <i data-lucide="search-x" class="w-8 h-8 text-gold opacity-40"></i>
               </div>
-              <h3 class="font-serif text-lg font-bold text-charcoal mb-1">Không tìm thấy sách</h3>
-              <p class="text-sm text-gray-400">Thử thay đổi bộ lọc hoặc thêm sách mới.</p>
+              <h3 class="font-serif text-lg font-bold text-gray-300 mb-2">Không tìm thấy sách</h3>
+              <p class="text-sm text-gray-500">Thử thay đổi bộ lọc hoặc thêm sách mới.</p>
             </div>
           </div>
 
-          <!-- Table Footer Info -->
-          <div class="flex items-center justify-between mt-4">
-            <p class="text-sm text-gray-400">Hiển thị <span id="shown-count"
-                class="font-semibold text-charcoal">0</span> / <span id="total-count"
-                class="font-semibold text-charcoal">0</span> sách</p>
+          <!-- 2.3 — Table Footer -->
+          <div class="flex items-center justify-between mt-5 px-1">
+            <p class="text-sm text-gray-500">
+              Hiển thị <span id="shown-count" class="font-bold text-gray-300">0</span>
+              / <span id="total-count" class="font-bold text-gray-300">0</span> sách
+            </p>
           </div>
+        </section>
+
+        <!-- ===== SECTION 3: REVENUE / DOANH THU ===== -->
+        <section id="section-revenue" class="hidden admin-section">
+
+          <!-- 3.1 — Revenue Stats -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
+            <!-- Tổng doanh thu -->
+            <div class="stat-card">
+              <div class="flex items-center justify-between mb-4">
+                <div class="stat-icon" style="background: rgba(212, 175, 55, 0.15);">
+                  <i data-lucide="coins" class="w-5 h-5 text-gold"></i>
+                </div>
+                <span
+                  class="text-[10px] px-2.5 py-1 rounded-full font-bold tracking-wider uppercase bg-gold/10 text-gold border border-gold/20">Total</span>
+              </div>
+              <p id="rev-total" class="text-3xl font-bold text-gray-100 mb-1">0đ</p>
+              <p class="text-xs text-gray-500 font-medium">Tổng doanh thu</p>
+            </div>
+
+            <!-- Doanh thu hôm nay -->
+            <div class="stat-card">
+              <div class="flex items-center justify-between mb-4">
+                <div class="stat-icon" style="background: rgba(34, 197, 94, 0.12);">
+                  <i data-lucide="calendar-check" class="w-5 h-5 text-emerald-400"></i>
+                </div>
+                <span
+                  class="text-[10px] px-2.5 py-1 rounded-full font-bold tracking-wider uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Today</span>
+              </div>
+              <p id="rev-today" class="text-3xl font-bold text-gray-100 mb-1">0đ</p>
+              <p class="text-xs text-gray-500 font-medium">Doanh thu hôm nay</p>
+            </div>
+
+            <!-- Tổng đơn hàng -->
+            <div class="stat-card">
+              <div class="flex items-center justify-between mb-4">
+                <div class="stat-icon" style="background: rgba(59, 130, 246, 0.12);">
+                  <i data-lucide="shopping-cart" class="w-5 h-5 text-blue-400"></i>
+                </div>
+                <span
+                  class="text-[10px] px-2.5 py-1 rounded-full font-bold tracking-wider uppercase bg-blue-500/10 text-blue-400 border border-blue-500/20">Orders</span>
+              </div>
+              <p id="rev-orders" class="text-3xl font-bold text-gray-100 mb-1">0</p>
+              <p class="text-xs text-gray-500 font-medium">Tổng đơn hàng</p>
+            </div>
+
+            <!-- Trung bình / đơn -->
+            <div class="stat-card">
+              <div class="flex items-center justify-between mb-4">
+                <div class="stat-icon" style="background: rgba(168, 85, 247, 0.12);">
+                  <i data-lucide="bar-chart-3" class="w-5 h-5 text-purple-400"></i>
+                </div>
+                <span
+                  class="text-[10px] px-2.5 py-1 rounded-full font-bold tracking-wider uppercase bg-purple-500/10 text-purple-400 border border-purple-500/20">Avg</span>
+              </div>
+              <p id="rev-avg" class="text-3xl font-bold text-gray-100 mb-1">0đ</p>
+              <p class="text-xs text-gray-500 font-medium">Trung bình / đơn</p>
+            </div>
+          </div>
+
+          <!-- 3.2 — Revenue Summary Row -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-8">
+            <div class="glass-card p-5 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-2xl flex items-center justify-center"
+                style="background: rgba(212,175,55,0.12);">
+                <i data-lucide="calendar" class="w-5 h-5 text-gold"></i>
+              </div>
+              <div>
+                <p class="text-xs text-gray-500 font-medium">Doanh thu tháng này</p>
+                <p id="rev-month" class="text-xl font-bold text-gray-100">0đ</p>
+              </div>
+            </div>
+            <div class="glass-card p-5 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-2xl flex items-center justify-center"
+                style="background: rgba(34,197,94,0.12);">
+                <i data-lucide="package" class="w-5 h-5 text-emerald-400"></i>
+              </div>
+              <div>
+                <p class="text-xs text-gray-500 font-medium">Tổng sản phẩm đã bán</p>
+                <p id="rev-items-sold" class="text-xl font-bold text-gray-100">0</p>
+              </div>
+            </div>
+            <div class="glass-card p-5 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-2xl flex items-center justify-center"
+                style="background: rgba(59,130,246,0.12);">
+                <i data-lucide="receipt" class="w-5 h-5 text-blue-400"></i>
+              </div>
+              <div>
+                <p class="text-xs text-gray-500 font-medium">Đơn hàng tháng này</p>
+                <p id="rev-month-orders" class="text-xl font-bold text-gray-100">0</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3.3 — Section Header + Actions -->
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+            <h3 class="font-serif text-lg font-bold text-gray-100 flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl flex items-center justify-center"
+                style="background: rgba(212,175,55,0.1);">
+                <i data-lucide="scroll-text" class="w-4 h-4 text-gold"></i>
+              </div>
+              Lịch sử đơn hàng
+            </h3>
+            <div class="flex items-center gap-3">
+              <button onclick="addSampleOrder()" class="action-btn text-sm">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                Tạo đơn mẫu
+              </button>
+              <button onclick="clearAllOrders()" class="action-btn danger text-sm">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                Xóa tất cả
+              </button>
+            </div>
+          </div>
+
+          <!-- 3.4 — Orders Column Cards -->
+          <div id="orders-list" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+            <!-- Generated by JS -->
+          </div>
+
+          <!-- Empty state -->
+          <div id="orders-empty" class="hidden">
+            <div class="glass-card py-20 px-6 text-center">
+              <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5"
+                style="background: rgba(212,175,55,0.08); border: 1px dashed rgba(212,175,55,0.25);">
+                <i data-lucide="receipt" class="w-8 h-8 text-gold opacity-40"></i>
+              </div>
+              <h3 class="font-serif text-lg font-bold text-gray-300 mb-2">Chưa có đơn hàng</h3>
+              <p class="text-sm text-gray-500 mb-6">Doanh thu sẽ được cập nhật khi khách hàng đặt mua sách.</p>
+              <button onclick="addSampleOrder()"
+                class="btn-gold-dark ripple px-6 py-3 rounded-xl text-sm font-bold inline-flex items-center gap-2">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                Tạo đơn hàng mẫu
+              </button>
+            </div>
+          </div>
+
         </section>
       </div>
     </main>
@@ -458,148 +989,187 @@
   <div id="book-modal" class="admin-modal">
     <div class="modal-box">
       <!-- Modal Header -->
-      <div
-        class="px-6 py-5 border-b border-gold/20 flex items-center justify-between sticky top-0 bg-ivory rounded-t-2xl z-10">
-        <h3 id="modal-title" class="font-serif text-xl font-bold text-charcoal flex items-center gap-2">
-          <i data-lucide="plus-circle" class="w-5 h-5 text-gold"></i>
+      <div class="px-7 py-5 border-b border-white/5 flex items-center justify-between sticky top-0 z-10"
+        style="background: linear-gradient(145deg, #1a1714, #12100d);">
+        <h3 id="modal-title" class="font-serif text-xl font-bold text-gray-100 flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: rgba(212,175,55,0.12);">
+            <i data-lucide="plus-circle" class="w-4 h-4 text-gold"></i>
+          </div>
           Thêm sách mới
         </h3>
         <button onclick="closeModal()"
-          class="text-gray-400 hover:text-charcoal transition-colors p-1.5 rounded-lg hover:bg-gray-100">
+          class="text-gray-500 hover:text-gray-300 transition-colors p-2 rounded-xl hover:bg-white/5">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
       <!-- Modal Body -->
-      <div class="px-6 py-6">
+      <div class="px-7 py-7">
         <form id="book-form" onsubmit="event.preventDefault(); saveBookForm();">
           <input type="hidden" id="form-book-id" value="">
 
           <!-- Preview Card -->
-          <div class="mb-6 p-4 rounded-xl bg-white border border-gold/10 flex gap-4">
+          <div class="mb-7 p-5 rounded-2xl flex gap-4 items-center"
+            style="background: rgba(212,175,55,0.04); border: 1px solid rgba(212,175,55,0.1);">
             <img id="form-preview-img"
               src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=560&fit=crop" alt="Preview"
-              class="w-16 h-20 object-cover rounded-lg gold-border">
-            <div>
-              <p id="form-preview-title" class="font-serif font-bold text-charcoal text-sm">Tên sách mới</p>
+              class="w-16 h-20 object-cover rounded-xl" style="border: 1px solid rgba(212,175,55,0.2);">
+            <div class="flex-1 min-w-0">
+              <p id="form-preview-title" class="font-serif font-bold text-gray-200 text-sm truncate">Tên sách mới</p>
               <p id="form-preview-author" class="text-xs text-gray-500 mt-0.5">Tác giả</p>
-              <p id="form-preview-price" class="text-sm font-bold mt-1" style="color: var(--gold-dark);">0đ</p>
+              <p id="form-preview-price" class="text-sm font-bold mt-1.5 text-gold">0đ</p>
             </div>
           </div>
 
-          <!-- Basic Info -->
-          <div class="space-y-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5">Tên sách <span
-                    class="text-wine">*</span></label>
-                <input type="text" id="form-title" required placeholder="VD: Nhà Giả Kim"
-                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold" oninput="updatePreview()">
-              </div>
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5">Tác giả <span
-                    class="text-wine">*</span></label>
-                <input type="text" id="form-author" required placeholder="VD: Paulo Coelho"
-                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold" oninput="updatePreview()">
-              </div>
-            </div>
+          <!-- Form Sections -->
+          <div class="space-y-6">
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5">Giá bán (đ) <span
-                    class="text-wine">*</span></label>
-                <input type="number" id="form-price" required min="0" placeholder="89000"
-                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold" oninput="updatePreview()">
-              </div>
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5">Giá gốc (đ)</label>
-                <input type="number" id="form-original-price" min="0" placeholder="129000"
-                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold">
-              </div>
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5">Thể loại <span
-                    class="text-wine">*</span></label>
-                <select id="form-category" required
-                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold bg-white cursor-pointer">
-                  <option value="">— Chọn —</option>
-                  <option value="Văn học">Văn học</option>
-                  <option value="Kỹ năng sống">Kỹ năng sống</option>
-                  <option value="Kinh doanh">Kinh doanh</option>
-                  <option value="Thiếu nhi">Thiếu nhi</option>
-                  <option value="Ngoại văn">Ngoại văn</option>
-                  <option value="Sách quý hiếm">Sách quý hiếm</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5">Badge</label>
-                <select id="form-badge"
-                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold bg-white cursor-pointer">
-                  <option value="">Không</option>
-                  <option value="bestseller">Bestseller</option>
-                  <option value="limited">Limited Edition</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5">Rating</label>
-                <input type="number" id="form-rating" min="0" max="5" step="0.1" placeholder="4.5"
-                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold">
-              </div>
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5">Lượt đánh giá</label>
-                <input type="number" id="form-reviews" min="0" placeholder="100"
-                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold">
-              </div>
-            </div>
-
+            <!-- Section: Basic Info -->
             <div>
-              <label class="block text-sm font-semibold text-charcoal mb-1.5">URL Ảnh bìa</label>
-              <div class="flex gap-2">
+              <p class="text-xs text-gray-500 uppercase tracking-widest font-semibold mb-4 flex items-center gap-2">
+                <i data-lucide="info" class="w-3.5 h-3.5 text-gold"></i>
+                Thông tin cơ bản
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-400 mb-2">Tên sách <span
+                      class="text-red-400">*</span></label>
+                  <input type="text" id="form-title" required placeholder="VD: Nhà Giả Kim"
+                    class="w-full px-4 py-3 rounded-xl text-sm input-dark" oninput="updatePreview()">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-400 mb-2">Tác giả <span
+                      class="text-red-400">*</span></label>
+                  <input type="text" id="form-author" required placeholder="VD: Paulo Coelho"
+                    class="w-full px-4 py-3 rounded-xl text-sm input-dark" oninput="updatePreview()">
+                </div>
+              </div>
+            </div>
+
+            <!-- Section: Pricing -->
+            <div>
+              <p class="text-xs text-gray-500 uppercase tracking-widest font-semibold mb-4 flex items-center gap-2">
+                <i data-lucide="tag" class="w-3.5 h-3.5 text-gold"></i>
+                Giá & Thể loại
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-400 mb-2">Giá bán (đ) <span
+                      class="text-red-400">*</span></label>
+                  <input type="number" id="form-price" required min="0" placeholder="89000"
+                    class="w-full px-4 py-3 rounded-xl text-sm input-dark" oninput="updatePreview()">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-400 mb-2">Giá gốc (đ)</label>
+                  <input type="number" id="form-original-price" min="0" placeholder="129000"
+                    class="w-full px-4 py-3 rounded-xl text-sm input-dark">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-400 mb-2">Thể loại <span
+                      class="text-red-400">*</span></label>
+                  <select id="form-category" required
+                    class="w-full px-4 py-3 rounded-xl text-sm input-dark cursor-pointer">
+                    <option value="">— Chọn —</option>
+                    <option value="Văn học">Văn học</option>
+                    <option value="Kỹ năng sống">Kỹ năng sống</option>
+                    <option value="Kinh doanh">Kinh doanh</option>
+                    <option value="Thiếu nhi">Thiếu nhi</option>
+                    <option value="Ngoại văn">Ngoại văn</option>
+                    <option value="Sách quý hiếm">Sách quý hiếm</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section: Badge & Rating -->
+            <div>
+              <p class="text-xs text-gray-500 uppercase tracking-widest font-semibold mb-4 flex items-center gap-2">
+                <i data-lucide="award" class="w-3.5 h-3.5 text-gold"></i>
+                Badge & Đánh giá
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-400 mb-2">Badge</label>
+                  <select id="form-badge" class="w-full px-4 py-3 rounded-xl text-sm input-dark cursor-pointer">
+                    <option value="">Không</option>
+                    <option value="bestseller">Bestseller</option>
+                    <option value="limited">Limited Edition</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-400 mb-2">Rating</label>
+                  <input type="number" id="form-rating" min="0" max="5" step="0.1" placeholder="4.5"
+                    class="w-full px-4 py-3 rounded-xl text-sm input-dark">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-400 mb-2">Lượt đánh giá</label>
+                  <input type="number" id="form-reviews" min="0" placeholder="100"
+                    class="w-full px-4 py-3 rounded-xl text-sm input-dark">
+                </div>
+              </div>
+            </div>
+
+            <!-- Section: Image -->
+            <div>
+              <p class="text-xs text-gray-500 uppercase tracking-widest font-semibold mb-4 flex items-center gap-2">
+                <i data-lucide="image" class="w-3.5 h-3.5 text-gold"></i>
+                Hình ảnh
+              </p>
+              <div class="flex gap-3">
                 <input type="url" id="form-image" placeholder="https://images.unsplash.com/photo-..."
-                  class="flex-1 px-4 py-2.5 rounded-xl text-sm input-gold" oninput="updatePreview()">
+                  class="flex-1 px-4 py-3 rounded-xl text-sm input-dark" oninput="updatePreview()">
                 <button type="button"
                   onclick="document.getElementById('form-image').value='https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=560&fit=crop'; updatePreview();"
-                  class="px-3 py-2.5 rounded-xl text-sm font-medium text-gold border border-gold/30 hover:bg-gold/5 transition-colors whitespace-nowrap">
+                  class="px-4 py-3 rounded-xl text-sm font-medium text-gold border border-gold/20 hover:bg-gold/5 transition-colors whitespace-nowrap">
                   Mặc định
                 </button>
               </div>
             </div>
 
+            <!-- Section: Description -->
             <div>
-              <label class="block text-sm font-semibold text-charcoal mb-1.5">Mô tả</label>
+              <p class="text-xs text-gray-500 uppercase tracking-widest font-semibold mb-4 flex items-center gap-2">
+                <i data-lucide="file-text" class="w-3.5 h-3.5 text-gold"></i>
+                Mô tả
+              </p>
               <textarea id="form-description" rows="3" placeholder="Giới thiệu ngắn về nội dung cuốn sách..."
-                class="w-full px-4 py-2.5 rounded-xl text-sm input-gold resize-none"></textarea>
+                class="w-full px-4 py-3 rounded-xl text-sm input-dark resize-none"></textarea>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5">Nhà xuất bản</label>
-                <input type="text" id="form-publisher" placeholder="NXB Trẻ"
-                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold">
-              </div>
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5">Số trang</label>
-                <input type="number" id="form-pages" min="0" placeholder="320"
-                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold">
-              </div>
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5">Năm XB</label>
-                <input type="number" id="form-year" min="1900" max="2030" placeholder="2024"
-                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold">
+            <!-- Section: Publisher -->
+            <div>
+              <p class="text-xs text-gray-500 uppercase tracking-widest font-semibold mb-4 flex items-center gap-2">
+                <i data-lucide="building" class="w-3.5 h-3.5 text-gold"></i>
+                Xuất bản
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-400 mb-2">Nhà xuất bản</label>
+                  <input type="text" id="form-publisher" placeholder="NXB Trẻ"
+                    class="w-full px-4 py-3 rounded-xl text-sm input-dark">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-400 mb-2">Số trang</label>
+                  <input type="number" id="form-pages" min="0" placeholder="320"
+                    class="w-full px-4 py-3 rounded-xl text-sm input-dark">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-400 mb-2">Năm XB</label>
+                  <input type="number" id="form-year" min="1900" max="2030" placeholder="2024"
+                    class="w-full px-4 py-3 rounded-xl text-sm input-dark">
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Actions -->
-          <div class="flex justify-end gap-3 mt-8 pt-6 border-t border-gold/10">
+          <div class="flex justify-end gap-3 mt-8 pt-6 border-t border-white/5">
             <button type="button" onclick="closeModal()"
-              class="px-6 py-2.5 rounded-xl text-sm font-semibold text-gray-500 hover:bg-gray-100 transition-colors">
+              class="px-6 py-3 rounded-xl text-sm font-semibold text-gray-500 hover:text-gray-300 hover:bg-white/5 transition-all">
               Hủy
             </button>
             <button type="submit"
-              class="btn-gold ripple px-8 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
+              class="btn-gold-dark ripple px-8 py-3 rounded-xl text-sm font-bold flex items-center gap-2">
               <i data-lucide="save" class="w-4 h-4"></i>
               <span id="modal-submit-text">Thêm sách</span>
             </button>
@@ -614,20 +1184,20 @@
        ============================================================ -->
   <div id="delete-modal" class="admin-modal delete-modal">
     <div class="modal-box p-8 text-center">
-      <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
-        style="background: rgba(92,26,27,0.1);">
-        <i data-lucide="trash-2" class="w-8 h-8 text-wine"></i>
+      <div class="w-18 h-18 rounded-full flex items-center justify-center mx-auto mb-6"
+        style="width: 72px; height: 72px; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2);">
+        <i data-lucide="trash-2" class="w-8 h-8 text-red-400"></i>
       </div>
-      <h3 class="font-serif text-xl font-bold text-charcoal mb-2">Xóa sách này?</h3>
+      <h3 class="font-serif text-xl font-bold text-gray-100 mb-2">Xóa sách này?</h3>
       <p class="text-sm text-gray-500 mb-2">Bạn có chắc muốn xóa:</p>
-      <p id="delete-book-title" class="font-semibold text-charcoal mb-6">"Tên sách"</p>
+      <p id="delete-book-title" class="font-semibold text-gold mb-7">"Tên sách"</p>
       <div class="flex gap-3 justify-center">
         <button onclick="closeDeleteModal()"
-          class="px-6 py-2.5 rounded-xl text-sm font-semibold text-gray-500 hover:bg-gray-100 transition-colors">
+          class="px-6 py-3 rounded-xl text-sm font-semibold text-gray-500 hover:text-gray-300 hover:bg-white/5 transition-all">
           Hủy
         </button>
         <button id="delete-confirm-btn"
-          class="px-6 py-2.5 rounded-xl text-sm font-bold text-white bg-wine hover:bg-red-800 transition-colors flex items-center gap-2">
+          class="px-6 py-3 rounded-xl text-sm font-bold text-white bg-red-600 hover:bg-red-500 transition-all flex items-center gap-2">
           <i data-lucide="trash-2" class="w-4 h-4"></i>
           Xóa vĩnh viễn
         </button>
@@ -640,19 +1210,20 @@
        ============================================================ -->
   <div id="reset-modal" class="admin-modal delete-modal">
     <div class="modal-box p-8 text-center">
-      <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
-        style="background: rgba(212,175,55,0.1);">
+      <div class="w-18 h-18 rounded-full flex items-center justify-center mx-auto mb-6"
+        style="width: 72px; height: 72px; background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.2);">
         <i data-lucide="rotate-ccw" class="w-8 h-8 text-gold"></i>
       </div>
-      <h3 class="font-serif text-xl font-bold text-charcoal mb-2">Khôi phục mặc định?</h3>
-      <p class="text-sm text-gray-500 mb-6">Toàn bộ thay đổi sẽ bị xóa và dữ liệu sẽ quay về 12 cuốn sách ban đầu.</p>
+      <h3 class="font-serif text-xl font-bold text-gray-100 mb-2">Khôi phục mặc định?</h3>
+      <p class="text-sm text-gray-500 mb-7">Toàn bộ thay đổi sẽ bị xóa và dữ liệu sẽ quay về 12 cuốn sách ban đầu.
+      </p>
       <div class="flex gap-3 justify-center">
         <button onclick="document.getElementById('reset-modal').classList.remove('active')"
-          class="px-6 py-2.5 rounded-xl text-sm font-semibold text-gray-500 hover:bg-gray-100 transition-colors">
+          class="px-6 py-3 rounded-xl text-sm font-semibold text-gray-500 hover:text-gray-300 hover:bg-white/5 transition-all">
           Hủy
         </button>
         <button onclick="resetAllBooks()"
-          class="btn-gold ripple px-6 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
+          class="btn-gold-dark ripple px-6 py-3 rounded-xl text-sm font-bold flex items-center gap-2">
           <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
           Khôi phục
         </button>
@@ -672,8 +1243,17 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       renderDashboard();
+      updateDateTime();
       lucide.createIcons();
     });
+
+    // ===== Date/Time =====
+    function updateDateTime() {
+      const now = new Date();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateEl = document.getElementById('current-date');
+      if (dateEl) dateEl.textContent = now.toLocaleDateString('vi-VN', options);
+    }
 
     // ===== Sidebar Section Toggle =====
     function showSection(section) {
@@ -687,13 +1267,17 @@
       // Show/hide sections
       document.getElementById('section-dashboard').classList.toggle('hidden', section !== 'dashboard');
       document.getElementById('section-books').classList.toggle('hidden', section !== 'books');
+      document.getElementById('section-revenue').classList.toggle('hidden', section !== 'revenue');
 
-      // Update page title
-      const titles = { dashboard: 'Dashboard', books: 'Quản Lý Sách' };
+      // Update page title & subtitle
+      const titles = { dashboard: 'Dashboard', books: 'Quản Lý Sách', revenue: 'Doanh Thu' };
+      const subtitles = { dashboard: 'Tổng quan hệ thống', books: 'Quản lý danh sách sách', revenue: 'Theo dõi doanh thu & đơn hàng' };
       document.getElementById('page-title').textContent = titles[section] || 'Admin';
+      document.getElementById('page-subtitle').textContent = subtitles[section] || '';
 
       if (section === 'dashboard') renderDashboard();
       if (section === 'books') renderBooksTable();
+      if (section === 'revenue') renderRevenue();
 
       // Close mobile sidebar
       closeSidebar();
@@ -710,51 +1294,90 @@
       document.getElementById('sidebar-overlay').classList.remove('active');
     }
 
+    // ===== Animated Counter =====
+    function animateCounter(element, target, prefix = '', suffix = '') {
+      const duration = 800;
+      const start = parseInt(element.textContent.replace(/[^\d]/g, '')) || 0;
+      const increment = (target - start) / (duration / 16);
+      let current = start;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if ((increment > 0 && current >= target) || (increment < 0 && current <= target)) {
+          current = target;
+          clearInterval(timer);
+        }
+        element.textContent = prefix + Math.round(current).toLocaleString('vi-VN') + suffix;
+      }, 16);
+    }
+
     // ===== Dashboard =====
     function renderDashboard() {
       const books = GoldPage.books;
       const totalRevenue = books.reduce((sum, b) => sum + b.price, 0);
 
-      document.getElementById('stat-total').textContent = books.length;
-      document.getElementById('stat-bestseller').textContent = books.filter(b => b.badge === 'bestseller').length;
-      document.getElementById('stat-limited').textContent = books.filter(b => b.badge === 'limited').length;
-      document.getElementById('stat-revenue').textContent = GoldPage.formatPrice(totalRevenue);
+      // Animate stats
+      const statTotal = document.getElementById('stat-total');
+      const statBestseller = document.getElementById('stat-bestseller');
+      const statLimited = document.getElementById('stat-limited');
+      const statRevenue = document.getElementById('stat-revenue');
+
+      animateCounter(statTotal, books.length);
+      animateCounter(statBestseller, books.filter(b => b.badge === 'bestseller').length);
+      animateCounter(statLimited, books.filter(b => b.badge === 'limited').length);
+      statRevenue.textContent = GoldPage.formatPrice(totalRevenue);
 
       // Category breakdown
       const categories = {};
       books.forEach(b => {
         categories[b.category] = (categories[b.category] || 0) + 1;
       });
+
+      const catCount = Object.keys(categories).length;
+      const catLabel = document.getElementById('cat-total-label');
+      if (catLabel) catLabel.textContent = catCount + ' thể loại';
+
       const catBreakdown = document.getElementById('category-breakdown');
       const catColors = {
-        'Văn học': 'bg-blue-500', 'Kỹ năng sống': 'bg-amber-500', 'Kinh doanh': 'bg-green-500',
-        'Thiếu nhi': 'bg-pink-500', 'Ngoại văn': 'bg-purple-500', 'Sách quý hiếm': 'bg-yellow-600'
+        'Văn học': '#3b82f6',
+        'Kỹ năng sống': '#f59e0b',
+        'Kinh doanh': '#22c55e',
+        'Thiếu nhi': '#ec4899',
+        'Ngoại văn': '#a855f7',
+        'Sách quý hiếm': '#D4AF37'
       };
-      catBreakdown.innerHTML = Object.entries(categories).sort((a, b) => b[1] - a[1]).map(([cat, count]) => {
-        const pct = Math.round(count / books.length * 100);
-        const color = catColors[cat] || 'bg-gray-400';
-        return `
-          <div class="flex items-center gap-3">
-            <span class="text-sm text-gray-600 w-32 truncate">${cat}</span>
-            <div class="flex-1 bg-gray-100 rounded-full h-2.5">
-              <div class="${color} h-2.5 rounded-full transition-all" style="width: ${pct}%"></div>
+
+      catBreakdown.innerHTML = Object.entries(categories)
+        .sort((a, b) => b[1] - a[1])
+        .map(([cat, count]) => {
+          const pct = Math.round(count / books.length * 100);
+          const color = catColors[cat] || '#6b7280';
+          return `
+            <div class="flex items-center gap-4">
+              <div class="flex items-center gap-2.5 w-32 flex-shrink-0">
+                <div class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background: ${color};"></div>
+                <span class="text-sm text-gray-400 truncate">${cat}</span>
+              </div>
+              <div class="flex-1 cat-progress-bg">
+                <div class="cat-progress-fill" style="width: ${pct}%; background: ${color};"></div>
+              </div>
+              <span class="text-xs font-bold text-gray-400 w-16 text-right">${count} <span class="text-gray-600">(${pct}%)</span></span>
             </div>
-            <span class="text-xs font-semibold text-gray-500 w-12 text-right">${count} (${pct}%)</span>
-          </div>
-        `;
-      }).join('');
+          `;
+        }).join('');
 
       // Recent books (last 5)
       const recentBooks = [...books].reverse().slice(0, 5);
       const recentEl = document.getElementById('recent-books');
-      recentEl.innerHTML = recentBooks.map(book => `
-        <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition-colors">
-          <img src="${book.image}" alt="${book.title}" class="w-10 h-12 object-cover rounded-lg border border-gold/20">
+      recentEl.innerHTML = recentBooks.map((book, i) => `
+        <div class="recent-book-item" style="animation: fadeInUp 0.4s ease ${i * 0.08}s forwards; opacity: 0;">
+          <img src="${book.image}" alt="${book.title}"
+            class="w-11 h-14 object-cover rounded-xl flex-shrink-0" style="border: 1px solid rgba(212,175,55,0.15);">
           <div class="flex-1 min-w-0">
-            <p class="text-sm font-semibold text-charcoal truncate">${book.title}</p>
-            <p class="text-xs text-gray-400">${book.author}</p>
+            <p class="text-sm font-semibold text-gray-200 truncate">${book.title}</p>
+            <p class="text-xs text-gray-500 mt-0.5">${book.author}</p>
           </div>
-          <span class="text-xs font-bold whitespace-nowrap" style="color: var(--gold-dark);">${GoldPage.formatPrice(book.price)}</span>
+          <span class="text-xs font-bold text-gold whitespace-nowrap">${GoldPage.formatPrice(book.price)}</span>
         </div>
       `).join('');
 
@@ -779,47 +1402,52 @@
 
       tbody.innerHTML = books.map(book => `
         <tr>
-          <td class="text-xs text-gray-400 font-mono">#${book.id}</td>
+          <td class="text-xs text-gray-500 font-mono">#${book.id}</td>
           <td>
             <div class="flex items-center gap-3">
-              <img src="${book.image}" alt="${book.title}" class="w-10 h-13 object-cover rounded-lg border border-gold/20 flex-shrink-0">
+              <img src="${book.image}" alt="${book.title}"
+                class="w-10 h-13 object-cover rounded-xl flex-shrink-0" style="border: 1px solid rgba(212,175,55,0.15);">
               <div class="min-w-0">
-                <p class="font-semibold text-sm text-charcoal truncate max-w-[200px]">${book.title}</p>
-                <p class="text-xs text-gray-400">${book.author}</p>
+                <p class="font-semibold text-sm text-gray-200 truncate max-w-[200px]">${book.title}</p>
+                <p class="text-xs text-gray-500">${book.author}</p>
               </div>
             </div>
           </td>
           <td class="hidden md:table-cell">
-            <span class="text-xs px-2.5 py-1 rounded-full font-medium" style="background: rgba(212,175,55,0.1); color: var(--gold-dark);">${book.category}</span>
+            <span class="text-[11px] px-3 py-1.5 rounded-full font-medium"
+              style="background: rgba(212,175,55,0.08); color: #D4AF37; border: 1px solid rgba(212,175,55,0.15);">${book.category}</span>
           </td>
           <td>
             <div>
-              <span class="font-bold text-sm" style="color: var(--gold-dark);">${GoldPage.formatPrice(book.price)}</span>
-              ${book.originalPrice > book.price ? `<br><span class="text-xs text-gray-400 line-through">${GoldPage.formatPrice(book.originalPrice)}</span>` : ''}
+              <span class="font-bold text-sm text-gold">${GoldPage.formatPrice(book.price)}</span>
+              ${book.originalPrice > book.price ? `<br><span class="text-xs text-gray-600 line-through">${GoldPage.formatPrice(book.originalPrice)}</span>` : ''}
             </div>
           </td>
           <td class="hidden lg:table-cell">
-            <div class="flex items-center gap-1">
-              <span class="star-rating text-xs">★</span>
-              <span class="text-sm font-medium">${book.rating}</span>
-              <span class="text-xs text-gray-400">(${book.reviews})</span>
+            <div class="flex items-center gap-1.5">
+              <span class="text-gold text-xs">★</span>
+              <span class="text-sm font-medium text-gray-300">${book.rating}</span>
+              <span class="text-xs text-gray-600">(${book.reviews})</span>
             </div>
           </td>
           <td class="hidden lg:table-cell">
-            ${book.badge === 'bestseller' ? '<span class="text-[10px] px-2 py-0.5 rounded-full font-bold badge-gold">BESTSELLER</span>' :
-          book.badge === 'limited' ? '<span class="text-[10px] px-2 py-0.5 rounded-full font-bold" style="background: var(--dark); color: var(--gold); border: 1px solid var(--gold);">LIMITED</span>' :
-            '<span class="text-xs text-gray-300">—</span>'}
+            ${book.badge === 'bestseller' ? '<span class="text-[10px] px-3 py-1 rounded-full font-bold badge-bestseller-dark">BESTSELLER</span>' :
+          book.badge === 'limited' ? '<span class="text-[10px] px-3 py-1 rounded-full font-bold badge-limited-dark">LIMITED</span>' :
+            '<span class="text-xs text-gray-600">—</span>'}
           </td>
           <td class="text-right">
-            <div class="flex items-center justify-end gap-1.5">
-              <button onclick="openEditModal(${book.id})" class="p-2 rounded-lg hover:bg-gold/10 transition-colors group" title="Sửa">
-                <i data-lucide="pencil" class="w-4 h-4 text-gray-400 group-hover:text-gold"></i>
+            <div class="flex items-center justify-end gap-1">
+              <button onclick="openEditModal(${book.id})"
+                class="p-2.5 rounded-xl hover:bg-gold/10 transition-all group" title="Sửa">
+                <i data-lucide="pencil" class="w-4 h-4 text-gray-500 group-hover:text-gold"></i>
               </button>
-              <button onclick="confirmDelete(${book.id})" class="p-2 rounded-lg hover:bg-red-50 transition-colors group" title="Xóa">
-                <i data-lucide="trash-2" class="w-4 h-4 text-gray-400 group-hover:text-wine"></i>
+              <button onclick="confirmDelete(${book.id})"
+                class="p-2.5 rounded-xl hover:bg-red-500/10 transition-all group" title="Xóa">
+                <i data-lucide="trash-2" class="w-4 h-4 text-gray-500 group-hover:text-red-400"></i>
               </button>
-              <a href="product-detail.html?id=${book.id}" target="_blank" class="p-2 rounded-lg hover:bg-blue-50 transition-colors group" title="Xem">
-                <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-blue-500"></i>
+              <a href="product-detail.html?id=${book.id}" target="_blank"
+                class="p-2.5 rounded-xl hover:bg-blue-500/10 transition-all group" title="Xem">
+                <i data-lucide="external-link" class="w-4 h-4 text-gray-500 group-hover:text-blue-400"></i>
               </a>
             </div>
           </td>
@@ -863,7 +1491,11 @@
     // ===== Modal: Add Book =====
     function openAddModal() {
       editingBookId = null;
-      document.getElementById('modal-title').innerHTML = '<i data-lucide="plus-circle" class="w-5 h-5 text-gold"></i> Thêm sách mới';
+      document.getElementById('modal-title').innerHTML = `
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: rgba(212,175,55,0.12);">
+          <i data-lucide="plus-circle" class="w-4 h-4 text-gold"></i>
+        </div>
+        Thêm sách mới`;
       document.getElementById('modal-submit-text').textContent = 'Thêm sách';
       clearForm();
       document.getElementById('book-modal').classList.add('active');
@@ -877,7 +1509,11 @@
       if (!book) return;
 
       editingBookId = bookId;
-      document.getElementById('modal-title').innerHTML = '<i data-lucide="pencil" class="w-5 h-5 text-gold"></i> Chỉnh sửa sách';
+      document.getElementById('modal-title').innerHTML = `
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: rgba(212,175,55,0.12);">
+          <i data-lucide="pencil" class="w-4 h-4 text-gold"></i>
+        </div>
+        Chỉnh sửa sách`;
       document.getElementById('modal-submit-text').textContent = 'Lưu thay đổi';
 
       // Fill form
@@ -1017,6 +1653,196 @@
       a.click();
       URL.revokeObjectURL(url);
       GoldPage.showToast('Đã xuất dữ liệu JSON thành công! 📥');
+    }
+
+    // ===== Revenue Page =====
+    function renderRevenue() {
+      const stats = GoldPage.getRevenueStats();
+      const orders = GoldPage.getOrders();
+
+      // Update stat cards
+      document.getElementById('rev-total').textContent = GoldPage.formatPrice(stats.totalRevenue);
+      document.getElementById('rev-today').textContent = GoldPage.formatPrice(stats.todayRevenue);
+      document.getElementById('rev-orders').textContent = stats.totalOrders;
+      document.getElementById('rev-avg').textContent = GoldPage.formatPrice(stats.avgOrderValue);
+      document.getElementById('rev-month').textContent = GoldPage.formatPrice(stats.monthRevenue);
+      document.getElementById('rev-items-sold').textContent = stats.totalItemsSold;
+      document.getElementById('rev-month-orders').textContent = stats.monthOrders;
+
+      // Render order cards
+      const ordersList = document.getElementById('orders-list');
+      const emptyState = document.getElementById('orders-empty');
+
+      if (orders.length === 0) {
+        ordersList.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        lucide.createIcons();
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+
+      const paymentIcons = {
+        'Thanh toán khi nhận hàng (COD)': 'banknote',
+        'Chuyển khoản ngân hàng': 'landmark',
+        'Thẻ tín dụng / Ghi nợ': 'credit-card',
+        'Ví MoMo / ZaloPay': 'wallet',
+        'cod': 'banknote'
+      };
+
+      const statusColors = {
+        'completed': { bg: 'rgba(34,197,94,0.1)', text: '#22c55e', border: 'rgba(34,197,94,0.2)', label: 'Hoàn thành' },
+        'pending': { bg: 'rgba(245,158,11,0.1)', text: '#f59e0b', border: 'rgba(245,158,11,0.2)', label: 'Đang xử lý' },
+        'cancelled': { bg: 'rgba(239,68,68,0.1)', text: '#ef4444', border: 'rgba(239,68,68,0.2)', label: 'Đã hủy' }
+      };
+
+      ordersList.innerHTML = orders.map((order, idx) => {
+        const date = new Date(order.date);
+        const dateStr = date.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        const timeStr = date.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+        const status = statusColors[order.status] || statusColors['completed'];
+        const payIcon = paymentIcons[order.paymentMethod] || 'credit-card';
+        const totalItems = (order.items || []).reduce((s, i) => s + (i.qty || 0), 0);
+
+        return `
+          <div class="glass-card overflow-hidden" style="animation: fadeInUp 0.4s ease ${idx * 0.06}s forwards; opacity: 0;">
+            <!-- Card Header -->
+            <div class="px-5 py-4 flex items-center justify-between" style="background: rgba(212,175,55,0.03); border-bottom: 1px solid rgba(212,175,55,0.08);">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: rgba(212,175,55,0.1);">
+                  <i data-lucide="receipt" class="w-4 h-4 text-gold"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-bold text-gray-200">#GP-${order.code}</p>
+                  <p class="text-[11px] text-gray-500">${dateStr} · ${timeStr}</p>
+                </div>
+              </div>
+              <span class="text-[10px] px-2.5 py-1 rounded-full font-bold uppercase tracking-wider"
+                style="background: ${status.bg}; color: ${status.text}; border: 1px solid ${status.border};">
+                ${status.label}
+              </span>
+            </div>
+
+            <!-- Card Body -->
+            <div class="px-5 py-4 space-y-4">
+              <!-- Customer Info -->
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(212,175,55,0.1));">
+                  <i data-lucide="user" class="w-3.5 h-3.5 text-gold"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-200 truncate">${order.customer?.name || 'Khách hàng'}</p>
+                  <p class="text-[11px] text-gray-500 truncate">${order.customer?.phone || ''} ${order.customer?.email ? '· ' + order.customer.email : ''}</p>
+                </div>
+              </div>
+
+              <!-- Items Preview -->
+              <div>
+                <p class="text-[10px] text-gray-500 uppercase tracking-widest font-semibold mb-2">Sản phẩm (${totalItems})</p>
+                <div class="space-y-2">
+                  ${(order.items || []).slice(0, 3).map(item => `
+                    <div class="flex items-center gap-3">
+                      <img src="${item.image}" alt="${item.title}" class="w-8 h-10 object-cover rounded-lg flex-shrink-0" style="border: 1px solid rgba(212,175,55,0.12);">
+                      <div class="flex-1 min-w-0">
+                        <p class="text-xs font-medium text-gray-300 truncate">${item.title}</p>
+                        <p class="text-[11px] text-gray-500">${item.qty} × ${GoldPage.formatPrice(item.price)}</p>
+                      </div>
+                    </div>
+                  `).join('')}
+                  ${(order.items || []).length > 3 ? `<p class="text-[11px] text-gray-500 italic">+${order.items.length - 3} sản phẩm khác...</p>` : ''}
+                </div>
+              </div>
+
+              <!-- Payment Method -->
+              <div class="flex items-center gap-2 text-xs text-gray-500">
+                <i data-lucide="${payIcon}" class="w-3.5 h-3.5 text-gray-500"></i>
+                <span>${order.paymentMethod || 'COD'}</span>
+              </div>
+            </div>
+
+            <!-- Card Footer -->
+            <div class="px-5 py-4 flex items-center justify-between" style="background: rgba(212,175,55,0.03); border-top: 1px solid rgba(212,175,55,0.08);">
+              <div class="space-y-0.5">
+                ${order.discount > 0 ? `<p class="text-[11px] text-emerald-400">Giảm: -${GoldPage.formatPrice(order.discount)}</p>` : ''}
+                ${order.shipping > 0 ? `<p class="text-[11px] text-gray-500">Ship: ${GoldPage.formatPrice(order.shipping)}</p>` : '<p class="text-[11px] text-emerald-400">Miễn phí ship</p>'}
+              </div>
+              <div class="text-right">
+                <p class="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">Tổng</p>
+                <p class="text-lg font-bold text-gold">${GoldPage.formatPrice(order.total)}</p>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    // ===== Add Sample Order (for testing) =====
+    function addSampleOrder() {
+      const books = GoldPage.books;
+      // Pick 1-3 random books
+      const shuffled = [...books].sort(() => 0.5 - Math.random());
+      const count = Math.floor(Math.random() * 3) + 1;
+      const selectedBooks = shuffled.slice(0, count);
+
+      const items = selectedBooks.map(book => ({
+        id: book.id,
+        title: book.title,
+        author: book.author,
+        price: book.price,
+        qty: Math.floor(Math.random() * 3) + 1,
+        image: book.image,
+        category: book.category
+      }));
+
+      const subtotal = items.reduce((sum, i) => sum + i.price * i.qty, 0);
+      const shipping = subtotal >= 500000 ? 0 : 30000;
+      const discount = Math.random() > 0.6 ? Math.round(subtotal * 0.1) : 0;
+      const total = subtotal + shipping - discount;
+
+      const customerNames = [
+        'Nguyễn Văn An', 'Trần Thị Bích', 'Lê Hoàng Minh',
+        'Phạm Thu Hà', 'Võ Quốc Dũng', 'Đỗ Minh Tâm',
+        'Hoàng Yến Nhi', 'Bùi Đức Anh', 'Ngô Thanh Vân'
+      ];
+      const payments = [
+        'Thanh toán khi nhận hàng (COD)',
+        'Chuyển khoản ngân hàng',
+        'Thẻ tín dụng / Ghi nợ',
+        'Ví MoMo / ZaloPay'
+      ];
+
+      const name = customerNames[Math.floor(Math.random() * customerNames.length)];
+      const phone = '09' + Math.floor(10000000 + Math.random() * 90000000);
+
+      GoldPage.addOrder({
+        code: Math.floor(10000 + Math.random() * 90000),
+        customerName: name,
+        phone: phone,
+        email: name.toLowerCase().replace(/\s/g, '.').normalize('NFD').replace(/[\u0300-\u036f]/g, '') + '@gmail.com',
+        address: Math.floor(Math.random() * 500 + 1) + ' Nguyễn Huệ, Quận 1, TP.HCM',
+        items: items,
+        subtotal: subtotal,
+        shipping: shipping,
+        discount: discount,
+        total: total,
+        paymentMethod: payments[Math.floor(Math.random() * payments.length)]
+      });
+
+      GoldPage.showToast('Đã tạo đơn hàng mẫu thành công! 📦');
+      renderRevenue();
+    }
+
+    // ===== Clear All Orders =====
+    function clearAllOrders() {
+      if (GoldPage.getOrders().length === 0) {
+        GoldPage.showToast('Không có đơn hàng nào để xóa', 'error');
+        return;
+      }
+      GoldPage.clearOrders();
+      GoldPage.showToast('Đã xóa tất cả đơn hàng! 🗑️');
+      renderRevenue();
     }
   </script>
 </body>
