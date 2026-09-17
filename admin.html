@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — GoldPage | Quản Lý Sách</title>
+  <meta name="description" content="Trang quản trị GoldPage — Quản lý sách, thêm, sửa, xóa sản phẩm.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap"
+    rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory: '#FFFDF7', dark: '#12100D',
+            gold: { DEFAULT: '#D4AF37', light: '#F4E5A1', dark: '#A67C00' },
+            wine: '#5C1A1B', navy: '#0B1E3D', cream: '#FDF6E3', charcoal: '#1A1A1A',
+          },
+          fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    /* Admin-specific styles */
+    .admin-sidebar {
+      background: linear-gradient(180deg, #0B1E3D 0%, #12100D 100%);
+      min-height: 100vh;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      color: #9ca3af;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .nav-item:hover {
+      color: #FDF6E3;
+      background: rgba(212, 175, 55, 0.08);
+    }
+
+    .nav-item.active {
+      color: var(--gold);
+      background: rgba(212, 175, 55, 0.12);
+      font-weight: 600;
+    }
+
+    .nav-item.active i {
+      color: var(--gold);
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      transition: all 0.3s;
+    }
+
+    .stat-card:hover {
+      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    .admin-table thead th {
+      background: #faf8f2;
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    .admin-table thead th:first-child {
+      border-radius: 12px 0 0 0;
+    }
+
+    .admin-table thead th:last-child {
+      border-radius: 0 12px 0 0;
+    }
+
+    .admin-table tbody td {
+      padding: 14px 16px;
+      font-size: 14px;
+      color: #374151;
+      border-bottom: 1px solid #f3f4f6;
+      vertical-align: middle;
+    }
+
+    .admin-table tbody tr {
+      transition: background 0.15s;
+    }
+
+    .admin-table tbody tr:hover {
+      background: rgba(212, 175, 55, 0.04);
+    }
+
+    /* Modal animation */
+    .admin-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .admin-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .admin-modal .modal-box {
+      background: var(--ivory);
+      border: 2px solid var(--gold);
+      border-radius: 20px;
+      width: 95%;
+      max-width: 720px;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .admin-modal.active .modal-box {
+      transform: scale(1) translateY(0);
+    }
+
+    /* Delete confirm */
+    .delete-modal .modal-box {
+      max-width: 420px;
+    }
+
+    /* Mobile sidebar */
+    @media (max-width: 1023px) {
+      .admin-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 280px;
+        z-index: 990;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .admin-sidebar.open {
+        transform: translateX(0);
+      }
+
+      .sidebar-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 989;
+        display: none;
+      }
+
+      .sidebar-overlay.active {
+        display: block;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 font-sans text-charcoal">
+
+  <!-- Mobile Sidebar Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <div class="flex">
+    <!-- ============================================================
+         ADMIN SIDEBAR
+         ============================================================ -->
+    <aside id="admin-sidebar" class="admin-sidebar w-[280px] flex-shrink-0 p-6 flex flex-col">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-3 mb-10">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center"
+          style="background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00);">
+          <i data-lucide="book-open" class="w-5 h-5 text-dark"></i>
+        </div>
+        <div>
+          <span class="font-serif text-xl font-bold text-gold">GoldPage</span>
+          <p class="text-[10px] text-gray-500 -mt-0.5 tracking-widest uppercase">Admin Panel</p>
+        </div>
+      </a>
+
+      <!-- Navigation -->
+      <nav class="space-y-1.5 flex-1">
+        <div class="nav-item active" data-section="dashboard" onclick="showSection('dashboard')">
+          <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+          Dashboard
+        </div>
+        <div class="nav-item" data-section="books" onclick="showSection('books')">
+          <i data-lucide="library" class="w-5 h-5"></i>
+          Quản lý sách
+        </div>
+        <div class="nav-item" data-section="add-book" onclick="openAddModal()">
+          <i data-lucide="plus-circle" class="w-5 h-5"></i>
+          Thêm sách mới
+        </div>
+
+        <div class="mt-6 mb-3 px-4">
+          <p class="text-[10px] text-gray-600 uppercase tracking-widest font-semibold">Liên kết nhanh</p>
+        </div>
+        <a href="index.html" class="nav-item">
+          <i data-lucide="home" class="w-5 h-5"></i>
+          Xem cửa hàng
+        </a>
+        <a href="products.html" class="nav-item">
+          <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+          Trang sản phẩm
+        </a>
+      </nav>
+
+      <!-- Admin Profile -->
+      <div class="mt-auto pt-6 border-t border-gold/10">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center"
+            style="background: linear-gradient(135deg, #F4E5A1, #D4AF37);">
+            <i data-lucide="user" class="w-5 h-5 text-dark"></i>
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-cream">Admin</p>
+            <p class="text-[11px] text-gray-500">admin@goldpage.vn</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============================================================
+         MAIN CONTENT
+         ============================================================ -->
+    <main class="flex-1 min-h-screen">
+      <!-- Top Bar -->
+      <header class="bg-white border-b border-gray-100 sticky top-0 z-40">
+        <div class="px-6 py-4 flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-gray-100 transition-colors">
+              <i data-lucide="menu" class="w-5 h-5 text-charcoal"></i>
+            </button>
+            <h1 id="page-title" class="font-serif text-xl font-bold text-charcoal">Dashboard</h1>
+          </div>
+          <div class="flex items-center gap-3">
+            <button onclick="openAddModal()"
+              class="btn-gold ripple px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span class="hidden sm:inline">Thêm sách mới</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div class="p-6 md:p-8">
+        <!-- ===== DASHBOARD SECTION ===== -->
+        <section id="section-dashboard">
+          <!-- Stats Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
+            <div class="stat-card">
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-11 h-11 rounded-xl flex items-center justify-center bg-blue-50">
+                  <i data-lucide="library" class="w-5 h-5 text-blue-500"></i>
+                </div>
+                <span class="text-xs px-2 py-1 rounded-full bg-green-50 text-green-600 font-semibold">Live</span>
+              </div>
+              <p id="stat-total" class="text-3xl font-bold text-charcoal">0</p>
+              <p class="text-sm text-gray-400 mt-1">Tổng số sách</p>
+            </div>
+            <div class="stat-card">
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-11 h-11 rounded-xl flex items-center justify-center bg-amber-50">
+                  <i data-lucide="flame" class="w-5 h-5 text-amber-500"></i>
+                </div>
+                <span class="text-xs px-2 py-1 rounded-full bg-amber-50 text-amber-600 font-semibold">Hot</span>
+              </div>
+              <p id="stat-bestseller" class="text-3xl font-bold text-charcoal">0</p>
+              <p class="text-sm text-gray-400 mt-1">Bestsellers</p>
+            </div>
+            <div class="stat-card">
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-11 h-11 rounded-xl flex items-center justify-center bg-purple-50">
+                  <i data-lucide="crown" class="w-5 h-5 text-purple-500"></i>
+                </div>
+                <span class="text-xs px-2 py-1 rounded-full bg-purple-50 text-purple-600 font-semibold">Exclusive</span>
+              </div>
+              <p id="stat-limited" class="text-3xl font-bold text-charcoal">0</p>
+              <p class="text-sm text-gray-400 mt-1">Limited Edition</p>
+            </div>
+            <div class="stat-card">
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-11 h-11 rounded-xl flex items-center justify-center bg-green-50">
+                  <i data-lucide="banknote" class="w-5 h-5 text-green-500"></i>
+                </div>
+              </div>
+              <p id="stat-revenue" class="text-3xl font-bold text-charcoal">0</p>
+              <p class="text-sm text-gray-400 mt-1">Tổng giá trị kho</p>
+            </div>
+          </div>
+
+          <!-- Category Breakdown -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Categories -->
+            <div class="bg-white rounded-2xl p-6 border border-gray-100">
+              <h3 class="font-serif text-lg font-bold text-charcoal mb-5 flex items-center gap-2">
+                <i data-lucide="pie-chart" class="w-5 h-5 text-gold"></i>
+                Theo thể loại
+              </h3>
+              <div id="category-breakdown" class="space-y-3">
+                <!-- Generated by JS -->
+              </div>
+            </div>
+
+            <!-- Recent Books -->
+            <div class="bg-white rounded-2xl p-6 border border-gray-100">
+              <h3 class="font-serif text-lg font-bold text-charcoal mb-5 flex items-center gap-2">
+                <i data-lucide="clock" class="w-5 h-5 text-gold"></i>
+                Sách mới thêm gần đây
+              </h3>
+              <div id="recent-books" class="space-y-3">
+                <!-- Generated by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="bg-white rounded-2xl p-6 border border-gray-100">
+            <h3 class="font-serif text-lg font-bold text-charcoal mb-5 flex items-center gap-2">
+              <i data-lucide="zap" class="w-5 h-5 text-gold"></i>
+              Thao tác nhanh
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              <button onclick="openAddModal()"
+                class="btn-gold ripple px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
+                <i data-lucide="plus" class="w-4 h-4"></i> Thêm sách mới
+              </button>
+              <button onclick="showSection('books')"
+                class="btn-gold-outline px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
+                <i data-lucide="list" class="w-4 h-4"></i> Xem tất cả sách
+              </button>
+              <button onclick="exportData()"
+                class="btn-gold-outline px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
+                <i data-lucide="download" class="w-4 h-4"></i> Xuất dữ liệu JSON
+              </button>
+              <button onclick="confirmResetAll()"
+                class="px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 border border-red-200 text-red-600 hover:bg-red-50 transition-colors">
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Khôi phục mặc định
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== BOOKS MANAGEMENT SECTION ===== -->
+        <section id="section-books" class="hidden">
+          <!-- Search + Filter Bar -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-6">
+            <div class="relative flex-1 max-w-md">
+              <i data-lucide="search" class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+              <input type="text" id="admin-search" placeholder="Tìm theo tên sách, tác giả..."
+                class="w-full pl-11 pr-4 py-2.5 rounded-xl text-sm input-gold bg-white" oninput="filterBooks()">
+            </div>
+            <div class="flex items-center gap-3">
+              <select id="admin-category-filter"
+                class="px-4 py-2.5 rounded-xl text-sm input-gold bg-white cursor-pointer" onchange="filterBooks()">
+                <option value="">Tất cả thể loại</option>
+                <option value="Văn học">Văn học</option>
+                <option value="Kỹ năng sống">Kỹ năng sống</option>
+                <option value="Kinh doanh">Kinh doanh</option>
+                <option value="Thiếu nhi">Thiếu nhi</option>
+                <option value="Ngoại văn">Ngoại văn</option>
+                <option value="Sách quý hiếm">Sách quý hiếm</option>
+              </select>
+              <select id="admin-badge-filter" class="px-4 py-2.5 rounded-xl text-sm input-gold bg-white cursor-pointer"
+                onchange="filterBooks()">
+                <option value="">Tất cả badge</option>
+                <option value="bestseller">Bestseller</option>
+                <option value="limited">Limited</option>
+                <option value="">Không badge</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Books Table -->
+          <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Sách</th>
+                    <th class="hidden md:table-cell">Thể loại</th>
+                    <th>Giá bán</th>
+                    <th class="hidden lg:table-cell">Rating</th>
+                    <th class="hidden lg:table-cell">Badge</th>
+                    <th class="text-right">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="books-table-body">
+                  <!-- Generated by JS -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Empty State -->
+            <div id="books-empty" class="hidden text-center py-16 px-6">
+              <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4"
+                style="background: rgba(212,175,55,0.1); border: 1px dashed var(--gold);">
+                <i data-lucide="search-x" class="w-8 h-8 text-gold opacity-40"></i>
+              </div>
+              <h3 class="font-serif text-lg font-bold text-charcoal mb-1">Không tìm thấy sách</h3>
+              <p class="text-sm text-gray-400">Thử thay đổi bộ lọc hoặc thêm sách mới.</p>
+            </div>
+          </div>
+
+          <!-- Table Footer Info -->
+          <div class="flex items-center justify-between mt-4">
+            <p class="text-sm text-gray-400">Hiển thị <span id="shown-count"
+                class="font-semibold text-charcoal">0</span> / <span id="total-count"
+                class="font-semibold text-charcoal">0</span> sách</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- ============================================================
+       ADD / EDIT BOOK MODAL
+       ============================================================ -->
+  <div id="book-modal" class="admin-modal">
+    <div class="modal-box">
+      <!-- Modal Header -->
+      <div
+        class="px-6 py-5 border-b border-gold/20 flex items-center justify-between sticky top-0 bg-ivory rounded-t-2xl z-10">
+        <h3 id="modal-title" class="font-serif text-xl font-bold text-charcoal flex items-center gap-2">
+          <i data-lucide="plus-circle" class="w-5 h-5 text-gold"></i>
+          Thêm sách mới
+        </h3>
+        <button onclick="closeModal()"
+          class="text-gray-400 hover:text-charcoal transition-colors p-1.5 rounded-lg hover:bg-gray-100">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="px-6 py-6">
+        <form id="book-form" onsubmit="event.preventDefault(); saveBookForm();">
+          <input type="hidden" id="form-book-id" value="">
+
+          <!-- Preview Card -->
+          <div class="mb-6 p-4 rounded-xl bg-white border border-gold/10 flex gap-4">
+            <img id="form-preview-img"
+              src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=560&fit=crop" alt="Preview"
+              class="w-16 h-20 object-cover rounded-lg gold-border">
+            <div>
+              <p id="form-preview-title" class="font-serif font-bold text-charcoal text-sm">Tên sách mới</p>
+              <p id="form-preview-author" class="text-xs text-gray-500 mt-0.5">Tác giả</p>
+              <p id="form-preview-price" class="text-sm font-bold mt-1" style="color: var(--gold-dark);">0đ</p>
+            </div>
+          </div>
+
+          <!-- Basic Info -->
+          <div class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-charcoal mb-1.5">Tên sách <span
+                    class="text-wine">*</span></label>
+                <input type="text" id="form-title" required placeholder="VD: Nhà Giả Kim"
+                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold" oninput="updatePreview()">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-charcoal mb-1.5">Tác giả <span
+                    class="text-wine">*</span></label>
+                <input type="text" id="form-author" required placeholder="VD: Paulo Coelho"
+                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold" oninput="updatePreview()">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-charcoal mb-1.5">Giá bán (đ) <span
+                    class="text-wine">*</span></label>
+                <input type="number" id="form-price" required min="0" placeholder="89000"
+                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold" oninput="updatePreview()">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-charcoal mb-1.5">Giá gốc (đ)</label>
+                <input type="number" id="form-original-price" min="0" placeholder="129000"
+                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-charcoal mb-1.5">Thể loại <span
+                    class="text-wine">*</span></label>
+                <select id="form-category" required
+                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold bg-white cursor-pointer">
+                  <option value="">— Chọn —</option>
+                  <option value="Văn học">Văn học</option>
+                  <option value="Kỹ năng sống">Kỹ năng sống</option>
+                  <option value="Kinh doanh">Kinh doanh</option>
+                  <option value="Thiếu nhi">Thiếu nhi</option>
+                  <option value="Ngoại văn">Ngoại văn</option>
+                  <option value="Sách quý hiếm">Sách quý hiếm</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-charcoal mb-1.5">Badge</label>
+                <select id="form-badge"
+                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold bg-white cursor-pointer">
+                  <option value="">Không</option>
+                  <option value="bestseller">Bestseller</option>
+                  <option value="limited">Limited Edition</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-charcoal mb-1.5">Rating</label>
+                <input type="number" id="form-rating" min="0" max="5" step="0.1" placeholder="4.5"
+                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-charcoal mb-1.5">Lượt đánh giá</label>
+                <input type="number" id="form-reviews" min="0" placeholder="100"
+                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-charcoal mb-1.5">URL Ảnh bìa</label>
+              <div class="flex gap-2">
+                <input type="url" id="form-image" placeholder="https://images.unsplash.com/photo-..."
+                  class="flex-1 px-4 py-2.5 rounded-xl text-sm input-gold" oninput="updatePreview()">
+                <button type="button"
+                  onclick="document.getElementById('form-image').value='https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=560&fit=crop'; updatePreview();"
+                  class="px-3 py-2.5 rounded-xl text-sm font-medium text-gold border border-gold/30 hover:bg-gold/5 transition-colors whitespace-nowrap">
+                  Mặc định
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-charcoal mb-1.5">Mô tả</label>
+              <textarea id="form-description" rows="3" placeholder="Giới thiệu ngắn về nội dung cuốn sách..."
+                class="w-full px-4 py-2.5 rounded-xl text-sm input-gold resize-none"></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-charcoal mb-1.5">Nhà xuất bản</label>
+                <input type="text" id="form-publisher" placeholder="NXB Trẻ"
+                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-charcoal mb-1.5">Số trang</label>
+                <input type="number" id="form-pages" min="0" placeholder="320"
+                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-charcoal mb-1.5">Năm XB</label>
+                <input type="number" id="form-year" min="1900" max="2030" placeholder="2024"
+                  class="w-full px-4 py-2.5 rounded-xl text-sm input-gold">
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex justify-end gap-3 mt-8 pt-6 border-t border-gold/10">
+            <button type="button" onclick="closeModal()"
+              class="px-6 py-2.5 rounded-xl text-sm font-semibold text-gray-500 hover:bg-gray-100 transition-colors">
+              Hủy
+            </button>
+            <button type="submit"
+              class="btn-gold ripple px-8 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
+              <i data-lucide="save" class="w-4 h-4"></i>
+              <span id="modal-submit-text">Thêm sách</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       DELETE CONFIRMATION MODAL
+       ============================================================ -->
+  <div id="delete-modal" class="admin-modal delete-modal">
+    <div class="modal-box p-8 text-center">
+      <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
+        style="background: rgba(92,26,27,0.1);">
+        <i data-lucide="trash-2" class="w-8 h-8 text-wine"></i>
+      </div>
+      <h3 class="font-serif text-xl font-bold text-charcoal mb-2">Xóa sách này?</h3>
+      <p class="text-sm text-gray-500 mb-2">Bạn có chắc muốn xóa:</p>
+      <p id="delete-book-title" class="font-semibold text-charcoal mb-6">"Tên sách"</p>
+      <div class="flex gap-3 justify-center">
+        <button onclick="closeDeleteModal()"
+          class="px-6 py-2.5 rounded-xl text-sm font-semibold text-gray-500 hover:bg-gray-100 transition-colors">
+          Hủy
+        </button>
+        <button id="delete-confirm-btn"
+          class="px-6 py-2.5 rounded-xl text-sm font-bold text-white bg-wine hover:bg-red-800 transition-colors flex items-center gap-2">
+          <i data-lucide="trash-2" class="w-4 h-4"></i>
+          Xóa vĩnh viễn
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       RESET CONFIRMATION MODAL
+       ============================================================ -->
+  <div id="reset-modal" class="admin-modal delete-modal">
+    <div class="modal-box p-8 text-center">
+      <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
+        style="background: rgba(212,175,55,0.1);">
+        <i data-lucide="rotate-ccw" class="w-8 h-8 text-gold"></i>
+      </div>
+      <h3 class="font-serif text-xl font-bold text-charcoal mb-2">Khôi phục mặc định?</h3>
+      <p class="text-sm text-gray-500 mb-6">Toàn bộ thay đổi sẽ bị xóa và dữ liệu sẽ quay về 12 cuốn sách ban đầu.</p>
+      <div class="flex gap-3 justify-center">
+        <button onclick="document.getElementById('reset-modal').classList.remove('active')"
+          class="px-6 py-2.5 rounded-xl text-sm font-semibold text-gray-500 hover:bg-gray-100 transition-colors">
+          Hủy
+        </button>
+        <button onclick="resetAllBooks()"
+          class="btn-gold ripple px-6 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
+          <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+          Khôi phục
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script src="js/app.js"></script>
+
+  <script>
+    // ===== State =====
+    let currentSection = 'dashboard';
+    let editingBookId = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderDashboard();
+      lucide.createIcons();
+    });
+
+    // ===== Sidebar Section Toggle =====
+    function showSection(section) {
+      currentSection = section;
+
+      // Update nav
+      document.querySelectorAll('.nav-item[data-section]').forEach(item => {
+        item.classList.toggle('active', item.dataset.section === section);
+      });
+
+      // Show/hide sections
+      document.getElementById('section-dashboard').classList.toggle('hidden', section !== 'dashboard');
+      document.getElementById('section-books').classList.toggle('hidden', section !== 'books');
+
+      // Update page title
+      const titles = { dashboard: 'Dashboard', books: 'Quản Lý Sách' };
+      document.getElementById('page-title').textContent = titles[section] || 'Admin';
+
+      if (section === 'dashboard') renderDashboard();
+      if (section === 'books') renderBooksTable();
+
+      // Close mobile sidebar
+      closeSidebar();
+      lucide.createIcons();
+    }
+
+    // ===== Mobile Sidebar =====
+    function toggleSidebar() {
+      document.getElementById('admin-sidebar').classList.toggle('open');
+      document.getElementById('sidebar-overlay').classList.toggle('active');
+    }
+    function closeSidebar() {
+      document.getElementById('admin-sidebar').classList.remove('open');
+      document.getElementById('sidebar-overlay').classList.remove('active');
+    }
+
+    // ===== Dashboard =====
+    function renderDashboard() {
+      const books = GoldPage.books;
+      const totalRevenue = books.reduce((sum, b) => sum + b.price, 0);
+
+      document.getElementById('stat-total').textContent = books.length;
+      document.getElementById('stat-bestseller').textContent = books.filter(b => b.badge === 'bestseller').length;
+      document.getElementById('stat-limited').textContent = books.filter(b => b.badge === 'limited').length;
+      document.getElementById('stat-revenue').textContent = GoldPage.formatPrice(totalRevenue);
+
+      // Category breakdown
+      const categories = {};
+      books.forEach(b => {
+        categories[b.category] = (categories[b.category] || 0) + 1;
+      });
+      const catBreakdown = document.getElementById('category-breakdown');
+      const catColors = {
+        'Văn học': 'bg-blue-500', 'Kỹ năng sống': 'bg-amber-500', 'Kinh doanh': 'bg-green-500',
+        'Thiếu nhi': 'bg-pink-500', 'Ngoại văn': 'bg-purple-500', 'Sách quý hiếm': 'bg-yellow-600'
+      };
+      catBreakdown.innerHTML = Object.entries(categories).sort((a, b) => b[1] - a[1]).map(([cat, count]) => {
+        const pct = Math.round(count / books.length * 100);
+        const color = catColors[cat] || 'bg-gray-400';
+        return `
+          <div class="flex items-center gap-3">
+            <span class="text-sm text-gray-600 w-32 truncate">${cat}</span>
+            <div class="flex-1 bg-gray-100 rounded-full h-2.5">
+              <div class="${color} h-2.5 rounded-full transition-all" style="width: ${pct}%"></div>
+            </div>
+            <span class="text-xs font-semibold text-gray-500 w-12 text-right">${count} (${pct}%)</span>
+          </div>
+        `;
+      }).join('');
+
+      // Recent books (last 5)
+      const recentBooks = [...books].reverse().slice(0, 5);
+      const recentEl = document.getElementById('recent-books');
+      recentEl.innerHTML = recentBooks.map(book => `
+        <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition-colors">
+          <img src="${book.image}" alt="${book.title}" class="w-10 h-12 object-cover rounded-lg border border-gold/20">
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-semibold text-charcoal truncate">${book.title}</p>
+            <p class="text-xs text-gray-400">${book.author}</p>
+          </div>
+          <span class="text-xs font-bold whitespace-nowrap" style="color: var(--gold-dark);">${GoldPage.formatPrice(book.price)}</span>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    // ===== Books Table =====
+    function renderBooksTable(filteredBooks) {
+      const books = filteredBooks || GoldPage.books;
+      const tbody = document.getElementById('books-table-body');
+      const emptyState = document.getElementById('books-empty');
+
+      document.getElementById('shown-count').textContent = books.length;
+      document.getElementById('total-count').textContent = GoldPage.books.length;
+
+      if (books.length === 0) {
+        tbody.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+      emptyState.classList.add('hidden');
+
+      tbody.innerHTML = books.map(book => `
+        <tr>
+          <td class="text-xs text-gray-400 font-mono">#${book.id}</td>
+          <td>
+            <div class="flex items-center gap-3">
+              <img src="${book.image}" alt="${book.title}" class="w-10 h-13 object-cover rounded-lg border border-gold/20 flex-shrink-0">
+              <div class="min-w-0">
+                <p class="font-semibold text-sm text-charcoal truncate max-w-[200px]">${book.title}</p>
+                <p class="text-xs text-gray-400">${book.author}</p>
+              </div>
+            </div>
+          </td>
+          <td class="hidden md:table-cell">
+            <span class="text-xs px-2.5 py-1 rounded-full font-medium" style="background: rgba(212,175,55,0.1); color: var(--gold-dark);">${book.category}</span>
+          </td>
+          <td>
+            <div>
+              <span class="font-bold text-sm" style="color: var(--gold-dark);">${GoldPage.formatPrice(book.price)}</span>
+              ${book.originalPrice > book.price ? `<br><span class="text-xs text-gray-400 line-through">${GoldPage.formatPrice(book.originalPrice)}</span>` : ''}
+            </div>
+          </td>
+          <td class="hidden lg:table-cell">
+            <div class="flex items-center gap-1">
+              <span class="star-rating text-xs">★</span>
+              <span class="text-sm font-medium">${book.rating}</span>
+              <span class="text-xs text-gray-400">(${book.reviews})</span>
+            </div>
+          </td>
+          <td class="hidden lg:table-cell">
+            ${book.badge === 'bestseller' ? '<span class="text-[10px] px-2 py-0.5 rounded-full font-bold badge-gold">BESTSELLER</span>' :
+          book.badge === 'limited' ? '<span class="text-[10px] px-2 py-0.5 rounded-full font-bold" style="background: var(--dark); color: var(--gold); border: 1px solid var(--gold);">LIMITED</span>' :
+            '<span class="text-xs text-gray-300">—</span>'}
+          </td>
+          <td class="text-right">
+            <div class="flex items-center justify-end gap-1.5">
+              <button onclick="openEditModal(${book.id})" class="p-2 rounded-lg hover:bg-gold/10 transition-colors group" title="Sửa">
+                <i data-lucide="pencil" class="w-4 h-4 text-gray-400 group-hover:text-gold"></i>
+              </button>
+              <button onclick="confirmDelete(${book.id})" class="p-2 rounded-lg hover:bg-red-50 transition-colors group" title="Xóa">
+                <i data-lucide="trash-2" class="w-4 h-4 text-gray-400 group-hover:text-wine"></i>
+              </button>
+              <a href="product-detail.html?id=${book.id}" target="_blank" class="p-2 rounded-lg hover:bg-blue-50 transition-colors group" title="Xem">
+                <i data-lucide="external-link" class="w-4 h-4 text-gray-400 group-hover:text-blue-500"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    // ===== Filter Books =====
+    function filterBooks() {
+      const search = document.getElementById('admin-search').value.trim().toLowerCase();
+      const category = document.getElementById('admin-category-filter').value;
+      const badge = document.getElementById('admin-badge-filter').value;
+
+      let filtered = [...GoldPage.books];
+
+      if (search) {
+        filtered = filtered.filter(b =>
+          b.title.toLowerCase().includes(search) ||
+          b.author.toLowerCase().includes(search)
+        );
+      }
+      if (category) {
+        filtered = filtered.filter(b => b.category === category);
+      }
+      if (badge !== undefined && badge !== '') {
+        // The third option "Không badge" also has value=""
+        // We need to differentiate: if select index is 3 (no badge) vs 0 (all)
+        const selectEl = document.getElementById('admin-badge-filter');
+        if (selectEl.selectedIndex === 3) {
+          filtered = filtered.filter(b => !b.badge);
+        } else if (badge) {
+          filtered = filtered.filter(b => b.badge === badge);
+        }
+      }
+
+      renderBooksTable(filtered);
+    }
+
+    // ===== Modal: Add Book =====
+    function openAddModal() {
+      editingBookId = null;
+      document.getElementById('modal-title').innerHTML = '<i data-lucide="plus-circle" class="w-5 h-5 text-gold"></i> Thêm sách mới';
+      document.getElementById('modal-submit-text').textContent = 'Thêm sách';
+      clearForm();
+      document.getElementById('book-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
+    }
+
+    // ===== Modal: Edit Book =====
+    function openEditModal(bookId) {
+      const book = GoldPage.books.find(b => b.id === bookId);
+      if (!book) return;
+
+      editingBookId = bookId;
+      document.getElementById('modal-title').innerHTML = '<i data-lucide="pencil" class="w-5 h-5 text-gold"></i> Chỉnh sửa sách';
+      document.getElementById('modal-submit-text').textContent = 'Lưu thay đổi';
+
+      // Fill form
+      document.getElementById('form-book-id').value = book.id;
+      document.getElementById('form-title').value = book.title;
+      document.getElementById('form-author').value = book.author;
+      document.getElementById('form-price').value = book.price;
+      document.getElementById('form-original-price').value = book.originalPrice || '';
+      document.getElementById('form-category').value = book.category;
+      document.getElementById('form-badge').value = book.badge || '';
+      document.getElementById('form-rating').value = book.rating;
+      document.getElementById('form-reviews').value = book.reviews;
+      document.getElementById('form-image').value = book.image;
+      document.getElementById('form-description').value = book.description;
+      document.getElementById('form-publisher').value = book.publisher;
+      document.getElementById('form-pages').value = book.pages;
+      document.getElementById('form-year').value = book.year;
+
+      updatePreview();
+      document.getElementById('book-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
+    }
+
+    function closeModal() {
+      document.getElementById('book-modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function clearForm() {
+      document.getElementById('book-form').reset();
+      document.getElementById('form-book-id').value = '';
+      document.getElementById('form-preview-img').src = 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=560&fit=crop';
+      document.getElementById('form-preview-title').textContent = 'Tên sách mới';
+      document.getElementById('form-preview-author').textContent = 'Tác giả';
+      document.getElementById('form-preview-price').textContent = '0đ';
+    }
+
+    function updatePreview() {
+      const title = document.getElementById('form-title').value || 'Tên sách mới';
+      const author = document.getElementById('form-author').value || 'Tác giả';
+      const price = parseInt(document.getElementById('form-price').value) || 0;
+      const image = document.getElementById('form-image').value || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=560&fit=crop';
+
+      document.getElementById('form-preview-title').textContent = title;
+      document.getElementById('form-preview-author').textContent = author;
+      document.getElementById('form-preview-price').textContent = GoldPage.formatPrice(price);
+      document.getElementById('form-preview-img').src = image;
+    }
+
+    // ===== Save Book (Add or Edit) =====
+    function saveBookForm() {
+      const bookData = {
+        title: document.getElementById('form-title').value.trim(),
+        author: document.getElementById('form-author').value.trim(),
+        price: document.getElementById('form-price').value,
+        originalPrice: document.getElementById('form-original-price').value || 0,
+        category: document.getElementById('form-category').value,
+        badge: document.getElementById('form-badge').value,
+        rating: document.getElementById('form-rating').value || 4.5,
+        reviews: document.getElementById('form-reviews').value || 0,
+        image: document.getElementById('form-image').value || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=560&fit=crop',
+        description: document.getElementById('form-description').value.trim(),
+        publisher: document.getElementById('form-publisher').value.trim(),
+        pages: document.getElementById('form-pages').value || 0,
+        year: document.getElementById('form-year').value || new Date().getFullYear()
+      };
+
+      if (!bookData.title || !bookData.author || !bookData.price || !bookData.category) {
+        GoldPage.showToast('Vui lòng điền đầy đủ thông tin bắt buộc (*)', 'error');
+        return;
+      }
+
+      if (editingBookId) {
+        // Update
+        GoldPage.updateBook(editingBookId, bookData);
+        GoldPage.showToast(`Đã cập nhật "${bookData.title}" thành công! ✅`);
+      } else {
+        // Add new
+        GoldPage.addBook(bookData);
+        GoldPage.showToast(`Đã thêm "${bookData.title}" thành công! 🎉`);
+      }
+
+      closeModal();
+      renderDashboard();
+      if (currentSection === 'books') renderBooksTable();
+    }
+
+    // ===== Delete Book =====
+    function confirmDelete(bookId) {
+      const book = GoldPage.books.find(b => b.id === bookId);
+      if (!book) return;
+
+      document.getElementById('delete-book-title').textContent = `"${book.title}"`;
+      document.getElementById('delete-confirm-btn').onclick = () => {
+        GoldPage.deleteBook(bookId);
+        closeDeleteModal();
+        GoldPage.showToast(`Đã xóa "${book.title}" ✓`);
+        renderDashboard();
+        if (currentSection === 'books') renderBooksTable();
+      };
+
+      document.getElementById('delete-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
+    }
+
+    function closeDeleteModal() {
+      document.getElementById('delete-modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // ===== Reset All Books =====
+    function confirmResetAll() {
+      document.getElementById('reset-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
+    }
+
+    function resetAllBooks() {
+      GoldPage.resetBooks();
+      document.getElementById('reset-modal').classList.remove('active');
+      document.body.style.overflow = '';
+      GoldPage.showToast('Đã khôi phục dữ liệu mặc định! 🔄');
+      renderDashboard();
+      if (currentSection === 'books') renderBooksTable();
+    }
+
+    // ===== Export Data =====
+    function exportData() {
+      const data = JSON.stringify(GoldPage.books, null, 2);
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `goldpage_books_${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      GoldPage.showToast('Đã xuất dữ liệu JSON thành công! 📥');
+    }
+  </script>
+</body>
+
+</html>

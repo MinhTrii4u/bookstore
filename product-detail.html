@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi Tiết Sách — GoldPage</title>
+  <meta name="description" content="Xem chi tiết sách tại GoldPage — thông tin, đánh giá và mua sách trực tuyến.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory: '#FFFDF7', dark: '#12100D',
+            gold: { DEFAULT: '#D4AF37', light: '#F4E5A1', dark: '#A67C00' },
+            wine: '#5C1A1B', navy: '#0B1E3D', cream: '#FDF6E3', charcoal: '#1A1A1A',
+          },
+          fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-ivory font-sans text-charcoal">
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header id="main-header" class="sticky top-0 z-50 bg-ivory/95 backdrop-blur-md border-b transition-shadow duration-300" style="border-color: var(--gold);">
+    <div class="bg-navy text-cream text-xs py-2">
+      <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+        <p class="hidden sm:block">✨ Miễn phí vận chuyển cho đơn hàng trên 500.000đ</p>
+        <p class="sm:hidden text-center w-full">✨ Freeship từ 500K</p>
+        <div class="hidden sm:flex items-center gap-4">
+          <a href="#" class="hover:text-gold transition-colors">Theo dõi đơn hàng</a>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <div class="flex items-center justify-between gap-4">
+        <a href="index.html" class="flex items-center gap-2 flex-shrink-0">
+          <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00);">
+            <i data-lucide="book-open" class="w-5 h-5 text-dark"></i>
+          </div>
+          <div>
+            <span class="font-serif text-2xl font-bold tracking-tight" style="background: linear-gradient(135deg, #D4AF37, #A67C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">GoldPage</span>
+            <p class="text-[10px] text-gray-400 -mt-1 tracking-widest uppercase">Thư Viện Sách Cao Cấp</p>
+          </div>
+        </a>
+        <div class="hidden md:block flex-1 max-w-xl relative search-wrapper">
+          <div class="relative">
+            <i data-lucide="search" class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gold"></i>
+            <input type="text" id="search-input" placeholder="Tìm kiếm sách..." class="w-full pl-12 pr-4 py-3 rounded-xl text-sm input-gold bg-white">
+          </div>
+          <div id="search-dropdown" class="search-dropdown absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gold/20 overflow-hidden z-50">
+            <div id="search-results" class="max-h-80 overflow-y-auto"></div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 sm:gap-3">
+          <a href="#" class="hidden sm:flex items-center gap-2 px-3 py-2.5 rounded-xl hover:bg-gold/10 transition-colors group">
+            <i data-lucide="user" class="w-5 h-5 text-gray-500 group-hover:text-gold transition-colors"></i>
+          </a>
+          <a href="#" class="relative p-2.5 rounded-xl hover:bg-gold/10 transition-colors group">
+            <i data-lucide="heart" class="w-5 h-5 text-gray-500 group-hover:text-gold transition-colors"></i>
+          </a>
+          <button id="cart-btn" class="relative p-2.5 rounded-xl hover:bg-gold/10 transition-colors group">
+            <i data-lucide="shopping-bag" class="w-5 h-5 text-gray-500 group-hover:text-gold transition-colors"></i>
+            <span class="cart-badge absolute -top-0.5 -right-0.5 w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center text-dark" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37); display: none;">0</span>
+          </button>
+          <button id="mobile-menu-btn" class="lg:hidden p-2.5 rounded-xl hover:bg-gold/10 transition-colors">
+            <i data-lucide="menu" class="w-5 h-5 text-charcoal"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <nav class="flex items-center gap-2 text-sm text-gray-400">
+        <a href="index.html" class="hover:text-gold transition-colors">Trang chủ</a>
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+        <a href="products.html" class="hover:text-gold transition-colors">Sách</a>
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+        <span id="breadcrumb-title" class="text-charcoal font-medium">Chi tiết</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PRODUCT DETAIL MAIN
+       ============================================================ -->
+  <main class="max-w-7xl mx-auto px-4 py-10">
+    <div id="product-detail" class="flex flex-col lg:flex-row gap-10">
+      <!-- ===== LEFT: Image Gallery ===== -->
+      <div class="lg:w-1/2 fade-in-left">
+        <!-- Main Image -->
+        <div class="img-zoom-container rounded-2xl gold-border-2 overflow-hidden mb-4 bg-white">
+          <img id="main-image" src="" alt="" class="w-full h-[480px] object-cover">
+        </div>
+        <!-- Thumbnails -->
+        <div class="flex gap-3" id="thumbnails">
+          <!-- Generated by JS -->
+        </div>
+      </div>
+
+      <!-- ===== RIGHT: Product Info ===== -->
+      <div class="lg:w-1/2 fade-in-right">
+        <!-- Category -->
+        <div class="flex items-center gap-2 mb-3">
+          <span id="detail-category" class="text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full" style="background: rgba(212,175,55,0.15); color: var(--gold-dark);"></span>
+          <span id="detail-badge" class="text-xs font-bold px-3 py-1 rounded-full hidden"></span>
+        </div>
+
+        <!-- Title -->
+        <h1 id="detail-title" class="font-serif text-3xl md:text-4xl font-bold text-charcoal mb-2"></h1>
+        <p id="detail-author" class="text-gray-500 text-lg mb-4"></p>
+
+        <!-- Rating -->
+        <div class="flex items-center gap-3 mb-6">
+          <div id="detail-stars" class="star-rating text-lg">★★★★★</div>
+          <span id="detail-rating" class="text-sm font-semibold text-charcoal"></span>
+          <span id="detail-reviews" class="text-sm text-gray-400"></span>
+        </div>
+
+        <!-- Price -->
+        <div class="flex items-center gap-4 mb-6 pb-6 border-b border-gold/10">
+          <span id="detail-price" class="price-gold text-3xl"></span>
+          <span id="detail-original-price" class="price-original text-xl"></span>
+          <span id="detail-discount" class="text-xs font-bold px-2 py-1 rounded-lg bg-wine text-white hidden"></span>
+        </div>
+
+        <!-- Description -->
+        <p id="detail-description" class="text-gray-600 leading-relaxed mb-6"></p>
+
+        <!-- Quantity + Actions -->
+        <div class="mb-6">
+          <p class="text-sm font-semibold text-charcoal mb-3">Số lượng</p>
+          <div class="flex items-center gap-4">
+            <div class="flex items-center border rounded-xl overflow-hidden" style="border-color: var(--gold);">
+              <button onclick="changeQty(-1)" class="qty-btn w-12 h-12 text-lg rounded-none border-0">−</button>
+              <span id="qty-value" class="w-14 text-center font-bold text-lg">1</span>
+              <button onclick="changeQty(1)" class="qty-btn w-12 h-12 text-lg rounded-none border-0">+</button>
+            </div>
+            <span class="text-sm text-gray-400">Còn hàng</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-3 mb-6">
+          <button id="btn-add-cart" onclick="addCurrentToCart()" class="btn-gold ripple flex-1 py-4 rounded-xl text-sm font-bold flex items-center justify-center gap-2 text-base">
+            <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+            Thêm Vào Giỏ Hàng
+          </button>
+          <button id="btn-buy-now" onclick="buyNow()" class="btn-gold-outline flex-1 py-4 rounded-xl text-sm font-bold flex items-center justify-center gap-2 text-base">
+            <i data-lucide="zap" class="w-5 h-5"></i>
+            Mua Ngay
+          </button>
+        </div>
+
+        <!-- Wishlist + Share -->
+        <div class="flex items-center gap-4 pb-6 border-b border-gold/10">
+          <button onclick="GoldPage.toggleWishlist(currentBook?.id)" class="flex items-center gap-2 text-sm text-gray-500 hover:text-wine transition-colors">
+            <i data-lucide="heart" class="w-4 h-4"></i> Thêm vào yêu thích
+          </button>
+          <button class="flex items-center gap-2 text-sm text-gray-500 hover:text-gold transition-colors">
+            <i data-lucide="share-2" class="w-4 h-4"></i> Chia sẻ
+          </button>
+        </div>
+
+        <!-- Guarantees -->
+        <div class="grid grid-cols-2 gap-4 mt-6">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gold/10">
+              <i data-lucide="truck" class="w-5 h-5 text-gold"></i>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-charcoal">Giao hàng miễn phí</p>
+              <p class="text-[11px] text-gray-400">Đơn từ 500.000đ</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gold/10">
+              <i data-lucide="rotate-ccw" class="w-5 h-5 text-gold"></i>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-charcoal">Đổi trả 30 ngày</p>
+              <p class="text-[11px] text-gray-400">Hoàn tiền 100%</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gold/10">
+              <i data-lucide="shield-check" class="w-5 h-5 text-gold"></i>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-charcoal">Sách chính hãng</p>
+              <p class="text-[11px] text-gray-400">100% bản quyền</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gold/10">
+              <i data-lucide="package" class="w-5 h-5 text-gold"></i>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-charcoal">Đóng gói cao cấp</p>
+              <p class="text-[11px] text-gray-400">Bọc quà miễn phí</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         TABS: Mô tả / Thông tin NXB / Đánh giá
+         ============================================================ -->
+    <div class="mt-16 fade-in-up">
+      <div class="flex gap-8 border-b border-gray-200 mb-8">
+        <button class="tab-gold active" data-tab="description">Mô tả chi tiết</button>
+        <button class="tab-gold" data-tab="publisher">Thông tin NXB</button>
+        <button class="tab-gold" data-tab="reviews">Đánh giá</button>
+      </div>
+
+      <!-- Tab: Description -->
+      <div id="tab-description" class="tab-content">
+        <div class="prose max-w-none text-gray-600 leading-relaxed">
+          <p id="tab-desc-text">Đang tải mô tả...</p>
+          <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="p-4 rounded-xl bg-white gold-border text-center">
+              <p class="text-xs text-gray-400 mb-1">Số trang</p>
+              <p id="tab-pages" class="font-bold text-charcoal">—</p>
+            </div>
+            <div class="p-4 rounded-xl bg-white gold-border text-center">
+              <p class="text-xs text-gray-400 mb-1">Năm xuất bản</p>
+              <p id="tab-year" class="font-bold text-charcoal">—</p>
+            </div>
+            <div class="p-4 rounded-xl bg-white gold-border text-center">
+              <p class="text-xs text-gray-400 mb-1">Ngôn ngữ</p>
+              <p class="font-bold text-charcoal">Tiếng Việt</p>
+            </div>
+            <div class="p-4 rounded-xl bg-white gold-border text-center">
+              <p class="text-xs text-gray-400 mb-1">Định dạng</p>
+              <p class="font-bold text-charcoal">Bìa mềm</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Publisher -->
+      <div id="tab-publisher" class="tab-content hidden">
+        <div class="flex items-start gap-6 p-6 rounded-2xl bg-white gold-border">
+          <div class="w-16 h-16 rounded-xl flex items-center justify-center bg-gold/10 flex-shrink-0">
+            <i data-lucide="building-2" class="w-8 h-8 text-gold"></i>
+          </div>
+          <div>
+            <h4 id="tab-publisher-name" class="font-serif text-xl font-bold text-charcoal mb-2"></h4>
+            <p class="text-sm text-gray-600 leading-relaxed">Nhà xuất bản uy tín hàng đầu Việt Nam với hơn 30 năm kinh nghiệm, chuyên xuất bản các đầu sách chất lượng cao phục vụ độc giả trong nước và quốc tế.</p>
+            <div class="flex items-center gap-4 mt-4">
+              <span class="text-xs px-3 py-1 rounded-full bg-gold/10 text-gold-dark font-semibold">Đối tác chính thức</span>
+              <span class="text-xs text-gray-400">Hơn 5.000 đầu sách</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Reviews -->
+      <div id="tab-reviews" class="tab-content hidden">
+        <div class="flex flex-col md:flex-row gap-8">
+          <!-- Rating Summary -->
+          <div class="md:w-1/3 p-6 rounded-2xl bg-white gold-border text-center">
+            <p class="font-serif text-5xl font-bold text-gold mb-2" id="review-avg">4.8</p>
+            <div class="star-rating text-xl mb-2">★★★★★</div>
+            <p class="text-sm text-gray-400" id="review-count-text">2.341 đánh giá</p>
+            <!-- Rating bars -->
+            <div class="mt-6 space-y-2">
+              <div class="flex items-center gap-2"><span class="text-xs w-8 text-right">5★</span><div class="flex-1 bg-gray-100 rounded-full h-2"><div class="h-2 rounded-full bg-gold" style="width: 78%"></div></div><span class="text-xs text-gray-400 w-8">78%</span></div>
+              <div class="flex items-center gap-2"><span class="text-xs w-8 text-right">4★</span><div class="flex-1 bg-gray-100 rounded-full h-2"><div class="h-2 rounded-full bg-gold" style="width: 15%"></div></div><span class="text-xs text-gray-400 w-8">15%</span></div>
+              <div class="flex items-center gap-2"><span class="text-xs w-8 text-right">3★</span><div class="flex-1 bg-gray-100 rounded-full h-2"><div class="h-2 rounded-full bg-gold" style="width: 5%"></div></div><span class="text-xs text-gray-400 w-8">5%</span></div>
+              <div class="flex items-center gap-2"><span class="text-xs w-8 text-right">2★</span><div class="flex-1 bg-gray-100 rounded-full h-2"><div class="h-2 rounded-full bg-gold" style="width: 1%"></div></div><span class="text-xs text-gray-400 w-8">1%</span></div>
+              <div class="flex items-center gap-2"><span class="text-xs w-8 text-right">1★</span><div class="flex-1 bg-gray-100 rounded-full h-2"><div class="h-2 rounded-full bg-gold" style="width: 1%"></div></div><span class="text-xs text-gray-400 w-8">1%</span></div>
+            </div>
+          </div>
+
+          <!-- Reviews List -->
+          <div class="md:w-2/3 space-y-6">
+            <div class="p-5 rounded-xl bg-white border border-gray-100">
+              <div class="flex items-center gap-3 mb-3">
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=50&h=50&fit=crop&crop=face" alt="" class="w-10 h-10 rounded-full object-cover">
+                <div>
+                  <p class="font-semibold text-sm">Nguyễn Thu Hà</p>
+                  <p class="text-xs text-gray-400">15/03/2024</p>
+                </div>
+                <div class="ml-auto star-rating text-xs">★★★★★</div>
+              </div>
+              <p class="text-sm text-gray-600 leading-relaxed">Sách rất hay, nội dung sâu sắc. Đóng gói cẩn thận, giao hàng nhanh. Sẽ quay lại mua thêm!</p>
+            </div>
+            <div class="p-5 rounded-xl bg-white border border-gray-100">
+              <div class="flex items-center gap-3 mb-3">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face" alt="" class="w-10 h-10 rounded-full object-cover">
+                <div>
+                  <p class="font-semibold text-sm">Trần Minh Đức</p>
+                  <p class="text-xs text-gray-400">10/03/2024</p>
+                </div>
+                <div class="ml-auto star-rating text-xs">★★★★★</div>
+              </div>
+              <p class="text-sm text-gray-600 leading-relaxed">Cuốn sách thay đổi tư duy của tôi. Bản dịch tốt, trình bày đẹp. Rất đáng đọc!</p>
+            </div>
+            <div class="p-5 rounded-xl bg-white border border-gray-100">
+              <div class="flex items-center gap-3 mb-3">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face" alt="" class="w-10 h-10 rounded-full object-cover">
+                <div>
+                  <p class="font-semibold text-sm">Lê Thanh Mai</p>
+                  <p class="text-xs text-gray-400">05/03/2024</p>
+                </div>
+                <div class="ml-auto star-rating text-xs">★★★★</div>
+              </div>
+              <p class="text-sm text-gray-600 leading-relaxed">Nội dung rất giá trị. Chỉ tiếc là sách hơi mỏng so với mong đợi. Nhưng nhìn chung rất hài lòng.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SÁCH LIÊN QUAN — Carousel
+         ============================================================ -->
+    <div class="mt-20 fade-in-up">
+      <div class="flex items-end justify-between mb-8">
+        <div>
+          <p class="text-gold text-sm font-semibold tracking-[0.15em] uppercase mb-2">✦ Gợi Ý ✦</p>
+          <h2 class="font-serif text-2xl md:text-3xl font-bold text-charcoal">Sách Liên Quan</h2>
+        </div>
+        <a href="products.html" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-gold hover:text-gold-dark transition-colors">
+          Xem tất cả <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+      <div class="relative" id="related-carousel">
+        <div class="carousel-track" id="related-track">
+          <!-- Generated by JS -->
+        </div>
+        <button class="carousel-prev carousel-btn absolute -left-4 top-1/2 -translate-y-1/2 z-10 hidden md:flex">
+          <i data-lucide="chevron-left" class="w-5 h-5"></i>
+        </button>
+        <button class="carousel-next carousel-btn absolute -right-4 top-1/2 -translate-y-1/2 z-10 hidden md:flex">
+          <i data-lucide="chevron-right" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="section-navy pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-gold/10">
+        <div>
+          <div class="flex items-center gap-2 mb-5">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37);">
+              <i data-lucide="book-open" class="w-4 h-4 text-dark"></i>
+            </div>
+            <span class="font-serif text-xl font-bold text-gold">GoldPage</span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">Thư viện sách trực tuyến cao cấp.</p>
+          <div class="flex gap-3 mt-6">
+            <a href="#" class="social-icon"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+            <a href="#" class="social-icon"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+            <a href="#" class="social-icon"><i data-lucide="youtube" class="w-4 h-4"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-serif font-bold text-cream mb-5">Danh Mục</h4>
+          <ul class="space-y-2.5">
+            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Văn học</a></li>
+            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Kỹ năng sống</a></li>
+            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Kinh doanh</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif font-bold text-cream mb-5">Hỗ Trợ</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">Hướng dẫn mua hàng</a></li>
+            <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">Đổi trả</a></li>
+            <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif font-bold text-cream mb-5">Liên Hệ</h4>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-3"><i data-lucide="phone" class="w-4 h-4 text-gold flex-shrink-0"></i><span class="text-gray-400 text-sm">1900-GOLD-PAGE</span></li>
+            <li class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4 text-gold flex-shrink-0"></i><span class="text-gray-400 text-sm">hello@goldpage.vn</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 text-center">
+        <p class="text-gray-500 text-xs">© 2024 GoldPage. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cart Panel -->
+  <div id="cart-overlay" class="cart-overlay"></div>
+  <div id="cart-panel" class="cart-panel">
+    <div class="px-6 py-4 flex items-center justify-between" style="background: var(--navy);">
+      <h3 class="font-serif font-bold text-lg text-gold flex items-center gap-2"><i data-lucide="shopping-bag" class="w-5 h-5"></i> Giỏ Hàng</h3>
+      <button id="cart-close" class="text-gray-400 hover:text-cream transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div id="cart-empty" class="flex-1 flex flex-col items-center justify-center px-6" style="display: flex;">
+      <div class="w-24 h-24 rounded-full flex items-center justify-center mb-6" style="background: rgba(212,175,55,0.1); border: 1px dashed var(--gold);"><i data-lucide="book-open" class="w-10 h-10 text-gold opacity-40"></i></div>
+      <h4 class="font-serif text-lg font-bold text-charcoal mb-2">Giỏ hàng trống</h4>
+      <p class="text-gray-400 text-sm text-center mb-6">Hãy khám phá bộ sưu tập sách!</p>
+      <button onclick="closeCart()" class="btn-gold ripple px-6 py-2.5 rounded-xl text-sm font-bold">Tiếp tục mua sắm</button>
+    </div>
+    <div id="cart-content" class="flex-1 flex flex-col" style="display: none;">
+      <div id="cart-items" class="flex-1 overflow-y-auto"></div>
+      <div class="px-6 py-5 border-t" style="border-color: var(--gold);">
+        <div class="flex justify-between items-center mb-4">
+          <span class="text-gray-600 font-medium">Tổng cộng:</span>
+          <span id="cart-total" class="price-gold text-2xl">0đ</span>
+        </div>
+        <a href="checkout.html" class="btn-gold ripple w-full py-3.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 block">Thanh Toán <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script src="js/app.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/carousel.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/chatbox.js"></script>
+
+  <script>
+    let currentBook = null;
+    let currentQty = 1;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Get book ID from URL
+      const params = new URLSearchParams(window.location.search);
+      const bookId = parseInt(params.get('id')) || 1;
+      currentBook = GoldPage.books.find(b => b.id === bookId) || GoldPage.books[0];
+
+      renderProductDetail(currentBook);
+      renderRelatedBooks(currentBook);
+      initTabs();
+      lucide.createIcons();
+    });
+
+    function renderProductDetail(book) {
+      document.title = `${book.title} — GoldPage`;
+      document.getElementById('breadcrumb-title').textContent = book.title;
+      document.getElementById('main-image').src = book.image;
+      document.getElementById('main-image').alt = book.title;
+
+      // Thumbnails (simulated with different crops)
+      const thumbs = document.getElementById('thumbnails');
+      const thumbUrls = [
+        book.image,
+        book.image.replace('w=400', 'w=300').replace('fit=crop', 'fit=crop&crop=top'),
+        book.image.replace('w=400', 'w=350').replace('fit=crop', 'fit=crop&crop=center'),
+        book.image.replace('w=400', 'w=380').replace('fit=crop', 'fit=crop&crop=bottom'),
+      ];
+      thumbs.innerHTML = thumbUrls.map((url, i) => `
+        <div class="thumb-item w-20 h-24 flex-shrink-0 ${i === 0 ? 'active' : ''}" onclick="selectThumb(this, '${url}')">
+          <img src="${url}" alt="Thumbnail ${i+1}" class="w-full h-full object-cover rounded-md">
+        </div>
+      `).join('');
+
+      // Category & Badge
+      document.getElementById('detail-category').textContent = book.category;
+      const badgeEl = document.getElementById('detail-badge');
+      if (book.badge === 'bestseller') {
+        badgeEl.textContent = 'Bestseller';
+        badgeEl.className = 'text-xs font-bold px-3 py-1 rounded-full badge-gold';
+        badgeEl.classList.remove('hidden');
+      } else if (book.badge === 'limited') {
+        badgeEl.textContent = 'Limited Edition';
+        badgeEl.className = 'text-xs font-bold px-3 py-1 rounded-full';
+        badgeEl.style.cssText = 'background: var(--dark); color: var(--gold); border: 1px solid var(--gold);';
+        badgeEl.classList.remove('hidden');
+      }
+
+      // Title, Author
+      document.getElementById('detail-title').textContent = book.title;
+      document.getElementById('detail-author').textContent = book.author;
+
+      // Rating
+      document.getElementById('detail-rating').textContent = book.rating;
+      document.getElementById('detail-reviews').textContent = `(${book.reviews} đánh giá)`;
+
+      // Price
+      document.getElementById('detail-price').textContent = GoldPage.formatPrice(book.price);
+      const origPrice = document.getElementById('detail-original-price');
+      const discount = document.getElementById('detail-discount');
+      if (book.originalPrice > book.price) {
+        origPrice.textContent = GoldPage.formatPrice(book.originalPrice);
+        origPrice.classList.remove('hidden');
+        const pct = Math.round((1 - book.price / book.originalPrice) * 100);
+        discount.textContent = `-${pct}%`;
+        discount.classList.remove('hidden');
+      } else {
+        origPrice.classList.add('hidden');
+        discount.classList.add('hidden');
+      }
+
+      // Description
+      document.getElementById('detail-description').textContent = book.description;
+
+      // Tab content
+      document.getElementById('tab-desc-text').textContent = book.description + ' Cuốn sách này là một trong những tác phẩm được yêu thích nhất tại GoldPage, đã đồng hành cùng hàng nghìn độc giả trên hành trình tri thức.';
+      document.getElementById('tab-pages').textContent = book.pages;
+      document.getElementById('tab-year').textContent = book.year;
+      document.getElementById('tab-publisher-name').textContent = book.publisher;
+      document.getElementById('review-avg').textContent = book.rating;
+      document.getElementById('review-count-text').textContent = `${book.reviews.toLocaleString()} đánh giá`;
+    }
+
+    function selectThumb(el, url) {
+      document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('main-image').src = url;
+    }
+
+    function changeQty(delta) {
+      currentQty = Math.max(1, currentQty + delta);
+      document.getElementById('qty-value').textContent = currentQty;
+    }
+
+    function addCurrentToCart() {
+      if (currentBook) {
+        GoldPage.addToCart(currentBook.id, currentQty);
+      }
+    }
+
+    function buyNow() {
+      if (currentBook) {
+        GoldPage.addToCart(currentBook.id, currentQty);
+        window.location.href = 'checkout.html';
+      }
+    }
+
+    function initTabs() {
+      const tabs = document.querySelectorAll('.tab-gold');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+          document.getElementById(`tab-${tab.dataset.tab}`).classList.remove('hidden');
+        });
+      });
+    }
+
+    function renderRelatedBooks(currentBook) {
+      const related = GoldPage.books.filter(b => b.id !== currentBook.id).slice(0, 6);
+      const track = document.getElementById('related-track');
+      track.innerHTML = related.map(book => `
+        <div class="card-gold relative w-[240px] flex-shrink-0">
+          ${book.badge === 'bestseller' ? '<div class="badge-bestseller">Bestseller</div>' : ''}
+          <div class="relative overflow-hidden group">
+            <a href="product-detail.html?id=${book.id}">
+              <img src="${book.image}" alt="${book.title}" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105">
+            </a>
+            <div class="add-cart-overlay">
+              <button onclick="GoldPage.addToCart(${book.id})" class="btn-gold ripple w-full py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5">
+                <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i> Thêm vào giỏ
+              </button>
+            </div>
+          </div>
+          <div class="p-3">
+            <a href="product-detail.html?id=${book.id}" class="font-serif font-bold text-sm text-charcoal hover:text-gold-dark transition-colors line-clamp-1">${book.title}</a>
+            <p class="text-xs text-gray-500 mt-0.5">${book.author}</p>
+            <div class="flex items-center gap-2 mt-2">
+              <span class="price-sale text-sm">${GoldPage.formatPrice(book.price)}</span>
+              ${book.originalPrice > book.price ? `<span class="price-original text-xs">${GoldPage.formatPrice(book.originalPrice)}</span>` : ''}
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      new GoldCarousel('#related-carousel', { itemsPerView: 4 });
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

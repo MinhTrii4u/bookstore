@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh Sách Sách — GoldPage | Thư Viện Sách Cao Cấp</title>
+  <meta name="description" content="Khám phá bộ sưu tập sách đa dạng tại GoldPage — Văn học, Kinh doanh, Kỹ năng sống, Thiếu nhi, Ngoại văn và Sách quý hiếm.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory: '#FFFDF7', dark: '#12100D',
+            gold: { DEFAULT: '#D4AF37', light: '#F4E5A1', dark: '#A67C00' },
+            wine: '#5C1A1B', navy: '#0B1E3D', cream: '#FDF6E3', charcoal: '#1A1A1A',
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-ivory font-sans text-charcoal">
+
+  <!-- ============================================================
+       HEADER (same as homepage)
+       ============================================================ -->
+  <header id="main-header" class="sticky top-0 z-50 bg-ivory/95 backdrop-blur-md border-b transition-shadow duration-300" style="border-color: var(--gold);">
+    <div class="bg-navy text-cream text-xs py-2">
+      <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+        <p class="hidden sm:block">✨ Miễn phí vận chuyển cho đơn hàng trên 500.000đ</p>
+        <p class="sm:hidden text-center w-full">✨ Freeship từ 500K</p>
+        <div class="hidden sm:flex items-center gap-4">
+          <a href="#" class="hover:text-gold transition-colors">Theo dõi đơn hàng</a>
+          <span class="text-gold/30">|</span>
+          <a href="#" class="hover:text-gold transition-colors">Trợ giúp</a>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <div class="flex items-center justify-between gap-4">
+        <a href="index.html" class="flex items-center gap-2 flex-shrink-0">
+          <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00);">
+            <i data-lucide="book-open" class="w-5 h-5 text-dark"></i>
+          </div>
+          <div>
+            <span class="font-serif text-2xl font-bold tracking-tight" style="background: linear-gradient(135deg, #D4AF37, #A67C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">GoldPage</span>
+            <p class="text-[10px] text-gray-400 -mt-1 tracking-widest uppercase">Thư Viện Sách Cao Cấp</p>
+          </div>
+        </a>
+        <div class="hidden md:block flex-1 max-w-xl relative search-wrapper">
+          <div class="relative">
+            <i data-lucide="search" class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gold"></i>
+            <input type="text" id="search-input" placeholder="Tìm kiếm sách, tác giả, thể loại..." class="w-full pl-12 pr-4 py-3 rounded-xl text-sm input-gold bg-white">
+          </div>
+          <div id="search-dropdown" class="search-dropdown absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gold/20 overflow-hidden z-50">
+            <div id="search-results" class="max-h-80 overflow-y-auto"></div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 sm:gap-3">
+          <a href="#" class="hidden sm:flex items-center gap-2 px-3 py-2.5 rounded-xl hover:bg-gold/10 transition-colors group">
+            <i data-lucide="user" class="w-5 h-5 text-gray-500 group-hover:text-gold transition-colors"></i>
+          </a>
+          <a href="#" class="relative p-2.5 rounded-xl hover:bg-gold/10 transition-colors group">
+            <i data-lucide="heart" class="w-5 h-5 text-gray-500 group-hover:text-gold transition-colors"></i>
+          </a>
+          <button id="cart-btn" class="relative p-2.5 rounded-xl hover:bg-gold/10 transition-colors group">
+            <i data-lucide="shopping-bag" class="w-5 h-5 text-gray-500 group-hover:text-gold transition-colors"></i>
+            <span class="cart-badge absolute -top-0.5 -right-0.5 w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center text-dark" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37); display: none;">0</span>
+          </button>
+          <button id="mobile-menu-btn" class="lg:hidden p-2.5 rounded-xl hover:bg-gold/10 transition-colors">
+            <i data-lucide="menu" class="w-5 h-5 text-charcoal"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <nav class="hidden lg:block border-t border-gold/10">
+      <div class="max-w-7xl mx-auto px-4">
+        <ul class="flex items-center gap-0">
+          <li><a href="index.html" class="px-4 py-3 text-sm font-medium text-charcoal hover:text-gold transition-colors inline-block">Trang chủ</a></li>
+          <li><a href="products.html" class="px-4 py-3 text-sm font-medium text-gold inline-block border-b-2 border-gold">Danh mục</a></li>
+          <li><a href="products.html" class="px-4 py-3 text-sm font-medium text-charcoal hover:text-gold transition-colors inline-block">Bán chạy</a></li>
+          <li><a href="products.html" class="px-4 py-3 text-sm font-medium text-charcoal hover:text-gold transition-colors inline-block">Khuyến mãi</a></li>
+          <li><a href="products.html" class="px-4 py-3 text-sm font-medium inline-block flex items-center gap-1" style="color: var(--gold-dark);"><i data-lucide="crown" class="w-4 h-4"></i> Limited Edition</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div id="mobile-menu" class="lg:hidden hidden border-t border-gold/10 bg-white">
+      <div class="p-4 space-y-2">
+        <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gold/5 text-sm font-medium transition-colors"><i data-lucide="home" class="w-4 h-4 text-gold"></i> Trang chủ</a>
+        <a href="products.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gold/5 text-sm font-medium text-gold"><i data-lucide="layout-grid" class="w-4 h-4"></i> Danh mục</a>
+        <a href="products.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gold/5 text-sm font-medium transition-colors"><i data-lucide="flame" class="w-4 h-4 text-gold"></i> Bán chạy</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       BREADCRUMB
+       ============================================================ -->
+  <div class="bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <nav class="flex items-center gap-2 text-sm text-gray-400">
+        <a href="index.html" class="hover:text-gold transition-colors">Trang chủ</a>
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+        <span class="text-charcoal font-medium">Tất cả sách</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MAIN CONTENT: Sidebar + Product Grid
+       ============================================================ -->
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <div class="flex gap-8">
+
+      <!-- ===== SIDEBAR FILTER (Desktop) ===== -->
+      <aside id="filter-sidebar" class="hidden lg:block w-72 flex-shrink-0">
+        <div class="sticky top-36">
+          <h3 class="font-serif text-xl font-bold text-charcoal mb-6 flex items-center gap-2">
+            <i data-lucide="sliders-horizontal" class="w-5 h-5 text-gold"></i>
+            Bộ lọc
+          </h3>
+
+          <!-- Category Filter -->
+          <div class="mb-6 pb-6 border-b border-gold/10">
+            <h4 class="font-semibold text-sm text-charcoal mb-3">Thể loại</h4>
+            <div class="space-y-2.5" id="category-filters">
+              <label class="flex items-center gap-2.5 cursor-pointer group">
+                <input type="checkbox" value="all" checked class="w-4 h-4 rounded accent-amber-600">
+                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Tất cả</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer group">
+                <input type="checkbox" value="Văn học" class="w-4 h-4 rounded accent-amber-600">
+                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Văn học</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer group">
+                <input type="checkbox" value="Kỹ năng sống" class="w-4 h-4 rounded accent-amber-600">
+                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Kỹ năng sống</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer group">
+                <input type="checkbox" value="Kinh doanh" class="w-4 h-4 rounded accent-amber-600">
+                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Kinh doanh</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer group">
+                <input type="checkbox" value="Thiếu nhi" class="w-4 h-4 rounded accent-amber-600">
+                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Thiếu nhi</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer group">
+                <input type="checkbox" value="Ngoại văn" class="w-4 h-4 rounded accent-amber-600">
+                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Ngoại văn</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer group">
+                <input type="checkbox" value="Sách quý hiếm" class="w-4 h-4 rounded accent-amber-600">
+                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Sách quý hiếm / Limited</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Price Range -->
+          <div class="mb-6 pb-6 border-b border-gold/10">
+            <h4 class="font-semibold text-sm text-charcoal mb-3">Khoảng giá</h4>
+            <input type="range" id="price-range" min="0" max="2000000" value="2000000" step="50000">
+            <div class="flex justify-between mt-2 text-xs text-gray-500">
+              <span>0đ</span>
+              <span id="price-range-label" class="font-semibold text-gold-dark">2.000.000đ</span>
+            </div>
+          </div>
+
+          <!-- Rating Filter -->
+          <div class="mb-6 pb-6 border-b border-gold/10">
+            <h4 class="font-semibold text-sm text-charcoal mb-3">Đánh giá</h4>
+            <div class="space-y-2" id="rating-filters">
+              <label class="flex items-center gap-2.5 cursor-pointer group">
+                <input type="radio" name="rating" value="0" checked class="w-4 h-4 accent-amber-600">
+                <span class="text-sm text-gray-600">Tất cả</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer group">
+                <input type="radio" name="rating" value="4.5" class="w-4 h-4 accent-amber-600">
+                <span class="star-rating text-xs">★★★★★</span>
+                <span class="text-xs text-gray-400">4.5+</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer group">
+                <input type="radio" name="rating" value="4" class="w-4 h-4 accent-amber-600">
+                <span class="star-rating text-xs">★★★★</span>
+                <span class="text-xs text-gray-400">4.0+</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Status Filter -->
+          <div class="mb-6">
+            <h4 class="font-semibold text-sm text-charcoal mb-3">Tình trạng</h4>
+            <div class="space-y-2.5">
+              <label class="flex items-center gap-2.5 cursor-pointer group">
+                <input type="checkbox" value="bestseller" class="status-filter w-4 h-4 rounded accent-amber-600">
+                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Bestseller</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer group">
+                <input type="checkbox" value="limited" class="status-filter w-4 h-4 rounded accent-amber-600">
+                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Limited Edition</span>
+              </label>
+            </div>
+          </div>
+
+          <button id="clear-filters" class="w-full py-2.5 rounded-xl text-sm font-semibold text-gold border border-gold/30 hover:bg-gold/5 transition-colors">
+            Xóa bộ lọc
+          </button>
+        </div>
+      </aside>
+
+      <!-- ===== PRODUCT GRID ===== -->
+      <div class="flex-1">
+        <!-- Top bar: count + sort + mobile filter button -->
+        <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+          <div class="flex items-center gap-3">
+            <!-- Mobile filter button -->
+            <button id="mobile-filter-btn" class="lg:hidden flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gold/30 text-sm font-medium hover:bg-gold/5 transition-colors">
+              <i data-lucide="sliders-horizontal" class="w-4 h-4 text-gold"></i>
+              Bộ lọc
+            </button>
+            <p class="text-sm text-gray-500"><span id="product-count" class="font-bold text-charcoal">12</span> sản phẩm</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-gray-500 hidden sm:inline">Sắp xếp:</span>
+            <select id="sort-select" class="px-4 py-2.5 rounded-xl text-sm input-gold bg-white cursor-pointer min-w-[160px]">
+              <option value="newest">Mới nhất</option>
+              <option value="bestseller">Bán chạy</option>
+              <option value="price-asc">Giá: Thấp → Cao</option>
+              <option value="price-desc">Giá: Cao → Thấp</option>
+              <option value="rating">Đánh giá cao</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="hidden">
+          <div class="empty-state">
+            <div class="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4" style="background: rgba(212,175,55,0.1); border: 1px dashed var(--gold);">
+              <i data-lucide="search-x" class="w-10 h-10 text-gold opacity-40"></i>
+            </div>
+            <h3 class="font-serif text-xl font-bold text-charcoal mb-2">Không tìm thấy sản phẩm</h3>
+            <p class="text-gray-400 text-sm mb-6">Hãy thử thay đổi bộ lọc hoặc từ khóa tìm kiếm.</p>
+            <button onclick="clearAllFilters()" class="btn-gold ripple px-6 py-2.5 rounded-xl text-sm font-bold">Xóa bộ lọc</button>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="flex items-center justify-center gap-2 mt-10">
+          <button class="page-link"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+          <button class="page-link active">1</button>
+          <button class="page-link">2</button>
+          <button class="page-link">3</button>
+          <button class="page-link"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== Mobile Filter Drawer ===== -->
+  <div id="mobile-filter-overlay" class="fixed inset-0 bg-black/50 z-[960] hidden"></div>
+  <div id="mobile-filter-drawer" class="fixed top-0 left-0 w-80 max-w-[85vw] h-full bg-ivory z-[961] transform -translate-x-full transition-transform duration-300 overflow-y-auto">
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="font-serif text-lg font-bold text-charcoal">Bộ lọc</h3>
+        <button id="close-mobile-filter" class="text-gray-400 hover:text-charcoal"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div id="mobile-filter-content">
+        <!-- Cloned from sidebar by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       QUICK VIEW MODAL
+       ============================================================ -->
+  <div id="quick-view-modal" class="modal-overlay">
+    <div class="modal-content p-6 md:p-8 relative">
+      <button onclick="document.getElementById('quick-view-modal').classList.remove('active')" class="absolute top-4 right-4 text-gray-400 hover:text-charcoal transition-colors z-10">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      <div id="quick-view-content" class="flex flex-col md:flex-row gap-6"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="section-navy pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-gold/10">
+        <div>
+          <div class="flex items-center gap-2 mb-5">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37);">
+              <i data-lucide="book-open" class="w-4 h-4 text-dark"></i>
+            </div>
+            <span class="font-serif text-xl font-bold text-gold">GoldPage</span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">Thư viện sách trực tuyến cao cấp — nơi mỗi cuốn sách là một hành trình tri thức đáng giá.</p>
+          <div class="flex gap-3 mt-6">
+            <a href="#" class="social-icon"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+            <a href="#" class="social-icon"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+            <a href="#" class="social-icon"><i data-lucide="youtube" class="w-4 h-4"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-serif font-bold text-cream mb-5">Danh Mục</h4>
+          <ul class="space-y-2.5">
+            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Văn học</a></li>
+            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Kỹ năng sống</a></li>
+            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Kinh doanh</a></li>
+            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Sách quý hiếm</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif font-bold text-cream mb-5">Hỗ Trợ</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">Hướng dẫn mua hàng</a></li>
+            <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">Chính sách đổi trả</a></li>
+            <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">Vận chuyển</a></li>
+            <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif font-bold text-cream mb-5">Liên Hệ</h4>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3"><i data-lucide="map-pin" class="w-4 h-4 text-gold mt-0.5 flex-shrink-0"></i><span class="text-gray-400 text-sm">123 Nguyễn Huệ, Q.1, TP.HCM</span></li>
+            <li class="flex items-center gap-3"><i data-lucide="phone" class="w-4 h-4 text-gold flex-shrink-0"></i><span class="text-gray-400 text-sm">1900-GOLD-PAGE</span></li>
+            <li class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4 text-gold flex-shrink-0"></i><span class="text-gray-400 text-sm">hello@goldpage.vn</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 text-center">
+        <p class="text-gray-500 text-xs">© 2024 GoldPage. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       CART SLIDE-IN PANEL
+       ============================================================ -->
+  <div id="cart-overlay" class="cart-overlay"></div>
+  <div id="cart-panel" class="cart-panel">
+    <div class="px-6 py-4 flex items-center justify-between" style="background: var(--navy);">
+      <h3 class="font-serif font-bold text-lg text-gold flex items-center gap-2">
+        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Giỏ Hàng Của Bạn
+      </h3>
+      <button id="cart-close" class="text-gray-400 hover:text-cream transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div id="cart-empty" class="flex-1 flex flex-col items-center justify-center px-6" style="display: flex;">
+      <div class="w-24 h-24 rounded-full flex items-center justify-center mb-6" style="background: rgba(212,175,55,0.1); border: 1px dashed var(--gold);">
+        <i data-lucide="book-open" class="w-10 h-10 text-gold opacity-40"></i>
+      </div>
+      <h4 class="font-serif text-lg font-bold text-charcoal mb-2">Giỏ hàng trống</h4>
+      <p class="text-gray-400 text-sm text-center mb-6">Hãy khám phá bộ sưu tập sách<br>của chúng tôi nhé!</p>
+      <button onclick="closeCart()" class="btn-gold ripple px-6 py-2.5 rounded-xl text-sm font-bold">Tiếp tục mua sắm</button>
+    </div>
+    <div id="cart-content" class="flex-1 flex flex-col" style="display: none;">
+      <div id="cart-items" class="flex-1 overflow-y-auto"></div>
+      <div class="px-4 py-3 border-t border-gray-100">
+        <div class="flex gap-2">
+          <input type="text" placeholder="Mã giảm giá" class="flex-1 px-4 py-2.5 rounded-lg text-sm input-gold">
+          <button class="btn-gold-outline px-4 py-2.5 rounded-lg text-sm font-semibold">Áp dụng</button>
+        </div>
+      </div>
+      <div class="px-6 py-5 border-t" style="border-color: var(--gold);">
+        <div class="flex justify-between items-center mb-4">
+          <span class="text-gray-600 font-medium">Tổng cộng:</span>
+          <span id="cart-total" class="price-gold text-2xl">0đ</span>
+        </div>
+        <a href="checkout.html" class="btn-gold ripple w-full py-3.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 text-center block">
+          Tiến Hành Thanh Toán <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script src="js/app.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/carousel.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/chatbox.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let currentBooks = [...GoldPage.books];
+      const productGrid = document.getElementById('product-grid');
+      const productCount = document.getElementById('product-count');
+      const emptyState = document.getElementById('empty-state');
+      const pagination = document.getElementById('pagination');
+
+      // ===== Render Product Grid =====
+      function renderProducts(books) {
+        if (books.length === 0) {
+          productGrid.innerHTML = '';
+          emptyState.classList.remove('hidden');
+          pagination.classList.add('hidden');
+          productCount.textContent = '0';
+          return;
+        }
+
+        emptyState.classList.add('hidden');
+        pagination.classList.remove('hidden');
+        productCount.textContent = books.length;
+
+        productGrid.innerHTML = books.map((book, i) => `
+          <div class="card-gold relative fade-in-up stagger-${Math.min(i + 1, 6)}">
+            ${book.badge === 'bestseller' ? '<div class="badge-bestseller">Bestseller</div>' : ''}
+            ${book.badge === 'limited' ? '<div class="badge-limited">Limited</div>' : ''}
+            <div class="relative overflow-hidden group">
+              <a href="product-detail.html?id=${book.id}">
+                <img src="${book.image}" alt="${book.title}" class="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-105">
+              </a>
+              <div class="add-cart-overlay flex gap-2">
+                <button onclick="GoldPage.addToCart(${book.id})" class="btn-gold ripple flex-1 py-2.5 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5">
+                  <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i> Thêm vào giỏ
+                </button>
+                <button onclick="openQuickView(${book.id})" class="btn-gold-outline px-3 py-2.5 rounded-lg">
+                  <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+            <div class="p-4">
+              <p class="text-xs text-gray-400 mb-1">${book.category}</p>
+              <a href="product-detail.html?id=${book.id}" class="font-serif font-bold text-charcoal hover:text-gold-dark transition-colors line-clamp-1">${book.title}</a>
+              <p class="text-xs text-gray-500 mt-1">${book.author}</p>
+              <div class="flex items-center gap-2 mt-2">
+                <div class="star-rating text-xs">★★★★★</div>
+                <span class="text-xs text-gray-400">${book.rating} (${book.reviews})</span>
+              </div>
+              <div class="flex items-center gap-2 mt-2">
+                <span class="price-sale">${GoldPage.formatPrice(book.price)}</span>
+                ${book.originalPrice > book.price ? `<span class="price-original">${GoldPage.formatPrice(book.originalPrice)}</span>` : ''}
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        lucide.createIcons();
+        if (window.initFadeAnimations) initFadeAnimations();
+      }
+
+      // ===== Filtering Logic =====
+      function applyFilters() {
+        let filtered = [...GoldPage.books];
+
+        // Category filter
+        const categoryChecks = document.querySelectorAll('#category-filters input[type="checkbox"]:not([value="all"])');
+        const allCheck = document.querySelector('#category-filters input[value="all"]');
+        const selectedCategories = [];
+        categoryChecks.forEach(cb => {
+          if (cb.checked) selectedCategories.push(cb.value);
+        });
+
+        if (selectedCategories.length > 0 && !allCheck.checked) {
+          filtered = filtered.filter(b => selectedCategories.includes(b.category));
+        }
+
+        // Price range
+        const maxPrice = parseInt(document.getElementById('price-range').value);
+        filtered = filtered.filter(b => b.price <= maxPrice);
+
+        // Rating
+        const ratingVal = parseFloat(document.querySelector('input[name="rating"]:checked')?.value || 0);
+        if (ratingVal > 0) {
+          filtered = filtered.filter(b => b.rating >= ratingVal);
+        }
+
+        // Status
+        const statusChecks = document.querySelectorAll('.status-filter:checked');
+        if (statusChecks.length > 0) {
+          const statuses = Array.from(statusChecks).map(cb => cb.value);
+          filtered = filtered.filter(b => statuses.includes(b.badge));
+        }
+
+        // Sort
+        const sortVal = document.getElementById('sort-select').value;
+        switch(sortVal) {
+          case 'price-asc': filtered.sort((a,b) => a.price - b.price); break;
+          case 'price-desc': filtered.sort((a,b) => b.price - a.price); break;
+          case 'rating': filtered.sort((a,b) => b.rating - a.rating); break;
+          case 'bestseller': filtered.sort((a,b) => b.reviews - a.reviews); break;
+        }
+
+        currentBooks = filtered;
+        renderProducts(filtered);
+      }
+
+      // ===== Event Listeners =====
+      document.querySelectorAll('#category-filters input').forEach(cb => {
+        cb.addEventListener('change', (e) => {
+          if (e.target.value === 'all' && e.target.checked) {
+            document.querySelectorAll('#category-filters input:not([value="all"])').forEach(c => c.checked = false);
+          } else {
+            document.querySelector('#category-filters input[value="all"]').checked = false;
+          }
+          applyFilters();
+        });
+      });
+
+      document.getElementById('price-range').addEventListener('input', (e) => {
+        document.getElementById('price-range-label').textContent = GoldPage.formatPrice(parseInt(e.target.value));
+        applyFilters();
+      });
+
+      document.querySelectorAll('input[name="rating"]').forEach(r => {
+        r.addEventListener('change', applyFilters);
+      });
+
+      document.querySelectorAll('.status-filter').forEach(cb => {
+        cb.addEventListener('change', applyFilters);
+      });
+
+      document.getElementById('sort-select').addEventListener('change', applyFilters);
+
+      document.getElementById('clear-filters').addEventListener('click', () => {
+        clearAllFilters();
+      });
+
+      window.clearAllFilters = function() {
+        document.querySelector('#category-filters input[value="all"]').checked = true;
+        document.querySelectorAll('#category-filters input:not([value="all"])').forEach(c => c.checked = false);
+        document.getElementById('price-range').value = 2000000;
+        document.getElementById('price-range-label').textContent = '2.000.000đ';
+        document.querySelector('input[name="rating"][value="0"]').checked = true;
+        document.querySelectorAll('.status-filter').forEach(c => c.checked = false);
+        document.getElementById('sort-select').value = 'newest';
+        applyFilters();
+      };
+
+      // ===== Mobile Filter Drawer =====
+      const mobileFilterBtn = document.getElementById('mobile-filter-btn');
+      const mobileFilterOverlay = document.getElementById('mobile-filter-overlay');
+      const mobileFilterDrawer = document.getElementById('mobile-filter-drawer');
+      const closeMobileFilter = document.getElementById('close-mobile-filter');
+
+      function openFilterDrawer() {
+        mobileFilterOverlay.classList.remove('hidden');
+        mobileFilterDrawer.style.transform = 'translateX(0)';
+      }
+      function closeFilterDrawer() {
+        mobileFilterOverlay.classList.add('hidden');
+        mobileFilterDrawer.style.transform = 'translateX(-100%)';
+      }
+
+      if (mobileFilterBtn) mobileFilterBtn.addEventListener('click', openFilterDrawer);
+      if (mobileFilterOverlay) mobileFilterOverlay.addEventListener('click', closeFilterDrawer);
+      if (closeMobileFilter) closeMobileFilter.addEventListener('click', closeFilterDrawer);
+
+      // Clone sidebar into mobile drawer
+      const mobileFilterContent = document.getElementById('mobile-filter-content');
+      const sidebar = document.getElementById('filter-sidebar');
+      if (mobileFilterContent && sidebar) {
+        mobileFilterContent.innerHTML = sidebar.querySelector('.sticky').innerHTML;
+      }
+
+      // ===== Quick View =====
+      window.openQuickView = function(bookId) {
+        const book = GoldPage.books.find(b => b.id === bookId);
+        if (!book) return;
+        const modal = document.getElementById('quick-view-modal');
+        const content = document.getElementById('quick-view-content');
+        content.innerHTML = `
+          <div class="md:w-1/2">
+            <img src="${book.image}" alt="${book.title}" class="w-full h-80 object-cover rounded-xl gold-border">
+          </div>
+          <div class="md:w-1/2">
+            <p class="text-xs text-gold font-semibold tracking-wider uppercase mb-2">${book.category}</p>
+            <h3 class="font-serif text-2xl font-bold text-charcoal">${book.title}</h3>
+            <p class="text-gray-500 mt-1">${book.author}</p>
+            <div class="flex items-center gap-2 mt-3">
+              <div class="star-rating">★★★★★</div>
+              <span class="text-sm text-gray-400">(${book.reviews} đánh giá)</span>
+            </div>
+            <div class="flex items-center gap-3 mt-4">
+              <span class="price-gold text-2xl">${GoldPage.formatPrice(book.price)}</span>
+              ${book.originalPrice > book.price ? `<span class="price-original text-lg">${GoldPage.formatPrice(book.originalPrice)}</span>` : ''}
+            </div>
+            <p class="text-sm text-gray-600 mt-4 leading-relaxed">${book.description}</p>
+            <div class="flex gap-3 mt-6">
+              <button onclick="GoldPage.addToCart(${book.id}); document.getElementById('quick-view-modal').classList.remove('active');" class="btn-gold ripple flex-1 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i> Thêm vào giỏ
+              </button>
+              <a href="product-detail.html?id=${book.id}" class="btn-gold-outline px-5 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2">
+                Chi tiết <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+        `;
+        modal.classList.add('active');
+        lucide.createIcons();
+      };
+
+      // Initial render
+      renderProducts(GoldPage.books);
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
