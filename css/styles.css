@@ -1,6 +1,6 @@
 /* ============================================================
-   GoldPage — Design System & Custom Styles
-   Luxury Book E-commerce — Gold Kim Theme
+   GoldPage â€” Design System & Custom Styles
+   Luxury Book E-commerce â€” Gold Kim Theme
    ============================================================ */
 
 /* ---------- CSS Custom Properties (Design Tokens) ---------- */
@@ -143,7 +143,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .ornamental-border::before,
 .ornamental-border::after {
-  content: '◆';
+  content: 'â—†';
   position: absolute;
   color: var(--gold);
   font-size: 14px;
@@ -646,7 +646,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
   border-color: var(--gold);
   opacity: 1;
 }
-
 /* ---------- Testimonial Quote Mark ---------- */
 .quote-mark {
   font-family: 'Playfair Display', serif;
@@ -735,137 +734,117 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* ---------- Responsive Adjustments ---------- */
 @media (max-width: 768px) {
-  .cart-panel {
-    width: 100%;
-  }
-  .chatbox-window {
-    width: calc(100vw - 32px);
-    right: 16px;
-    bottom: 80px;
-    height: 450px;
-  }
-  .toast {
-    min-width: 260px;
-    max-width: calc(100vw - 48px);
-  }
+  .cart-panel { width: 100%; }
+  .chatbox-window { width: calc(100vw - 32px); right: 16px; bottom: 80px; height: 450px; }
+  .toast { min-width: 260px; max-width: calc(100vw - 48px); }
 }
-
 @media (max-width: 480px) {
   h1 { font-size: 1.75rem !important; }
   h2 { font-size: 1.5rem !important; }
 }
 
-/* ---------- Carousel Container ---------- */
-.carousel-track {
-  display: flex;
-  gap: 24px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 10px 0;
-}
-.carousel-track::-webkit-scrollbar {
-  display: none;
-}
-.carousel-track > * {
-  scroll-snap-align: start;
-  flex-shrink: 0;
-}
+/* ---------- Carousel ---------- */
+.carousel-track { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; padding: 10px 0; }
+.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-track > * { scroll-snap-align: start; flex-shrink: 0; }
+.carousel-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--ivory); border: 1px solid var(--gold); color: var(--gold); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+.carousel-btn:hover { background: var(--gold); color: var(--dark); box-shadow: var(--gold-glow); }
 
-/* Carousel Navigation Buttons */
-.carousel-btn {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--ivory);
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-.carousel-btn:hover {
-  background: var(--gold);
-  color: var(--dark);
-  box-shadow: var(--gold-glow);
-}
+.gold-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 0 auto; }
+.section-dark { background: var(--dark); color: var(--cream); }
+.section-navy { background: var(--navy); color: var(--cream); }
 
-/* ---------- Decorative Gold Line Divider ---------- */
-.gold-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  margin: 0 auto;
-}
-
-/* ---------- Section Dark Background ---------- */
-.section-dark {
-  background: var(--dark);
-  color: var(--cream);
-}
-.section-navy {
-  background: var(--navy);
-  color: var(--cream);
-}
-
-/* ---------- Floating Label Effect ---------- */
-.float-label {
-  position: relative;
-}
-.float-label label {
-  position: absolute;
-  top: 50%;
-  left: 16px;
-  transform: translateY(-50%);
-  color: #999;
-  font-size: 14px;
-  transition: var(--transition);
-  pointer-events: none;
-  background: white;
-  padding: 0 4px;
-}
-.float-label input:focus + label,
-.float-label input:not(:placeholder-shown) + label {
-  top: 0;
-  font-size: 12px;
-  color: var(--gold);
-}
+/* ---------- Floating Label ---------- */
+.float-label { position: relative; }
+.float-label label { position: absolute; top: 50%; left: 16px; transform: translateY(-50%); color: #999; font-size: 14px; transition: var(--transition); pointer-events: none; background: white; padding: 0 4px; }
+.float-label input:focus + label, .float-label input:not(:placeholder-shown) + label { top: 0; font-size: 12px; color: var(--gold); }
 
 /* ---------- Dot Indicators ---------- */
-.dot-indicator {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(212, 175, 55, 0.3);
-  cursor: pointer;
-  transition: var(--transition);
-}
-.dot-indicator.active {
-  background: var(--gold);
-  box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
-  transform: scale(1.2);
+.dot-indicator { width: 10px; height: 10px; border-radius: 50%; background: rgba(212, 175, 55, 0.3); cursor: pointer; transition: var(--transition); }
+.dot-indicator.active { background: var(--gold); box-shadow: 0 0 8px rgba(212, 175, 55, 0.4); transform: scale(1.2); }
+
+/* ---------- Quick Reply ---------- */
+.quick-reply { border: 1px solid var(--gold); border-radius: 20px; padding: 6px 14px; font-size: 13px; color: var(--gold-dark); background: transparent; cursor: pointer; transition: var(--transition); white-space: nowrap; }
+.quick-reply:hover { background: rgba(212, 175, 55, 0.1); box-shadow: 0 0 8px rgba(212, 175, 55, 0.2); }
+
+/* === HERO BANNER === */
+.hero-gradient-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #050d1a 0%, #0B1E3D 25%, #0a1a35 50%, #0f2847 75%, #0B1E3D 100%); background-size: 400% 400%; animation: hero-gradient-shift 15s ease infinite; z-index: 0; }
+@keyframes hero-gradient-shift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@keyframes shimmer-text { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+@keyframes pulse-glow { 0%, 100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
+
+.hero-floating-elements { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.hero-float-circle { position: absolute; border-radius: 50%; border: 1px solid rgba(212, 175, 55, 0.1); }
+.hero-float-1 { width: 300px; height: 300px; top: 10%; right: 5%; animation: float-drift-1 20s ease-in-out infinite; }
+.hero-float-2 { width: 200px; height: 200px; bottom: 15%; left: 10%; animation: float-drift-2 25s ease-in-out infinite; }
+.hero-float-3 { width: 150px; height: 150px; top: 40%; left: 30%; animation: float-drift-1 18s ease-in-out infinite reverse; border-color: rgba(244, 229, 161, 0.06); }
+.hero-float-diamond { position: absolute; width: 20px; height: 20px; border: 1px solid rgba(212, 175, 55, 0.2); transform: rotate(45deg); }
+.hero-float-4 { top: 20%; right: 20%; animation: float-spin 12s linear infinite; }
+.hero-float-5 { bottom: 30%; left: 15%; animation: float-spin 15s linear infinite reverse; width: 14px; height: 14px; }
+@keyframes float-drift-1 { 0%, 100% { transform: translate(0, 0); } 33% { transform: translate(30px, -20px); } 66% { transform: translate(-15px, 15px); } }
+@keyframes float-drift-2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-20px, -30px); } }
+@keyframes float-spin { 0% { transform: rotate(45deg) scale(1); opacity: 0.3; } 50% { transform: rotate(225deg) scale(1.2); opacity: 0.6; } 100% { transform: rotate(405deg) scale(1); opacity: 0.3; } }
+
+.hero-badge-glow { animation: badge-glow 3s ease-in-out infinite; }
+@keyframes badge-glow { 0%, 100% { box-shadow: 0 0 0 rgba(212, 175, 55, 0); } 50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.15); } }
+.hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #D4AF37; animation: badge-dot-pulse 2s ease-in-out infinite; }
+@keyframes badge-dot-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
+
+.hero-btn-primary { display: inline-flex; align-items: center; padding: 14px 32px; border-radius: 12px; background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00); background-size: 200% auto; color: var(--dark); font-weight: 700; font-size: 14px; letter-spacing: 0.5px; cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden; text-decoration: none; }
+.hero-btn-primary::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s ease; }
+.hero-btn-primary:hover { box-shadow: 0 0 30px rgba(212, 175, 55, 0.5), 0 10px 30px rgba(0,0,0,0.3); transform: translateY(-3px); background-position: right center; }
+.hero-btn-primary:hover::before { left: 100%; }
+.hero-btn-secondary { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 12px; background: rgba(212, 175, 55, 0.08); border: 1.5px solid rgba(212, 175, 55, 0.4); color: var(--gold); font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; backdrop-filter: blur(10px); }
+.hero-btn-secondary:hover { background: rgba(212, 175, 55, 0.15); border-color: var(--gold); box-shadow: 0 0 25px rgba(212, 175, 55, 0.2); transform: translateY(-3px); }
+.hero-btn-badge { background: rgba(239, 68, 68, 0.9); color: white; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px; animation: badge-dot-pulse 2s ease-in-out infinite; }
+
+.hero-book-container { perspective: 1000px; }
+.hero-book-float { animation: book-float 6s ease-in-out infinite; transform-style: preserve-3d; }
+@keyframes book-float { 0%, 100% { transform: translateY(0) rotateY(-5deg) rotateX(2deg); } 25% { transform: translateY(-15px) rotateY(-3deg) rotateX(0deg); } 50% { transform: translateY(-8px) rotateY(-7deg) rotateX(-2deg); } 75% { transform: translateY(-20px) rotateY(-4deg) rotateX(1deg); } }
+.hero-book-shadow { filter: drop-shadow(0 20px 40px rgba(212, 175, 55, 0.15)) drop-shadow(0 0 80px rgba(212, 175, 55, 0.08)); }
+.hero-orbit { position: absolute; width: 350px; height: 350px; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+.hero-orbit-dot { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px rgba(212, 175, 55, 0.6); animation: orbit-rotate 8s linear infinite; animation-delay: var(--orbit-delay, 0s); top: 0; left: 50%; transform-origin: 0 175px; }
+@keyframes orbit-rotate { 0% { transform: rotate(0deg); opacity: 0.3; } 25% { opacity: 0.8; } 50% { opacity: 0.3; } 75% { opacity: 0.8; } 100% { transform: rotate(360deg); opacity: 0.3; } }
+.hero-scroll-indicator { width: 24px; height: 40px; border-radius: 12px; border: 1.5px solid rgba(212, 175, 55, 0.3); position: relative; display: flex; justify-content: center; }
+.hero-scroll-dot { width: 4px; height: 8px; background: var(--gold); border-radius: 2px; margin-top: 8px; animation: scroll-bounce 2s ease-in-out infinite; }
+@keyframes scroll-bounce { 0%, 100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(14px); opacity: 0.3; } }
+
+/* Feature Strip */
+.feature-strip-item { display: flex; align-items: center; gap: 12px; padding: 20px 16px; border-right: 1px solid rgba(212, 175, 55, 0.08); transition: all 0.3s ease; }
+.feature-strip-item:last-child { border-right: none; }
+.feature-strip-item:hover { background: rgba(212, 175, 55, 0.04); }
+.feature-strip-icon { width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, rgba(244, 229, 161, 0.15), rgba(212, 175, 55, 0.1)); border: 1px solid rgba(212, 175, 55, 0.15); display: flex; align-items: center; justify-content: center; color: var(--gold); flex-shrink: 0; transition: all 0.3s ease; }
+.feature-strip-item:hover .feature-strip-icon { background: linear-gradient(135deg, #F4E5A1, #D4AF37); color: var(--dark); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+
+/* Category Cards */
+.category-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 28px 16px 24px; border-radius: 16px; background: white; border: 1px solid rgba(212, 175, 55, 0.12); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; text-decoration: none; overflow: hidden; }
+.category-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold-gradient); transform: scaleX(0); transition: transform 0.4s ease; transform-origin: left; }
+.category-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15), 0 5px 15px rgba(0,0,0,0.05); border-color: var(--gold); }
+.category-card:hover::before { transform: scaleX(1); }
+.category-card-icon { --cat-color: var(--gold); width: 60px; height: 60px; border-radius: 16px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05)); display: flex; align-items: center; justify-content: center; color: var(--cat-color, var(--gold)); transition: all 0.4s ease; }
+.category-card:hover .category-card-icon { background: linear-gradient(135deg, var(--cat-color, var(--gold)), var(--cat-color, var(--gold-dark))); color: white; transform: scale(1.1) rotate(-5deg); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.25); }
+.category-card-arrow { margin-top: 12px; width: 28px; height: 28px; border-radius: 50%; background: rgba(212, 175, 55, 0.08); display: flex; align-items: center; justify-content: center; color: var(--gold); transition: all 0.3s ease; opacity: 0; transform: translateY(5px); }
+.category-card:hover .category-card-arrow { opacity: 1; transform: translateY(0); background: var(--gold); color: var(--dark); }
+
+@media (max-width: 768px) {
+  .feature-strip-item { border-right: none; border-bottom: 1px solid rgba(212, 175, 55, 0.08); padding: 16px 12px; }
+  .category-card { padding: 20px 12px 18px; }
+  .category-card-icon { width: 48px; height: 48px; }
 }
 
-/* ---------- Quick Reply Button (Chatbox) ---------- */
-.quick-reply {
-  border: 1px solid var(--gold);
-  border-radius: 20px;
-  padding: 6px 14px;
-  font-size: 13px;
-  color: var(--gold-dark);
-  background: transparent;
-  cursor: pointer;
-  transition: var(--transition);
-  white-space: nowrap;
+@keyframes flag-wave {
+  0% { transform: perspective(300px) rotateY(0deg) rotateX(0deg) skewY(0deg); filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.2)); }
+  25% { transform: perspective(300px) rotateY(-15deg) rotateX(3deg) skewY(-2deg); filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.15)); }
+  50% { transform: perspective(300px) rotateY(0deg) rotateX(0deg) skewY(0deg); filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.2)); }
+  75% { transform: perspective(300px) rotateY(15deg) rotateX(-3deg) skewY(2deg); filter: drop-shadow(-1px 1px 2px rgba(0,0,0,0.2)); }
+  100% { transform: perspective(300px) rotateY(0deg) rotateX(0deg) skewY(0deg); filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.2)); }
 }
-.quick-reply:hover {
-  background: rgba(212, 175, 55, 0.1);
-  box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+.flag-cloth {
+  animation: flag-wave 2.5s ease-in-out infinite;
+  transform-origin: 0px 1px;
 }
-
-
-@keyframes flag-wave { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(15deg); } 75% { transform: rotate(-15deg); } }
-.flag-wave { display: inline-block; animation: flag-wave 1.5s ease-in-out infinite; transform-origin: bottom center; margin-left: 4px; }
+.flag-wrapper {
+  display: inline-block;
+  margin-left: 6px;
+  vertical-align: middle;
+}
