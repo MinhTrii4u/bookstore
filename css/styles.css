@@ -848,3 +848,367 @@ input[type="range"]::-webkit-slider-thumb:hover {
   margin-left: 6px;
   vertical-align: middle;
 }
+
+/* ============================================================
+   FAHASA-STYLE SIDEBAR FILTER
+   ============================================================ */
+
+/* Filter Panel Container */
+.filter-panel {
+  background: white;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Filter Section */
+.filter-section {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0ebe0;
+}
+.filter-section:last-child {
+  border-bottom: none;
+}
+
+/* Filter Section Title */
+.filter-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--charcoal);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.filter-title i {
+  color: var(--gold);
+}
+
+/* Category Tree Navigation (Fahasa-style) */
+.category-tree {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category-tree-item {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #555;
+  padding: 8px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 6px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin: 0 -8px;
+  position: relative;
+}
+.category-tree-item:hover {
+  color: var(--gold-dark);
+  background: rgba(212, 175, 55, 0.04);
+}
+.category-tree-item.active {
+  color: var(--gold-dark);
+  font-weight: 600;
+}
+.category-tree-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: var(--gold);
+  border-radius: 0 3px 3px 0;
+}
+
+/* All categories - parent level */
+.category-tree-all {
+  font-weight: 600;
+  color: var(--charcoal);
+  font-size: 14px;
+  padding: 10px 8px;
+  margin: 0 -8px;
+  border-bottom: 1px solid #f0ebe0;
+  margin-bottom: 4px;
+}
+.category-tree-all:hover {
+  color: var(--gold-dark);
+}
+.category-tree-all.active {
+  color: var(--gold-dark);
+}
+
+/* Parent category label (e.g., "Sách tiếng Việt") */
+.category-tree-parent {
+  font-weight: 700;
+  color: var(--gold-dark);
+  font-size: 14px;
+  padding: 10px 8px;
+  margin: 0 -8px;
+  cursor: default;
+}
+
+/* Sub-category items */
+.category-tree-sub {
+  padding-left: 24px;
+}
+.category-tree-sub .category-tree-item {
+  font-size: 13.5px;
+  padding: 7px 8px;
+  color: #666;
+}
+.category-tree-sub .category-tree-item:hover {
+  color: var(--gold-dark);
+}
+.category-tree-sub .category-tree-item.active {
+  color: var(--gold-dark);
+  font-weight: 600;
+}
+
+/* Category count badge */
+.category-count {
+  font-size: 11px;
+  color: #aaa;
+  font-weight: 400;
+  min-width: 20px;
+  text-align: right;
+}
+
+/* "Xem Thêm" toggle button */
+.filter-show-more {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--gold-dark);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 8px;
+  margin: 4px -8px 0;
+  border: none;
+  background: none;
+  transition: all 0.2s ease;
+  width: calc(100% + 16px);
+  text-align: left;
+}
+.filter-show-more:hover {
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.04);
+  border-radius: 6px;
+}
+.filter-show-more i {
+  transition: transform 0.3s ease;
+  width: 16px;
+  height: 16px;
+}
+.filter-show-more.expanded i {
+  transform: rotate(180deg);
+}
+
+/* Hidden categories container */
+.category-hidden-group {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.category-hidden-group.expanded {
+  max-height: 500px;
+}
+
+/* Price Range Checkboxes (Fahasa-style) */
+.price-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.price-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px;
+  margin: 0 -8px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  color: #555;
+}
+.price-checkbox-label:hover {
+  background: rgba(212, 175, 55, 0.04);
+  color: var(--charcoal);
+}
+.price-checkbox-label input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  flex-shrink: 0;
+  background: white;
+}
+.price-checkbox-label input[type="checkbox"]:hover {
+  border-color: var(--gold);
+}
+.price-checkbox-label input[type="checkbox"]:checked {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.price-checkbox-label input[type="checkbox"]:checked::after {
+  content: '✕';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+}
+.price-checkbox-label.active {
+  color: var(--charcoal);
+  font-weight: 500;
+}
+
+/* Rating Filter (Fahasa-style) */
+.rating-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.rating-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px;
+  margin: 0 -8px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-size: 13.5px;
+  color: #555;
+}
+.rating-checkbox-label:hover {
+  background: rgba(212, 175, 55, 0.04);
+}
+.rating-checkbox-label input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  flex-shrink: 0;
+  background: white;
+}
+.rating-checkbox-label input[type="radio"]:hover {
+  border-color: var(--gold);
+}
+.rating-checkbox-label input[type="radio"]:checked {
+  border-color: var(--gold);
+  border-width: 2px;
+}
+.rating-checkbox-label input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* Status/Badge Filter */
+.status-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.status-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px;
+  margin: 0 -8px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-size: 13.5px;
+  color: #555;
+}
+.status-checkbox-label:hover {
+  background: rgba(212, 175, 55, 0.04);
+}
+.status-checkbox-label input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  flex-shrink: 0;
+  background: white;
+}
+.status-checkbox-label input[type="checkbox"]:hover {
+  border-color: var(--gold);
+}
+.status-checkbox-label input[type="checkbox"]:checked {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.status-checkbox-label input[type="checkbox"]:checked::after {
+  content: '✕';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* Clear filters button */
+.filter-clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 10px 16px;
+  border: 1.5px solid rgba(212, 175, 55, 0.3);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--gold-dark);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 4px;
+}
+.filter-clear-btn:hover {
+  background: rgba(212, 175, 55, 0.08);
+  border-color: var(--gold);
+  color: var(--gold);
+}

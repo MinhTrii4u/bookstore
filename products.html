@@ -130,98 +130,108 @@
   <main class="max-w-7xl mx-auto px-4 py-8">
     <div class="flex gap-8">
 
-      <!-- ===== SIDEBAR FILTER (Desktop) ===== -->
+      <!-- ===== SIDEBAR FILTER (Desktop) — Fahasa Style ===== -->
       <aside id="filter-sidebar" class="hidden lg:block w-72 flex-shrink-0">
         <div class="sticky top-36">
-          <h3 class="font-serif text-xl font-bold text-charcoal mb-6 flex items-center gap-2">
-            <i data-lucide="sliders-horizontal" class="w-5 h-5 text-gold"></i>
-            Bộ lọc
-          </h3>
+          <div class="filter-panel">
 
-          <!-- Category Filter -->
-          <div class="mb-6 pb-6 border-b border-gold/10">
-            <h4 class="font-semibold text-sm text-charcoal mb-3">Thể loại</h4>
-            <div class="space-y-2.5" id="category-filters">
-              <label class="flex items-center gap-2.5 cursor-pointer group">
-                <input type="checkbox" value="all" checked class="w-4 h-4 rounded accent-amber-600">
-                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Tất cả</span>
-              </label>
-              <label class="flex items-center gap-2.5 cursor-pointer group">
-                <input type="checkbox" value="Văn học" class="w-4 h-4 rounded accent-amber-600">
-                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Văn học</span>
-              </label>
-              <label class="flex items-center gap-2.5 cursor-pointer group">
-                <input type="checkbox" value="Kỹ năng sống" class="w-4 h-4 rounded accent-amber-600">
-                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Kỹ năng sống</span>
-              </label>
-              <label class="flex items-center gap-2.5 cursor-pointer group">
-                <input type="checkbox" value="Kinh doanh" class="w-4 h-4 rounded accent-amber-600">
-                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Kinh doanh</span>
-              </label>
-              <label class="flex items-center gap-2.5 cursor-pointer group">
-                <input type="checkbox" value="Thiếu nhi" class="w-4 h-4 rounded accent-amber-600">
-                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Thiếu nhi</span>
-              </label>
-              <label class="flex items-center gap-2.5 cursor-pointer group">
-                <input type="checkbox" value="Ngoại văn" class="w-4 h-4 rounded accent-amber-600">
-                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Ngoại văn</span>
-              </label>
-              <label class="flex items-center gap-2.5 cursor-pointer group">
-                <input type="checkbox" value="Sách quý hiếm" class="w-4 h-4 rounded accent-amber-600">
-                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Sách quý hiếm / Limited</span>
-              </label>
+            <!-- NHÓM SẢN PHẨM — Category Tree -->
+            <div class="filter-section">
+              <div class="filter-title">
+                <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                Nhóm Sản Phẩm
+              </div>
+              <div id="category-filters">
+                <!-- Populated dynamically by JS from GoldPage.books -->
+              </div>
             </div>
-          </div>
 
-          <!-- Price Range -->
-          <div class="mb-6 pb-6 border-b border-gold/10">
-            <h4 class="font-semibold text-sm text-charcoal mb-3">Khoảng giá</h4>
-            <input type="range" id="price-range" min="0" max="2000000" value="2000000" step="50000">
-            <div class="flex justify-between mt-2 text-xs text-gray-500">
-              <span>0đ</span>
-              <span id="price-range-label" class="font-semibold text-gold-dark">2.000.000đ</span>
+            <!-- GIÁ — Price Range Checkboxes -->
+            <div class="filter-section">
+              <div class="filter-title">
+                <i data-lucide="tag" class="w-4 h-4"></i>
+                Giá
+              </div>
+              <div class="price-checkbox-group" id="price-filters">
+                <label class="price-checkbox-label">
+                  <input type="checkbox" name="price" value="0-150000" class="price-filter">
+                  <span>0đ - 150,000đ</span>
+                </label>
+                <label class="price-checkbox-label">
+                  <input type="checkbox" name="price" value="150000-300000" class="price-filter">
+                  <span>150,000đ - 300,000đ</span>
+                </label>
+                <label class="price-checkbox-label">
+                  <input type="checkbox" name="price" value="300000-500000" class="price-filter">
+                  <span>300,000đ - 500,000đ</span>
+                </label>
+                <label class="price-checkbox-label">
+                  <input type="checkbox" name="price" value="500000-700000" class="price-filter">
+                  <span>500,000đ - 700,000đ</span>
+                </label>
+                <label class="price-checkbox-label">
+                  <input type="checkbox" name="price" value="700000-99999999" class="price-filter">
+                  <span>700,000đ - Trở Lên</span>
+                </label>
+              </div>
             </div>
-          </div>
 
-          <!-- Rating Filter -->
-          <div class="mb-6 pb-6 border-b border-gold/10">
-            <h4 class="font-semibold text-sm text-charcoal mb-3">Đánh giá</h4>
-            <div class="space-y-2" id="rating-filters">
-              <label class="flex items-center gap-2.5 cursor-pointer group">
-                <input type="radio" name="rating" value="0" checked class="w-4 h-4 accent-amber-600">
-                <span class="text-sm text-gray-600">Tất cả</span>
-              </label>
-              <label class="flex items-center gap-2.5 cursor-pointer group">
-                <input type="radio" name="rating" value="4.5" class="w-4 h-4 accent-amber-600">
-                <span class="star-rating text-xs">★★★★★</span>
-                <span class="text-xs text-gray-400">4.5+</span>
-              </label>
-              <label class="flex items-center gap-2.5 cursor-pointer group">
-                <input type="radio" name="rating" value="4" class="w-4 h-4 accent-amber-600">
-                <span class="star-rating text-xs">★★★★</span>
-                <span class="text-xs text-gray-400">4.0+</span>
-              </label>
+            <!-- ĐÁNH GIÁ — Rating Filter -->
+            <div class="filter-section">
+              <div class="filter-title">
+                <i data-lucide="star" class="w-4 h-4"></i>
+                Đánh Giá
+              </div>
+              <div class="rating-checkbox-group" id="rating-filters">
+                <label class="rating-checkbox-label">
+                  <input type="radio" name="rating" value="0" checked>
+                  <span class="text-sm">Tất cả</span>
+                </label>
+                <label class="rating-checkbox-label">
+                  <input type="radio" name="rating" value="4.5">
+                  <span class="star-rating text-xs">★★★★★</span>
+                  <span class="text-xs text-gray-400">4.5 trở lên</span>
+                </label>
+                <label class="rating-checkbox-label">
+                  <input type="radio" name="rating" value="4">
+                  <span class="star-rating text-xs">★★★★</span>
+                  <span class="text-xs text-gray-400">4.0 trở lên</span>
+                </label>
+                <label class="rating-checkbox-label">
+                  <input type="radio" name="rating" value="3">
+                  <span class="star-rating text-xs">★★★</span>
+                  <span class="text-xs text-gray-400">3.0 trở lên</span>
+                </label>
+              </div>
             </div>
-          </div>
 
-          <!-- Status Filter -->
-          <div class="mb-6">
-            <h4 class="font-semibold text-sm text-charcoal mb-3">Tình trạng</h4>
-            <div class="space-y-2.5">
-              <label class="flex items-center gap-2.5 cursor-pointer group">
-                <input type="checkbox" value="bestseller" class="status-filter w-4 h-4 rounded accent-amber-600">
-                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Bestseller</span>
-              </label>
-              <label class="flex items-center gap-2.5 cursor-pointer group">
-                <input type="checkbox" value="limited" class="status-filter w-4 h-4 rounded accent-amber-600">
-                <span class="text-sm text-gray-600 group-hover:text-gold transition-colors">Limited Edition</span>
-              </label>
+            <!-- TÌNH TRẠNG — Status Filter -->
+            <div class="filter-section">
+              <div class="filter-title">
+                <i data-lucide="award" class="w-4 h-4"></i>
+                Tình Trạng
+              </div>
+              <div class="status-checkbox-group">
+                <label class="status-checkbox-label">
+                  <input type="checkbox" value="bestseller" class="status-filter">
+                  <span>Bestseller</span>
+                </label>
+                <label class="status-checkbox-label">
+                  <input type="checkbox" value="limited" class="status-filter">
+                  <span>Limited Edition</span>
+                </label>
+              </div>
             </div>
-          </div>
 
-          <button id="clear-filters" class="w-full py-2.5 rounded-xl text-sm font-semibold text-gold border border-gold/30 hover:bg-gold/5 transition-colors">
-            Xóa bộ lọc
-          </button>
+            <!-- XÓA BỘ LỌC -->
+            <div class="filter-section">
+              <button id="clear-filters" class="filter-clear-btn">
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                Xóa bộ lọc
+              </button>
+            </div>
+
+          </div>
         </div>
       </aside>
 
@@ -408,10 +418,107 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       let currentBooks = [...GoldPage.books];
+      let activeCategory = null; // Track currently selected category (Fahasa-style: single select)
       const productGrid = document.getElementById('product-grid');
       const productCount = document.getElementById('product-count');
       const emptyState = document.getElementById('empty-state');
       const pagination = document.getElementById('pagination');
+
+      // ===== Build Fahasa-style Category Tree =====
+      function buildCategoryFilters() {
+        const container = document.getElementById('category-filters');
+        if (!container) return;
+
+        // Extract unique categories from book data
+        const categories = [...new Set(GoldPage.books.map(b => b.category).filter(Boolean))];
+        categories.sort((a, b) => a.localeCompare(b, 'vi'));
+
+        // Check URL for pre-selected category
+        const urlParams = new URLSearchParams(window.location.search);
+        const preSelectedCategory = urlParams.get('category');
+        if (preSelectedCategory) {
+          const match = categories.find(c => c.toLowerCase() === preSelectedCategory.toLowerCase());
+          if (match) activeCategory = match;
+        }
+
+        // How many categories to show initially (like Fahasa "Xem Thêm")
+        const INITIAL_SHOW = 5;
+        const visibleCategories = categories.slice(0, INITIAL_SHOW);
+        const hiddenCategories = categories.slice(INITIAL_SHOW);
+
+        let html = '';
+
+        // "Tất Cả Nhóm Sản Phẩm" 
+        html += `<div class="category-tree-item category-tree-all ${!activeCategory ? 'active' : ''}" data-category="all">
+          Tất Cả Nhóm Sản Phẩm
+        </div>`;
+
+        // Parent label
+        html += `<div class="category-tree-parent">
+          <i data-lucide="book-open" style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:4px;"></i>
+          Sách Trong Nước
+        </div>`;
+
+        // Sub-categories (visible)
+        html += `<div class="category-tree-sub">`;
+        visibleCategories.forEach(cat => {
+          const count = GoldPage.books.filter(b => b.category === cat).length;
+          html += `<div class="category-tree-item ${activeCategory === cat ? 'active' : ''}" data-category="${cat}">
+            <span>${cat}</span>
+            <span class="category-count">(${count})</span>
+          </div>`;
+        });
+
+        // Hidden categories with "Xem Thêm"
+        if (hiddenCategories.length > 0) {
+          html += `<div class="category-hidden-group" id="category-hidden">`;
+          hiddenCategories.forEach(cat => {
+            const count = GoldPage.books.filter(b => b.category === cat).length;
+            html += `<div class="category-tree-item ${activeCategory === cat ? 'active' : ''}" data-category="${cat}">
+              <span>${cat}</span>
+              <span class="category-count">(${count})</span>
+            </div>`;
+          });
+          html += `</div>`;
+          html += `<button class="filter-show-more" id="show-more-categories">
+            Xem Thêm <i data-lucide="chevron-down"></i>
+          </button>`;
+        }
+
+        html += `</div>`; // close category-tree-sub
+
+        container.innerHTML = html;
+
+        // "Xem Thêm" toggle
+        const showMoreBtn = document.getElementById('show-more-categories');
+        const hiddenGroup = document.getElementById('category-hidden');
+        if (showMoreBtn && hiddenGroup) {
+          showMoreBtn.addEventListener('click', () => {
+            const isExpanded = hiddenGroup.classList.contains('expanded');
+            hiddenGroup.classList.toggle('expanded');
+            showMoreBtn.classList.toggle('expanded');
+            showMoreBtn.innerHTML = isExpanded
+              ? 'Xem Thêm <i data-lucide="chevron-down"></i>'
+              : 'Thu Gọn <i data-lucide="chevron-down"></i>';
+            if (window.lucide) lucide.createIcons();
+          });
+        }
+
+        // Category click handlers (Fahasa-style: single select)
+        container.querySelectorAll('.category-tree-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const cat = item.dataset.category;
+            // Remove active from all
+            container.querySelectorAll('.category-tree-item').forEach(el => el.classList.remove('active'));
+            // Set active
+            item.classList.add('active');
+            activeCategory = cat === 'all' ? null : cat;
+            applyFilters();
+          });
+        });
+
+        if (window.lucide) lucide.createIcons();
+      }
 
       // ===== Render Product Grid =====
       function renderProducts(books) {
@@ -468,24 +575,26 @@
       function applyFilters() {
         let filtered = [...GoldPage.books];
 
-        // Category filter
-        const categoryChecks = document.querySelectorAll('#category-filters input[type="checkbox"]:not([value="all"])');
-        const allCheck = document.querySelector('#category-filters input[value="all"]');
-        const selectedCategories = [];
-        categoryChecks.forEach(cb => {
-          if (cb.checked) selectedCategories.push(cb.value);
-        });
-
-        if (selectedCategories.length > 0 && !allCheck.checked) {
-          filtered = filtered.filter(b => selectedCategories.includes(b.category));
+        // Category filter (Fahasa-style: single category)
+        if (activeCategory) {
+          filtered = filtered.filter(b => b.category === activeCategory);
         }
 
-        // Price range
-        const maxPrice = parseInt(document.getElementById('price-range').value);
-        filtered = filtered.filter(b => b.price <= maxPrice);
+        // Price range checkboxes (Fahasa-style)
+        const priceChecks = document.querySelectorAll('.price-filter:checked');
+        if (priceChecks.length > 0) {
+          const priceRanges = Array.from(priceChecks).map(cb => {
+            const [min, max] = cb.value.split('-').map(Number);
+            return { min, max };
+          });
+          filtered = filtered.filter(b => {
+            return priceRanges.some(range => b.price >= range.min && b.price <= range.max);
+          });
+        }
 
         // Rating
-        const ratingVal = parseFloat(document.querySelector('input[name="rating"]:checked')?.value || 0);
+        const ratingChecked = document.querySelector('input[name="rating"]:checked');
+        const ratingVal = parseFloat(ratingChecked?.value || 0);
         if (ratingVal > 0) {
           filtered = filtered.filter(b => b.rating >= ratingVal);
         }
@@ -510,45 +619,52 @@
         renderProducts(filtered);
       }
 
-      // ===== Event Listeners =====
-      document.querySelectorAll('#category-filters input').forEach(cb => {
-        cb.addEventListener('change', (e) => {
-          if (e.target.value === 'all' && e.target.checked) {
-            document.querySelectorAll('#category-filters input:not([value="all"])').forEach(c => c.checked = false);
-          } else {
-            document.querySelector('#category-filters input[value="all"]').checked = false;
-          }
-          applyFilters();
-        });
+      // ===== Build filters first, then attach remaining listeners =====
+      buildCategoryFilters();
+
+      // Price filter listeners
+      document.querySelectorAll('.price-filter').forEach(cb => {
+        cb.addEventListener('change', applyFilters);
       });
 
-      document.getElementById('price-range').addEventListener('input', (e) => {
-        document.getElementById('price-range-label').textContent = GoldPage.formatPrice(parseInt(e.target.value));
-        applyFilters();
-      });
-
+      // Rating filter listeners
       document.querySelectorAll('input[name="rating"]').forEach(r => {
         r.addEventListener('change', applyFilters);
       });
 
+      // Status filter listeners
       document.querySelectorAll('.status-filter').forEach(cb => {
         cb.addEventListener('change', applyFilters);
       });
 
+      // Sort listener
       document.getElementById('sort-select').addEventListener('change', applyFilters);
 
+      // Clear filters
       document.getElementById('clear-filters').addEventListener('click', () => {
         clearAllFilters();
       });
 
       window.clearAllFilters = function() {
-        document.querySelector('#category-filters input[value="all"]').checked = true;
-        document.querySelectorAll('#category-filters input:not([value="all"])').forEach(c => c.checked = false);
-        document.getElementById('price-range').value = 2000000;
-        document.getElementById('price-range-label').textContent = '2.000.000đ';
+        // Reset category
+        activeCategory = null;
+        const container = document.getElementById('category-filters');
+        container.querySelectorAll('.category-tree-item').forEach(el => el.classList.remove('active'));
+        const allItem = container.querySelector('[data-category="all"]');
+        if (allItem) allItem.classList.add('active');
+
+        // Reset price
+        document.querySelectorAll('.price-filter').forEach(c => c.checked = false);
+
+        // Reset rating
         document.querySelector('input[name="rating"][value="0"]').checked = true;
+
+        // Reset status
         document.querySelectorAll('.status-filter').forEach(c => c.checked = false);
+
+        // Reset sort
         document.getElementById('sort-select').value = 'newest';
+
         applyFilters();
       };
 
@@ -571,7 +687,7 @@
       if (mobileFilterOverlay) mobileFilterOverlay.addEventListener('click', closeFilterDrawer);
       if (closeMobileFilter) closeMobileFilter.addEventListener('click', closeFilterDrawer);
 
-      // Clone sidebar into mobile drawer
+      // Clone sidebar into mobile drawer (after dynamic build)
       const mobileFilterContent = document.getElementById('mobile-filter-content');
       const sidebar = document.getElementById('filter-sidebar');
       if (mobileFilterContent && sidebar) {
@@ -615,8 +731,8 @@
         lucide.createIcons();
       };
 
-      // Initial render
-      renderProducts(GoldPage.books);
+      // Initial render (with filters applied, in case URL has ?category=...)
+      applyFilters();
       lucide.createIcons();
     });
   </script>
