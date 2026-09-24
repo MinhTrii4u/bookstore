@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    GoldPage — Core App Logic
    Shared state, toast notifications, cart badge, utilities
    ============================================================ */
@@ -450,6 +450,94 @@ const GoldPage = (() => {
     if (window.lucide) lucide.createIcons();
   }
 
+  // ========== Wishlist Panel Injection & Logic ==========
+  function injectWishlistPanel() {
+    if (document.getElementById('wishlist-panel')) return;
+    const html = `
+      <div id="wishlist-overlay" class="wishlist-overlay" onclick="GoldPage.closeWishlist()"></div>
+      <div id="wishlist-panel" class="wishlist-panel">
+        <div class="px-6 py-4 flex items-center justify-between" style="background: var(--navy);">
+          <h3 class="font-serif font-bold text-lg text-gold flex items-center gap-2">
+            <i data-lucide="heart" class="w-5 h-5"></i>
+            Danh Sách Yêu Thích
+          </h3>
+          <button onclick="GoldPage.closeWishlist()" class="text-gray-400 hover:text-cream transition-colors">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+        <div id="wishlist-empty" class="flex-1 flex flex-col items-center justify-center px-6" style="display: flex;">
+          <div class="w-24 h-24 rounded-full flex items-center justify-center mb-6" style="background: rgba(212,175,55,0.1); border: 1px dashed var(--gold);">
+            <i data-lucide="heart" class="w-10 h-10 text-gold opacity-40"></i>
+          </div>
+          <h4 class="font-serif text-lg font-bold text-charcoal mb-2">Chưa có sản phẩm</h4>
+          <p class="text-gray-400 text-sm text-center mb-6">Hãy thêm những cuốn sách bạn yêu thích vào đây!</p>
+          <button onclick="GoldPage.closeWishlist()" class="btn-gold ripple px-6 py-2.5 rounded-xl text-sm font-bold">
+            Tiếp tục khám phá
+          </button>
+        </div>
+        <div id="wishlist-content" class="flex-1 flex flex-col" style="display: none;">
+          <div id="wishlist-items" class="flex-1 overflow-y-auto"></div>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', html);
+  }
+
+  function openWishlist() {
+    injectWishlistPanel();
+    document.getElementById('wishlist-panel').classList.add('active');
+    document.getElementById('wishlist-overlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    renderWishlistPanel();
+  }
+
+  function closeWishlist() {
+    const panel = document.getElementById('wishlist-panel');
+    const overlay = document.getElementById('wishlist-overlay');
+    if (panel) panel.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function renderWishlistPanel() {
+    const itemsContainer = document.getElementById('wishlist-items');
+    const emptyState = document.getElementById('wishlist-empty');
+    const contentState = document.getElementById('wishlist-content');
+
+    if (!itemsContainer) return;
+
+    if (wishlist.length === 0) {
+      if (emptyState) emptyState.style.display = 'flex';
+      if (contentState) contentState.style.display = 'none';
+      return;
+    }
+
+    if (emptyState) emptyState.style.display = 'none';
+    if (contentState) contentState.style.display = 'flex';
+
+    const wishlistBooks = getWishlistBooks();
+    itemsContainer.innerHTML = wishlistBooks.map(item => `
+      <div class="flex gap-4 p-4 border-b border-gray-100">
+        <img src="${item.image}" alt="${item.title}" class="w-16 h-20 object-cover rounded-md gold-border">
+        <div class="flex-1 min-w-0">
+          <h4 class="font-semibold text-sm truncate">${item.title}</h4>
+          <p class="text-xs text-gray-500 mt-0.5">${item.author}</p>
+          <p class="price-sale text-sm mt-1">${formatPrice(item.price)}</p>
+          <div class="mt-2">
+            <button onclick="GoldPage.addToCart(${item.id}); GoldPage.removeFromWishlist(${item.id});" class="text-xs font-semibold text-gold hover:text-dark transition-colors">
+              Thêm vào giỏ
+            </button>
+          </div>
+        </div>
+        <button onclick="GoldPage.removeFromWishlist(${item.id}); GoldPage.renderWishlistPanel();" class="text-red-800 hover:text-red-600 self-start mt-1 transition-colors">
+          <i data-lucide="trash-2" class="w-4 h-4"></i>
+        </button>
+      </div>
+    `).join('');
+
+    if (window.lucide) lucide.createIcons();
+  }
+
   // ========== Wishlist ==========
   function toggleWishlist(bookId) {
     const idx = wishlist.indexOf(bookId);
@@ -459,8 +547,16 @@ const GoldPage = (() => {
     } else {
       wishlist.push(bookId);
       showToast('Đã thêm vào danh sách yêu thích ❤️');
+      openWishlist(); // Mở panel danh sách yêu thích khi nhấn thêm
     }
     saveWishlist();
+    if (document.getElementById('wishlist-panel') && document.getElementById('wishlist-panel').classList.contains('active')) {
+      renderWishlistPanel();
+    }
+    // Cập nhật lại UI profile nếu đang ở trang profile
+    if (typeof renderWishlist === 'function') {
+      try { renderWishlist(); } catch (e) {}
+    }
   }
 
   function removeFromWishlist(bookId) {
@@ -469,6 +565,12 @@ const GoldPage = (() => {
       wishlist.splice(idx, 1);
       saveWishlist();
       showToast('Đã xóa khỏi danh sách yêu thích');
+      if (document.getElementById('wishlist-panel') && document.getElementById('wishlist-panel').classList.contains('active')) {
+        renderWishlistPanel();
+      }
+      if (typeof renderWishlist === 'function') {
+        try { renderWishlist(); } catch (e) {}
+      }
     }
   }
 
@@ -692,6 +794,9 @@ const GoldPage = (() => {
     updateCartBadge,
     showToast,
     renderCartPanel,
+    renderWishlistPanel,
+    openWishlist,
+    closeWishlist,
     toggleWishlist,
     removeFromWishlist,
     getWishlistBooks,

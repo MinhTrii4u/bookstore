@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hành Tinh Chữ — Thư Viện Sách Cao Cấp | Trang Chủ</title>
-  <meta name="description" content="GoldPage — Thư viện sách trực tuyến cao cấp. Khám phá bộ sưu tập sách quý hiếm, bestseller và ấn bản giới hạn bìa da mạ vàng.">
+  <meta name="description"
+    content="GoldPage — Thư viện sách trực tuyến cao cấp. Khám phá bộ sưu tập sách quý hiếm, bestseller và ấn bản giới hạn bìa da mạ vàng.">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap"
+    rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -41,28 +45,39 @@
   <!-- Custom Styles -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body class="bg-ivory font-sans text-charcoal">
 
   <!-- ============================================================
        HEADER — Sticky, ivory bg, gold border bottom
        ============================================================ -->
-  <header id="main-header" class="sticky top-0 z-50 bg-ivory/95 backdrop-blur-md border-b transition-shadow duration-300" style="border-color: var(--gold);">
+  <header id="main-header"
+    class="sticky top-0 z-50 bg-ivory/95 backdrop-blur-md border-b transition-shadow duration-300"
+    style="border-color: var(--gold);">
     <!-- Top bar — Scrolling Marquee Ticker -->
     <div class="bg-navy text-cream text-xs py-2 overflow-hidden relative">
       <style>
         @keyframes marquee-scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          0% {
+            transform: translateX(0);
+          }
+
+          100% {
+            transform: translateX(-50%);
+          }
         }
+
         .marquee-track {
           display: flex;
           white-space: nowrap;
           animation: marquee-scroll 40s linear infinite;
           width: max-content;
         }
+
         .marquee-track:hover {
           animation-play-state: paused;
         }
+
         .marquee-item {
           display: inline-flex;
           align-items: center;
@@ -70,6 +85,7 @@
           padding: 0 24px;
           flex-shrink: 0;
         }
+
         .marquee-divider {
           width: 4px;
           height: 4px;
@@ -78,6 +94,7 @@
           flex-shrink: 0;
           opacity: 0.6;
         }
+
         .marquee-badge {
           display: inline-flex;
           align-items: center;
@@ -89,20 +106,23 @@
           text-transform: uppercase;
           letter-spacing: 0.05em;
         }
+
         .marquee-badge-hot {
-          background: rgba(239,68,68,0.2);
+          background: rgba(239, 68, 68, 0.2);
           color: #f87171;
-          border: 1px solid rgba(239,68,68,0.3);
+          border: 1px solid rgba(239, 68, 68, 0.3);
         }
+
         .marquee-badge-new {
-          background: rgba(34,197,94,0.2);
+          background: rgba(34, 197, 94, 0.2);
           color: #4ade80;
-          border: 1px solid rgba(34,197,94,0.3);
+          border: 1px solid rgba(34, 197, 94, 0.3);
         }
+
         .marquee-badge-gold {
-          background: rgba(212,175,55,0.2);
+          background: rgba(212, 175, 55, 0.2);
           color: #F4E5A1;
-          border: 1px solid rgba(212,175,55,0.3);
+          border: 1px solid rgba(212, 175, 55, 0.3);
         }
       </style>
       <div class="marquee-track">
@@ -111,15 +131,18 @@
         <span class="marquee-divider"></span>
         <span class="marquee-item">📚 Hơn 15.000 đầu sách cao cấp đang chờ bạn</span>
         <span class="marquee-divider"></span>
-        <span class="marquee-item"><span class="marquee-badge marquee-badge-hot">HOT</span> Giảm 20% tất cả sách Kỹ năng sống — Dùng mã BOOK20</span>
+        <span class="marquee-item"><span class="marquee-badge marquee-badge-hot">HOT</span> Giảm 20% tất cả sách Kỹ năng
+          sống — Dùng mã BOOK20</span>
         <span class="marquee-divider"></span>
         <span class="marquee-item">🏆 THẮP SÁNG TRI THỨC — KẾT NỐI MỌI NHÀ</span>
         <span class="marquee-divider"></span>
-        <span class="marquee-item"><span class="marquee-badge marquee-badge-new">MỚI</span> Bộ sưu tập bìa da mạ vàng 2024 — Số lượng giới hạn</span>
+        <span class="marquee-item"><span class="marquee-badge marquee-badge-new">MỚI</span> Bộ sưu tập bìa da mạ vàng
+          2024 — Số lượng giới hạn</span>
         <span class="marquee-divider"></span>
         <span class="marquee-item">💳 Thanh toán an toàn — Hỗ trợ COD, Visa, MoMo, ZaloPay</span>
         <span class="marquee-divider"></span>
-        <span class="marquee-item"><span class="marquee-badge marquee-badge-gold">VIP</span> Tích điểm đổi quà — Thành viên thân thiết giảm thêm 10%</span>
+        <span class="marquee-item"><span class="marquee-badge marquee-badge-gold">VIP</span> Tích điểm đổi quà — Thành
+          viên thân thiết giảm thêm 10%</span>
         <span class="marquee-divider"></span>
         <span class="marquee-item">📦 Đóng gói sang trọng như quà tặng — Giao hàng toàn quốc 1-3 ngày</span>
         <span class="marquee-divider"></span>
@@ -132,15 +155,18 @@
         <span class="marquee-divider"></span>
         <span class="marquee-item">📚 Hơn 15.000 đầu sách cao cấp đang chờ bạn</span>
         <span class="marquee-divider"></span>
-        <span class="marquee-item"><span class="marquee-badge marquee-badge-hot">HOT</span> Giảm 20% tất cả sách Kỹ năng sống — Dùng mã BOOK20</span>
+        <span class="marquee-item"><span class="marquee-badge marquee-badge-hot">HOT</span> Giảm 20% tất cả sách Kỹ năng
+          sống — Dùng mã BOOK20</span>
         <span class="marquee-divider"></span>
         <span class="marquee-item">🏆 THẮP SÁNG TRI THỨC — KẾT NỐI MỌI NHÀ</span>
         <span class="marquee-divider"></span>
-        <span class="marquee-item"><span class="marquee-badge marquee-badge-new">MỚI</span> Bộ sưu tập bìa da mạ vàng 2024 — Số lượng giới hạn</span>
+        <span class="marquee-item"><span class="marquee-badge marquee-badge-new">MỚI</span> Bộ sưu tập bìa da mạ vàng
+          2024 — Số lượng giới hạn</span>
         <span class="marquee-divider"></span>
         <span class="marquee-item">💳 Thanh toán an toàn — Hỗ trợ COD, Visa, MoMo, ZaloPay</span>
         <span class="marquee-divider"></span>
-        <span class="marquee-item"><span class="marquee-badge marquee-badge-gold">VIP</span> Tích điểm đổi quà — Thành viên thân thiết giảm thêm 10%</span>
+        <span class="marquee-item"><span class="marquee-badge marquee-badge-gold">VIP</span> Tích điểm đổi quà — Thành
+          viên thân thiết giảm thêm 10%</span>
         <span class="marquee-divider"></span>
         <span class="marquee-item">📦 Đóng gói sang trọng như quà tặng — Giao hàng toàn quốc 1-3 ngày</span>
         <span class="marquee-divider"></span>
@@ -156,11 +182,36 @@
       <div class="flex items-center justify-between gap-4">
         <!-- Logo -->
         <a href="index.html" class="flex items-center gap-2 flex-shrink-0">
-          <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00);">
+          <div class="w-10 h-10 rounded-lg flex items-center justify-center"
+            style="background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00);">
             <i data-lucide="globe" class="w-5 h-5 text-dark"></i>
           </div>
           <div>
-            <span class="font-serif text-2xl font-bold tracking-tight" style="background: linear-gradient(135deg, #D4AF37, #A67C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Hành Tinh Chữ <svg class="flag-wrapper" style="width: 1.8em; height: 1.4em;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3.6 2.8"><defs><linearGradient id="poleGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#e0e0e0" /><stop offset="30%" stop-color="#ffffff" /><stop offset="100%" stop-color="#a0a0a0" /></linearGradient><radialGradient id="knobGrad" cx="30%" cy="30%" r="70%"><stop offset="0%" stop-color="#fff4b3" /><stop offset="50%" stop-color="#facc15" /><stop offset="100%" stop-color="#ca8a04" /></radialGradient></defs><rect x="0.1" y="0.2" width="0.15" height="2.6" fill="url(#poleGrad)" rx="0.05"/><circle cx="0.175" cy="0.15" r="0.15" fill="url(#knobGrad)"/><g class="flag-cloth" transform="translate(0.25, 0.3)"><rect width="3" height="2" fill="#da251d" rx="0.05"/><polygon points="1.5,0.4 1.69,1.01 2.33,1.01 1.81,1.39 2.01,2 1.5,1.61 0.99,2 1.19,1.39 0.67,1.01 1.31,1.01" fill="#ffcd00"/></g></svg></span>
+            <span class="font-serif text-2xl font-bold tracking-tight"
+              style="background: linear-gradient(135deg, #D4AF37, #A67C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Hành
+              Tinh Chữ <svg class="flag-wrapper" style="width: 1.8em; height: 1.4em;" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 3.6 2.8">
+                <defs>
+                  <linearGradient id="poleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#e0e0e0" />
+                    <stop offset="30%" stop-color="#ffffff" />
+                    <stop offset="100%" stop-color="#a0a0a0" />
+                  </linearGradient>
+                  <radialGradient id="knobGrad" cx="30%" cy="30%" r="70%">
+                    <stop offset="0%" stop-color="#fff4b3" />
+                    <stop offset="50%" stop-color="#facc15" />
+                    <stop offset="100%" stop-color="#ca8a04" />
+                  </radialGradient>
+                </defs>
+                <rect x="0.1" y="0.2" width="0.15" height="2.6" fill="url(#poleGrad)" rx="0.05" />
+                <circle cx="0.175" cy="0.15" r="0.15" fill="url(#knobGrad)" />
+                <g class="flag-cloth" transform="translate(0.25, 0.3)">
+                  <rect width="3" height="2" fill="#da251d" rx="0.05" />
+                  <polygon
+                    points="1.5,0.4 1.69,1.01 2.33,1.01 1.81,1.39 2.01,2 1.5,1.61 0.99,2 1.19,1.39 0.67,1.01 1.31,1.01"
+                    fill="#ffcd00" />
+                </g>
+              </svg></span>
             <p class="text-[10px] text-gray-400 -mt-1 tracking-widest uppercase">Thư Viện Sách Cao Cấp</p>
           </div>
         </a>
@@ -169,15 +220,12 @@
         <div class="hidden md:block flex-1 max-w-xl relative search-wrapper">
           <div class="relative">
             <i data-lucide="search" class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gold"></i>
-            <input
-              type="text"
-              id="search-input"
-              placeholder="Tìm kiếm sách, tác giả, thể loại..."
-              class="w-full pl-12 pr-4 py-3 rounded-xl text-sm input-gold bg-white"
-            >
+            <input type="text" id="search-input" placeholder="Tìm kiếm sách, tác giả, thể loại..."
+              class="w-full pl-12 pr-4 py-3 rounded-xl text-sm input-gold bg-white">
           </div>
           <!-- Search Dropdown -->
-          <div id="search-dropdown" class="search-dropdown absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gold/20 overflow-hidden z-50">
+          <div id="search-dropdown"
+            class="search-dropdown absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gold/20 overflow-hidden z-50">
             <div id="search-results" class="max-h-80 overflow-y-auto"></div>
           </div>
         </div>
@@ -190,9 +238,11 @@
           </button>
 
           <!-- Account -->
-          <a href="auth.html" class="hidden sm:flex items-center gap-2 px-3 py-2.5 rounded-xl hover:bg-gold/10 transition-colors group">
+          <a href="auth.html"
+            class="hidden sm:flex items-center gap-2 px-3 py-2.5 rounded-xl hover:bg-gold/10 transition-colors group">
             <i data-lucide="user" class="w-5 h-5 text-gray-500 group-hover:text-gold transition-colors"></i>
-            <span class="text-sm font-medium text-gray-600 group-hover:text-gold hidden lg:inline transition-colors">Tài khoản</span>
+            <span class="text-sm font-medium text-gray-600 group-hover:text-gold hidden lg:inline transition-colors">Tài
+              khoản</span>
           </a>
 
           <!-- Wishlist -->
@@ -203,7 +253,9 @@
           <!-- Cart Button -->
           <button id="cart-btn" class="relative p-2.5 rounded-xl hover:bg-gold/10 transition-colors group">
             <i data-lucide="shopping-bag" class="w-5 h-5 text-gray-500 group-hover:text-gold transition-colors"></i>
-            <span class="cart-badge absolute -top-0.5 -right-0.5 w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center text-dark" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37); display: none;">0</span>
+            <span
+              class="cart-badge absolute -top-0.5 -right-0.5 w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center text-dark"
+              style="background: linear-gradient(135deg, #F4E5A1, #D4AF37); display: none;">0</span>
           </button>
 
           <!-- Mobile Menu Button -->
@@ -220,60 +272,216 @@
         <ul class="flex items-center gap-0">
           <!-- Mega Menu Trigger: Danh mục -->
           <li class="mega-menu-trigger relative">
-            <a href="products.html" class="flex items-center gap-1.5 px-4 py-3 text-sm font-medium text-charcoal hover:text-gold transition-colors">
+            <a href="products.html"
+              class="flex items-center gap-1.5 px-4 py-3 text-sm font-medium text-charcoal hover:text-gold transition-colors">
               <i data-lucide="layout-grid" class="w-4 h-4"></i>
               Danh mục
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 ml-0.5"></i>
             </a>
             <!-- Mega Menu Dropdown -->
-            <div class="mega-menu absolute left-0 top-full bg-white rounded-b-2xl shadow-2xl border border-gold/20 border-t-2 w-[700px] p-6 z-50" style="border-top-color: var(--gold);">
-              <div class="grid grid-cols-3 gap-6">
-                <div>
-                  <h4 class="font-serif font-bold text-gold-dark mb-3 text-sm">Văn học</h4>
-                  <ul class="space-y-2">
-                    <li><a href="products.html" class="text-sm text-gray-600 hover:text-gold transition-colors">Tiểu thuyết</a></li>
-                    <li><a href="products.html" class="text-sm text-gray-600 hover:text-gold transition-colors">Truyện ngắn</a></li>
-                    <li><a href="products.html" class="text-sm text-gray-600 hover:text-gold transition-colors">Thơ ca</a></li>
-                    <li><a href="products.html" class="text-sm text-gray-600 hover:text-gold transition-colors">Văn học cổ điển</a></li>
-                  </ul>
+            <div
+              class="mega-menu absolute left-0 top-full bg-white rounded-b-2xl shadow-2xl border border-gray-100 border-t-2 w-[1000px] p-8 z-50 cursor-default"
+              style="border-top-color: #ef4444;">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="bg-red-500 rounded text-white p-1 flex items-center justify-center">
+                  <i data-lucide="book" class="w-5 h-5"></i>
                 </div>
-                <div>
-                  <h4 class="font-serif font-bold text-gold-dark mb-3 text-sm">Phát triển bản thân</h4>
-                  <ul class="space-y-2">
-                    <li><a href="products.html" class="text-sm text-gray-600 hover:text-gold transition-colors">Kỹ năng sống</a></li>
-                    <li><a href="products.html" class="text-sm text-gray-600 hover:text-gold transition-colors">Kinh doanh</a></li>
-                    <li><a href="products.html" class="text-sm text-gray-600 hover:text-gold transition-colors">Tài chính</a></li>
-                    <li><a href="products.html" class="text-sm text-gray-600 hover:text-gold transition-colors">Lãnh đạo</a></li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 class="font-serif font-bold text-gold-dark mb-3 text-sm">Đặc biệt</h4>
-                  <ul class="space-y-2">
-                    <li><a href="products.html" class="text-sm text-gray-600 hover:text-gold transition-colors">Thiếu nhi</a></li>
-                    <li><a href="products.html" class="text-sm text-gray-600 hover:text-gold transition-colors">Ngoại văn</a></li>
-                    <li><a href="products.html" class="text-sm text-gray-600 hover:text-gold transition-colors flex items-center gap-1">Sách quý hiếm <span class="text-[10px] px-1.5 py-0.5 bg-gold/20 text-gold-dark rounded-full font-bold">HOT</span></a></li>
-                    <li><a href="products.html" class="text-sm text-gray-600 hover:text-gold transition-colors">Limited Edition</a></li>
-                  </ul>
-                </div>
+                <h3 class="text-[22px] font-bold text-gray-800 font-sans">Sách Trong Nước</h3>
               </div>
-              <!-- Featured book in mega menu -->
-              <div class="mt-5 pt-5 border-t border-gold/10 flex items-center gap-4">
-                <img src="https://images.unsplash.com/photo-1524578271613-d550eacf6090?w=80&h=100&fit=crop" alt="Sách quý" class="w-16 h-20 object-cover rounded-lg gold-border">
-                <div>
-                  <p class="text-xs text-gold-dark font-semibold uppercase tracking-wider">Bộ sưu tập mới</p>
-                  <p class="font-serif font-bold text-charcoal mt-1">Sách Bìa Da Mạ Vàng 2024</p>
-                  <a href="products.html" class="text-xs text-gold hover:text-gold-dark font-semibold mt-1 inline-block">Khám phá ngay →</a>
+
+              <div class="grid grid-cols-4 gap-6 font-sans">
+                <!-- Column 1 -->
+                <div class="space-y-6">
+                  <div>
+                    <h4 class="font-bold text-gray-800 text-[13px] mb-3 uppercase tracking-wide">Văn Học</h4>
+                    <ul class="space-y-2.5">
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Tiểu Thuyết</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Truyện Ngắn - Tản
+                          Văn</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Light Novel</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Ngôn Tình</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-blue-500 hover:text-blue-600 transition-colors">Xem tất cả</a></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-gray-800 text-[13px] mb-3 uppercase tracking-wide">Sách Thiếu Nhi</h4>
+                    <ul class="space-y-2.5">
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Manga - Comic</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Kiến Thức Bách
+                          Khoa</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Sách Tranh Kỹ Năng
+                          Sống C...</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Vừa Học - Vừa Học Vừa
+                          Chơ...</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-blue-500 hover:text-blue-600 transition-colors">Xem tất cả</a></li>
+                    </ul>
+                  </div>
+                  <div class="space-y-3 pt-2">
+                    <a href="products.html"
+                      class="flex items-center gap-1.5 font-bold text-gray-800 text-[13px] uppercase hover:text-red-500 transition-colors">Sách
+                      Mới <span class="text-red-500 text-xs leading-none">♥</span></a>
+                    <a href="products.html"
+                      class="flex items-center gap-1.5 font-bold text-gray-800 text-[13px] uppercase hover:text-red-500 transition-colors">Manga
+                      Mới <span class="text-red-500 text-xs leading-none">♥</span></a>
+                    <a href="products.html"
+                      class="flex items-center gap-1.5 font-bold text-gray-800 text-[13px] uppercase hover:text-red-500 transition-colors">Light
+                      Novel Mới <span class="text-red-500 text-xs leading-none">♥</span></a>
+                    <a href="products.html"
+                      class="flex items-center gap-1.5 font-bold text-gray-800 text-[13px] uppercase hover:text-red-500 transition-colors">Đam
+                      Mỹ Mới <span class="text-red-500 text-xs leading-none">♥</span></a>
+                  </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="space-y-6">
+                  <div>
+                    <h4 class="font-bold text-gray-800 text-[13px] mb-3 uppercase tracking-wide">Kinh Tế</h4>
+                    <ul class="space-y-2.5">
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Nhân Vật - Bài Học
+                          Kinh Doanh</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Quản Trị - Lãnh
+                          Đạo</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Marketing - Bán
+                          Hàng</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Phân Tích Kinh Tế</a>
+                      </li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-blue-500 hover:text-blue-600 transition-colors">Xem tất cả</a></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-gray-800 text-[13px] mb-3 uppercase tracking-wide">Tiểu Sử - Hồi Ký</h4>
+                    <ul class="space-y-2.5">
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Câu Chuyện Cuộc
+                          Đời</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Chính Trị</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Kinh Tế</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Nghệ Thuật - Giải
+                          Trí</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-blue-500 hover:text-blue-600 transition-colors">Xem tất cả</a></li>
+                    </ul>
+                  </div>
+                  <div class="space-y-3 pt-2">
+                    <a href="products.html"
+                      class="flex items-center gap-1.5 font-bold text-gray-800 text-[13px] uppercase hover:text-red-500 transition-colors">Sách
+                      Bán Chạy <span class="text-red-500 text-xs leading-none">♥</span></a>
+                  </div>
+                </div>
+
+                <!-- Column 3 -->
+                <div class="space-y-6">
+                  <div>
+                    <h4 class="font-bold text-gray-800 text-[13px] mb-3 uppercase tracking-wide">Tâm Lý - Kĩ Năng Sống
+                    </h4>
+                    <ul class="space-y-2.5">
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Kỹ Năng Sống</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Rèn Luyện Nhân
+                          Cách</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Tâm Lý</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Sách Cho Tuổi Mới
+                          Lớn</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-blue-500 hover:text-blue-600 transition-colors">Xem tất cả</a></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-gray-800 text-[13px] mb-3 uppercase tracking-wide">Giáo Khoa - Tham Khảo
+                    </h4>
+                    <ul class="space-y-2.5">
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Sách Giáo Khoa</a>
+                      </li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Sách Tham Khảo</a>
+                      </li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Luyện Thi THPT Quốc
+                          Gia</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Mẫu Giáo</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-blue-500 hover:text-blue-600 transition-colors">Xem tất cả</a></li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Column 4 -->
+                <div class="space-y-6">
+                  <div>
+                    <h4 class="font-bold text-gray-800 text-[13px] mb-3 uppercase tracking-wide">Nuôi Dạy Con</h4>
+                    <ul class="space-y-2.5">
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Cẩm Nang Làm Cha
+                          Mẹ</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Phương Pháp Giáo Dục
+                          Trẻ ...</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Phát Triển Trí Tuệ Cho
+                          Trẻ</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Phát Triển Kỹ Năng Cho
+                          Trẻ</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-blue-500 hover:text-blue-600 transition-colors">Xem tất cả</a></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-gray-800 text-[13px] mb-3 uppercase tracking-wide">Sách Học Ngoại Ngữ</h4>
+                    <ul class="space-y-2.5">
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Tiếng Anh</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Tiếng Nhật</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Tiếng Hoa</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-gray-500 hover:text-blue-500 transition-colors">Tiếng Hàn</a></li>
+                      <li><a href="products.html"
+                          class="text-[14px] text-blue-500 hover:text-blue-600 transition-colors">Xem tất cả</a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </li>
-          <li><a href="products.html" class="px-4 py-3 text-sm font-medium text-charcoal hover:text-gold transition-colors inline-block">Sách mới</a></li>
-          <li><a href="products.html" class="px-4 py-3 text-sm font-medium text-charcoal hover:text-gold transition-colors inline-block">Bán chạy</a></li>
-          <li><a href="products.html" class="px-4 py-3 text-sm font-medium text-charcoal hover:text-gold transition-colors inline-block">Khuyến mãi</a></li>
-          <li><a href="products.html" class="px-4 py-3 text-sm font-medium inline-block flex items-center gap-1" style="color: var(--gold-dark);">
-            <i data-lucide="crown" class="w-4 h-4"></i>
-            Limited Edition
-          </a></li>
+          <li><a href="products.html"
+              class="px-4 py-3 text-sm font-medium text-charcoal hover:text-gold transition-colors inline-block">Sách
+              mới</a></li>
+          <li><a href="products.html"
+              class="px-4 py-3 text-sm font-medium text-charcoal hover:text-gold transition-colors inline-block">Bán
+              chạy</a></li>
+          <li><a href="products.html"
+              class="px-4 py-3 text-sm font-medium text-charcoal hover:text-gold transition-colors inline-block">Khuyến
+              mãi</a></li>
+          <li><a href="products.html" class="px-4 py-3 text-sm font-medium inline-block flex items-center gap-1"
+              style="color: var(--gold-dark);">
+              <i data-lucide="crown" class="w-4 h-4"></i>
+              Limited Edition
+            </a></li>
         </ul>
       </div>
     </nav>
@@ -284,25 +492,33 @@
         <!-- Mobile search -->
         <div class="relative mb-4 search-wrapper md:hidden">
           <i data-lucide="search" class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gold"></i>
-          <input type="text" id="search-input-mobile" placeholder="Tìm kiếm sách..." class="w-full pl-12 pr-4 py-3 rounded-xl text-sm input-gold bg-white">
+          <input type="text" id="search-input-mobile" placeholder="Tìm kiếm sách..."
+            class="w-full pl-12 pr-4 py-3 rounded-xl text-sm input-gold bg-white">
         </div>
-        <a href="products.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gold/5 text-sm font-medium transition-colors">
+        <a href="products.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gold/5 text-sm font-medium transition-colors">
           <i data-lucide="layout-grid" class="w-4 h-4 text-gold"></i> Danh mục
         </a>
-        <a href="products.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gold/5 text-sm font-medium transition-colors">
+        <a href="products.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gold/5 text-sm font-medium transition-colors">
           <i data-lucide="sparkles" class="w-4 h-4 text-gold"></i> Sách mới
         </a>
-        <a href="products.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gold/5 text-sm font-medium transition-colors">
+        <a href="products.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gold/5 text-sm font-medium transition-colors">
           <i data-lucide="flame" class="w-4 h-4 text-gold"></i> Bán chạy
         </a>
-        <a href="products.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gold/5 text-sm font-medium transition-colors">
+        <a href="products.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gold/5 text-sm font-medium transition-colors">
           <i data-lucide="percent" class="w-4 h-4 text-gold"></i> Khuyến mãi
         </a>
-        <a href="products.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gold/5 text-sm font-medium transition-colors" style="color: var(--gold-dark);">
+        <a href="products.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gold/5 text-sm font-medium transition-colors"
+          style="color: var(--gold-dark);">
           <i data-lucide="crown" class="w-4 h-4"></i> Limited Edition
         </a>
         <div class="border-t border-gold/10 pt-2 mt-2">
-          <a href="auth.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gold/5 text-sm font-medium transition-colors">
+          <a href="auth.html"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gold/5 text-sm font-medium transition-colors">
             <i data-lucide="user" class="w-4 h-4 text-gray-400"></i> Tài khoản
           </a>
         </div>
@@ -316,10 +532,10 @@
   <section id="hero-banner" class="hero-premium relative overflow-hidden" style="min-height: 100vh;">
     <!-- Animated Gradient Background -->
     <div class="hero-gradient-bg"></div>
-    
+
     <!-- Floating Particles Canvas -->
     <canvas id="hero-particles" class="absolute inset-0 z-[1]"></canvas>
-    
+
     <!-- Decorative Floating Elements -->
     <div class="hero-floating-elements">
       <div class="hero-float-circle hero-float-1"></div>
@@ -330,31 +546,39 @@
     </div>
 
     <!-- Radial Glow Effects -->
-    <div class="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full z-[1]" style="background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full z-[1]" style="background: radial-gradient(circle, rgba(244,229,161,0.06) 0%, transparent 70%);"></div>
+    <div class="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full z-[1]"
+      style="background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full z-[1]"
+      style="background: radial-gradient(circle, rgba(244,229,161,0.06) 0%, transparent 70%);"></div>
 
     <!-- Main Content -->
     <div class="relative z-[2] max-w-7xl mx-auto px-4 flex items-center" style="min-height: 100vh;">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full py-20 md:py-28">
-        
+
         <!-- Left: Text Content -->
         <div class="max-w-2xl">
           <!-- Decorative Badge -->
-          <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-8 fade-in-up hero-badge-glow" style="background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.25); backdrop-filter: blur(10px);">
+          <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-8 fade-in-up hero-badge-glow"
+            style="background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.25); backdrop-filter: blur(10px);">
             <span class="hero-badge-dot"></span>
-            <span class="text-gold text-xs font-semibold tracking-[0.15em] uppercase">Khai Trương — Ưu Đãi Đặc Biệt</span>
+            <span class="text-gold text-xs font-semibold tracking-[0.15em] uppercase">Khai Trương — Ưu Đãi Đặc
+              Biệt</span>
           </div>
 
           <!-- Main Heading -->
-          <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] mb-6 fade-in-up stagger-1">
+          <h1
+            class="font-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] mb-6 fade-in-up stagger-1">
             <span class="text-cream block">Hành Tinh</span>
-            <span class="hero-title-gold block" style="background: linear-gradient(135deg, #F4E5A1 0%, #D4AF37 40%, #A67C00 70%, #D4AF37 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer-text 3s ease-in-out infinite;">Chữ</span>
-            <span class="text-cream/60 block text-2xl md:text-3xl lg:text-4xl font-light mt-2" style="font-family: Inter, sans-serif; letter-spacing: 0.05em;">— Thư Viện Sách Cao Cấp —</span>
+            <span class="hero-title-gold block"
+              style="background: linear-gradient(135deg, #F4E5A1 0%, #D4AF37 40%, #A67C00 70%, #D4AF37 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer-text 3s ease-in-out infinite;">Chữ</span>
+            <span class="text-cream/60 block text-2xl md:text-3xl lg:text-4xl font-light mt-2"
+              style="font-family: Inter, sans-serif; letter-spacing: 0.05em;">— Thư Viện Sách Cao Cấp —</span>
           </h1>
 
           <!-- Description -->
           <p class="text-gray-300/80 text-base md:text-lg leading-relaxed max-w-xl mb-10 fade-in-up stagger-2">
-            Nơi hội tụ hơn <span class="text-gold font-semibold">15.000</span> đầu sách đẳng cấp, ấn bản giới hạn bìa da mạ vàng 24K và kho tàng tri thức được tuyển chọn kỹ lưỡng dành cho người yêu sách.
+            Nơi hội tụ hơn <span class="text-gold font-semibold">15.000</span> đầu sách đẳng cấp, ấn bản giới hạn bìa da
+            mạ vàng 24K và kho tàng tri thức được tuyển chọn kỹ lưỡng dành cho người yêu sách.
           </p>
 
           <!-- CTA Buttons -->
@@ -376,9 +600,15 @@
           <div class="flex flex-wrap items-center gap-6 fade-in-up stagger-4">
             <div class="flex items-center gap-2">
               <div class="flex -space-x-2">
-                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gold-light to-gold flex items-center justify-center text-dark text-xs font-bold border-2 border-navy">T</div>
-                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center text-dark text-xs font-bold border-2 border-navy">H</div>
-                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gold-light to-gold flex items-center justify-center text-dark text-xs font-bold border-2 border-navy">M</div>
+                <div
+                  class="w-8 h-8 rounded-full bg-gradient-to-br from-gold-light to-gold flex items-center justify-center text-dark text-xs font-bold border-2 border-navy">
+                  T</div>
+                <div
+                  class="w-8 h-8 rounded-full bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center text-dark text-xs font-bold border-2 border-navy">
+                  H</div>
+                <div
+                  class="w-8 h-8 rounded-full bg-gradient-to-br from-gold-light to-gold flex items-center justify-center text-dark text-xs font-bold border-2 border-navy">
+                  M</div>
               </div>
               <div>
                 <span class="text-cream text-sm font-semibold">50K+</span>
@@ -402,46 +632,57 @@
         <!-- Right: Visual Element — Floating Book 3D Illustration -->
         <div class="hidden lg:flex items-center justify-center relative">
           <!-- Main Glow -->
-          <div class="absolute w-[400px] h-[400px] rounded-full" style="background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%); animation: pulse-glow 4s ease-in-out infinite;"></div>
-          
+          <div class="absolute w-[400px] h-[400px] rounded-full"
+            style="background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%); animation: pulse-glow 4s ease-in-out infinite;">
+          </div>
+
           <!-- Floating Book SVG Illustration -->
           <div class="hero-book-container">
             <div class="hero-book-float">
               <!-- SVG Book Illustration -->
-              <svg viewBox="0 0 320 420" class="w-[280px] h-[360px] hero-book-shadow" xmlns="http://www.w3.org/2000/svg">
+              <svg viewBox="0 0 320 420" class="w-[280px] h-[360px] hero-book-shadow"
+                xmlns="http://www.w3.org/2000/svg">
                 <!-- Book Back Cover -->
-                <rect x="30" y="15" width="220" height="380" rx="4" fill="#0a1628" stroke="#D4AF37" stroke-width="1.5"/>
+                <rect x="30" y="15" width="220" height="380" rx="4" fill="#0a1628" stroke="#D4AF37"
+                  stroke-width="1.5" />
                 <!-- Book Pages (side) -->
-                <rect x="35" y="18" width="8" height="374" rx="1" fill="#F4E5A1" opacity="0.6"/>
+                <rect x="35" y="18" width="8" height="374" rx="1" fill="#F4E5A1" opacity="0.6" />
                 <!-- Book Front Cover -->
-                <rect x="45" y="10" width="230" height="390" rx="6" fill="url(#bookGrad)" stroke="#D4AF37" stroke-width="2"/>
+                <rect x="45" y="10" width="230" height="390" rx="6" fill="url(#bookGrad)" stroke="#D4AF37"
+                  stroke-width="2" />
                 <!-- Gold frame -->
-                <rect x="60" y="30" width="200" height="350" rx="3" fill="none" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
-                <rect x="68" y="38" width="184" height="334" rx="2" fill="none" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"/>
+                <rect x="60" y="30" width="200" height="350" rx="3" fill="none" stroke="#D4AF37" stroke-width="1"
+                  opacity="0.5" />
+                <rect x="68" y="38" width="184" height="334" rx="2" fill="none" stroke="#D4AF37" stroke-width="0.5"
+                  opacity="0.3" />
                 <!-- Title area -->
-                <text x="160" y="140" text-anchor="middle" font-family="Playfair Display, serif" font-size="28" font-weight="700" fill="#F4E5A1">Hành Tinh</text>
-                <text x="160" y="178" text-anchor="middle" font-family="Playfair Display, serif" font-size="36" font-weight="800" fill="#D4AF37">Chữ</text>
+                <text x="160" y="140" text-anchor="middle" font-family="Playfair Display, serif" font-size="28"
+                  font-weight="700" fill="#F4E5A1">Hành Tinh</text>
+                <text x="160" y="178" text-anchor="middle" font-family="Playfair Display, serif" font-size="36"
+                  font-weight="800" fill="#D4AF37">Chữ</text>
                 <!-- Decorative diamond -->
-                <polygon points="160,200 168,210 160,220 152,210" fill="#D4AF37" opacity="0.7"/>
+                <polygon points="160,200 168,210 160,220 152,210" fill="#D4AF37" opacity="0.7" />
                 <!-- Subtitle -->
-                <text x="160" y="250" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#F4E5A1" opacity="0.7" letter-spacing="3">THƯ VIỆN SÁCH CAO CẤP</text>
+                <text x="160" y="250" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#F4E5A1"
+                  opacity="0.7" letter-spacing="3">THƯ VIỆN SÁCH CAO CẤP</text>
                 <!-- Year -->
-                <text x="160" y="340" text-anchor="middle" font-family="Playfair Display, serif" font-size="14" fill="#D4AF37" opacity="0.5">— 2024 —</text>
+                <text x="160" y="340" text-anchor="middle" font-family="Playfair Display, serif" font-size="14"
+                  fill="#D4AF37" opacity="0.5">— 2024 —</text>
                 <!-- Corner ornaments -->
-                <path d="M70,40 L90,40" stroke="#D4AF37" stroke-width="1.5" opacity="0.6"/>
-                <path d="M70,40 L70,60" stroke="#D4AF37" stroke-width="1.5" opacity="0.6"/>
-                <path d="M230,40 L250,40" stroke="#D4AF37" stroke-width="1.5" opacity="0.6"/>
-                <path d="M250,40 L250,60" stroke="#D4AF37" stroke-width="1.5" opacity="0.6"/>
-                <path d="M70,362 L90,362" stroke="#D4AF37" stroke-width="1.5" opacity="0.6"/>
-                <path d="M70,362 L70,342" stroke="#D4AF37" stroke-width="1.5" opacity="0.6"/>
-                <path d="M230,362 L250,362" stroke="#D4AF37" stroke-width="1.5" opacity="0.6"/>
-                <path d="M250,362 L250,342" stroke="#D4AF37" stroke-width="1.5" opacity="0.6"/>
+                <path d="M70,40 L90,40" stroke="#D4AF37" stroke-width="1.5" opacity="0.6" />
+                <path d="M70,40 L70,60" stroke="#D4AF37" stroke-width="1.5" opacity="0.6" />
+                <path d="M230,40 L250,40" stroke="#D4AF37" stroke-width="1.5" opacity="0.6" />
+                <path d="M250,40 L250,60" stroke="#D4AF37" stroke-width="1.5" opacity="0.6" />
+                <path d="M70,362 L90,362" stroke="#D4AF37" stroke-width="1.5" opacity="0.6" />
+                <path d="M70,362 L70,342" stroke="#D4AF37" stroke-width="1.5" opacity="0.6" />
+                <path d="M230,362 L250,362" stroke="#D4AF37" stroke-width="1.5" opacity="0.6" />
+                <path d="M250,362 L250,342" stroke="#D4AF37" stroke-width="1.5" opacity="0.6" />
                 <!-- Gradient Defs -->
                 <defs>
                   <linearGradient id="bookGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#0B1E3D"/>
-                    <stop offset="50%" stop-color="#0f2a52"/>
-                    <stop offset="100%" stop-color="#0B1E3D"/>
+                    <stop offset="0%" stop-color="#0B1E3D" />
+                    <stop offset="50%" stop-color="#0f2a52" />
+                    <stop offset="100%" stop-color="#0B1E3D" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -459,7 +700,8 @@
     </div>
 
     <!-- Bottom Scroll Indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-[2] flex flex-col items-center gap-2 fade-in-up stagger-5">
+    <div
+      class="absolute bottom-8 left-1/2 -translate-x-1/2 z-[2] flex flex-col items-center gap-2 fade-in-up stagger-5">
       <span class="text-gold/50 text-xs tracking-widest uppercase">Cuộn xuống</span>
       <div class="hero-scroll-indicator">
         <div class="hero-scroll-dot"></div>
@@ -521,7 +763,8 @@
       <div class="text-center mb-14 fade-in-up">
         <p class="text-gold text-sm font-semibold tracking-[0.15em] uppercase mb-2">✦ Khám Phá ✦</p>
         <h2 class="font-serif text-3xl md:text-4xl font-bold text-charcoal">Danh Mục Sách</h2>
-        <p class="text-gray-500 mt-3 max-w-md mx-auto text-sm">Đa dạng thể loại, từ văn học kinh điển đến kỹ năng sống hiện đại</p>
+        <p class="text-gray-500 mt-3 max-w-md mx-auto text-sm">Đa dạng thể loại, từ văn học kinh điển đến kỹ năng sống
+          hiện đại</p>
         <div class="gold-divider w-20 mt-4"></div>
       </div>
 
@@ -531,7 +774,8 @@
           <div class="category-card-icon">
             <i data-lucide="book-open" class="w-7 h-7"></i>
           </div>
-          <h3 class="font-serif font-bold text-charcoal text-sm mt-4 group-hover:text-gold transition-colors">Văn Học</h3>
+          <h3 class="font-serif font-bold text-charcoal text-sm mt-4 group-hover:text-gold transition-colors">Văn Học
+          </h3>
           <p class="text-xs text-gray-400 mt-1">Tiểu thuyết & Thơ ca</p>
           <div class="category-card-arrow">
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
@@ -542,7 +786,8 @@
           <div class="category-card-icon" style="--cat-color: #22c55e;">
             <i data-lucide="brain" class="w-7 h-7"></i>
           </div>
-          <h3 class="font-serif font-bold text-charcoal text-sm mt-4 group-hover:text-gold transition-colors">Kỹ Năng Sống</h3>
+          <h3 class="font-serif font-bold text-charcoal text-sm mt-4 group-hover:text-gold transition-colors">Kỹ Năng
+            Sống</h3>
           <p class="text-xs text-gray-400 mt-1">Phát triển bản thân</p>
           <div class="category-card-arrow">
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
@@ -553,7 +798,8 @@
           <div class="category-card-icon" style="--cat-color: #8b5cf6;">
             <i data-lucide="trending-up" class="w-7 h-7"></i>
           </div>
-          <h3 class="font-serif font-bold text-charcoal text-sm mt-4 group-hover:text-gold transition-colors">Kinh Doanh</h3>
+          <h3 class="font-serif font-bold text-charcoal text-sm mt-4 group-hover:text-gold transition-colors">Kinh Doanh
+          </h3>
           <p class="text-xs text-gray-400 mt-1">Tài chính & Lãnh đạo</p>
           <div class="category-card-arrow">
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
@@ -564,7 +810,8 @@
           <div class="category-card-icon" style="--cat-color: #f59e0b;">
             <i data-lucide="baby" class="w-7 h-7"></i>
           </div>
-          <h3 class="font-serif font-bold text-charcoal text-sm mt-4 group-hover:text-gold transition-colors">Thiếu Nhi</h3>
+          <h3 class="font-serif font-bold text-charcoal text-sm mt-4 group-hover:text-gold transition-colors">Thiếu Nhi
+          </h3>
           <p class="text-xs text-gray-400 mt-1">Truyện tranh & Giáo dục</p>
           <div class="category-card-arrow">
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
@@ -575,7 +822,8 @@
           <div class="category-card-icon" style="--cat-color: #ef4444;">
             <i data-lucide="globe-2" class="w-7 h-7"></i>
           </div>
-          <h3 class="font-serif font-bold text-charcoal text-sm mt-4 group-hover:text-gold transition-colors">Ngoại Văn</h3>
+          <h3 class="font-serif font-bold text-charcoal text-sm mt-4 group-hover:text-gold transition-colors">Ngoại Văn
+          </h3>
           <p class="text-xs text-gray-400 mt-1">English & more</p>
           <div class="category-card-arrow">
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
@@ -586,7 +834,8 @@
           <div class="category-card-icon" style="--cat-color: #D4AF37;">
             <i data-lucide="crown" class="w-7 h-7"></i>
           </div>
-          <h3 class="font-serif font-bold text-charcoal text-sm mt-4 group-hover:text-gold transition-colors">Sách Quý</h3>
+          <h3 class="font-serif font-bold text-charcoal text-sm mt-4 group-hover:text-gold transition-colors">Sách Quý
+            Hiếm</h3>
           <p class="text-xs text-gray-400 mt-1">Bìa da & Giới hạn</p>
           <div class="category-card-arrow">
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
@@ -601,7 +850,9 @@
        ============================================================ -->
   <section class="section-dark py-16 md:py-24 relative overflow-hidden">
     <div class="absolute inset-0 opacity-5">
-      <div style="background: radial-gradient(ellipse at center, rgba(212,175,55,0.1), transparent 70%); width: 100%; height: 100%;"></div>
+      <div
+        style="background: radial-gradient(ellipse at center, rgba(212,175,55,0.1), transparent 70%); width: 100%; height: 100%;">
+      </div>
     </div>
     <div class="relative max-w-4xl mx-auto px-4 text-center fade-in-up">
       <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gold/30 mb-6">
@@ -610,13 +861,17 @@
       </div>
       <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-cream mb-4">
         Bộ Sưu Tập Sách<br>
-        <span style="background: linear-gradient(135deg, #F4E5A1, #D4AF37); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Đang Được Cập Nhật</span>
+        <span
+          style="background: linear-gradient(135deg, #F4E5A1, #D4AF37); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Đang
+          Được Cập Nhật</span>
       </h2>
       <p class="text-gray-400 mt-3 max-w-lg mx-auto text-sm leading-relaxed">
-        Chúng tôi đang hoàn thiện hệ thống với hàng ngàn đầu sách chất lượng. Đăng ký nhận tin để không bỏ lỡ khi bộ sưu tập chính thức ra mắt.
+        Chúng tôi đang hoàn thiện hệ thống với hàng ngàn đầu sách chất lượng. Đăng ký nhận tin để không bỏ lỡ khi bộ sưu
+        tập chính thức ra mắt.
       </p>
       <div class="flex justify-center gap-4 mt-10">
-        <a href="products.html" class="btn-gold ripple px-8 py-3.5 rounded-xl text-sm font-bold inline-flex items-center gap-2">
+        <a href="products.html"
+          class="btn-gold ripple px-8 py-3.5 rounded-xl text-sm font-bold inline-flex items-center gap-2">
           Xem Tất Cả Sách
           <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </a>
@@ -658,10 +913,12 @@
             <div class="text-center px-6 py-8 relative">
               <span class="quote-mark">"</span>
               <p class="text-lg md:text-xl text-charcoal leading-relaxed italic mt-8">
-                GoldPage không chỉ bán sách, họ tạo ra trải nghiệm đọc sách đẳng cấp. Bộ sưu tập bìa da mạ vàng thực sự là một tác phẩm nghệ thuật!
+                GoldPage không chỉ bán sách, họ tạo ra trải nghiệm đọc sách đẳng cấp. Bộ sưu tập bìa da mạ vàng thực sự
+                là một tác phẩm nghệ thuật!
               </p>
               <div class="mt-6 flex items-center justify-center gap-3">
-                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Nguyễn Thu Hà" class="w-12 h-12 rounded-full object-cover gold-border-2">
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"
+                  alt="Nguyễn Thu Hà" class="w-12 h-12 rounded-full object-cover gold-border-2">
                 <div class="text-left">
                   <p class="font-semibold text-charcoal text-sm">Nguyễn Thu Hà</p>
                   <p class="text-xs text-gray-500">Nhà sưu tầm sách, Hà Nội</p>
@@ -672,14 +929,17 @@
           </div>
 
           <!-- Slide 2 -->
-          <div class="testimonial-slide transition-all duration-500" style="opacity: 0; transform: translateX(30px); position: absolute; top: 0; left: 0; right: 0;">
+          <div class="testimonial-slide transition-all duration-500"
+            style="opacity: 0; transform: translateX(30px); position: absolute; top: 0; left: 0; right: 0;">
             <div class="text-center px-6 py-8 relative">
               <span class="quote-mark">"</span>
               <p class="text-lg md:text-xl text-charcoal leading-relaxed italic mt-8">
-                Tôi đã mua Tam Quốc bản bìa da mạ vàng làm quà tặng sếp. Hộp gỗ đựng sách cực kỳ sang trọng, sếp tôi vô cùng ấn tượng!
+                Tôi đã mua Tam Quốc bản bìa da mạ vàng làm quà tặng sếp. Hộp gỗ đựng sách cực kỳ sang trọng, sếp tôi vô
+                cùng ấn tượng!
               </p>
               <div class="mt-6 flex items-center justify-center gap-3">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Trần Minh Đức" class="w-12 h-12 rounded-full object-cover gold-border-2">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+                  alt="Trần Minh Đức" class="w-12 h-12 rounded-full object-cover gold-border-2">
                 <div class="text-left">
                   <p class="font-semibold text-charcoal text-sm">Trần Minh Đức</p>
                   <p class="text-xs text-gray-500">Doanh nhân, TP.HCM</p>
@@ -690,14 +950,17 @@
           </div>
 
           <!-- Slide 3 -->
-          <div class="testimonial-slide transition-all duration-500" style="opacity: 0; transform: translateX(30px); position: absolute; top: 0; left: 0; right: 0;">
+          <div class="testimonial-slide transition-all duration-500"
+            style="opacity: 0; transform: translateX(30px); position: absolute; top: 0; left: 0; right: 0;">
             <div class="text-center px-6 py-8 relative">
               <span class="quote-mark">"</span>
               <p class="text-lg md:text-xl text-charcoal leading-relaxed italic mt-8">
-                Dịch vụ giao hàng nhanh, đóng gói cẩn thận như quà tặng. Website đẹp, dễ tìm sách. Chắc chắn sẽ quay lại mua tiếp!
+                Dịch vụ giao hàng nhanh, đóng gói cẩn thận như quà tặng. Website đẹp, dễ tìm sách. Chắc chắn sẽ quay lại
+                mua tiếp!
               </p>
               <div class="mt-6 flex items-center justify-center gap-3">
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" alt="Lê Thanh Mai" class="w-12 h-12 rounded-full object-cover gold-border-2">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face"
+                  alt="Lê Thanh Mai" class="w-12 h-12 rounded-full object-cover gold-border-2">
                 <div class="text-left">
                   <p class="font-semibold text-charcoal text-sm">Lê Thanh Mai</p>
                   <p class="text-xs text-gray-500">Giáo viên, Đà Nẵng</p>
@@ -720,9 +983,12 @@
     <div class="max-w-2xl mx-auto px-4 text-center fade-in-up">
       <i data-lucide="mail" class="w-10 h-10 text-gold mx-auto mb-4"></i>
       <h2 class="font-serif text-2xl md:text-3xl font-bold text-charcoal mb-3">Đăng Ký Nhận Tin</h2>
-      <p class="text-gray-500 text-sm mb-8">Nhận thông tin sách mới, khuyến mãi và ấn bản giới hạn trước tất cả mọi người.</p>
-      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="event.preventDefault(); GoldPage.showToast('Đăng ký thành công! Cảm ơn bạn 🎉');">
-        <input type="email" placeholder="Email của bạn" required class="flex-1 px-5 py-3.5 rounded-xl text-sm input-gold">
+      <p class="text-gray-500 text-sm mb-8">Nhận thông tin sách mới, khuyến mãi và ấn bản giới hạn trước tất cả mọi
+        người.</p>
+      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+        onsubmit="event.preventDefault(); GoldPage.showToast('Đăng ký thành công! Cảm ơn bạn 🎉');">
+        <input type="email" placeholder="Email của bạn" required
+          class="flex-1 px-5 py-3.5 rounded-xl text-sm input-gold">
         <button type="submit" class="btn-gold ripple px-8 py-3.5 rounded-xl text-sm font-bold whitespace-nowrap">
           Đăng ký
         </button>
@@ -740,10 +1006,33 @@
         <!-- About -->
         <div>
           <div class="flex items-center gap-2 mb-5">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37);">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center"
+              style="background: linear-gradient(135deg, #F4E5A1, #D4AF37);">
               <i data-lucide="globe" class="w-4 h-4 text-dark"></i>
             </div>
-            <span class="font-serif text-xl font-bold text-gold">Hành Tinh Chữ <svg class="flag-wrapper" style="width: 1.8em; height: 1.4em;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3.6 2.8"><defs><linearGradient id="poleGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#e0e0e0" /><stop offset="30%" stop-color="#ffffff" /><stop offset="100%" stop-color="#a0a0a0" /></linearGradient><radialGradient id="knobGrad" cx="30%" cy="30%" r="70%"><stop offset="0%" stop-color="#fff4b3" /><stop offset="50%" stop-color="#facc15" /><stop offset="100%" stop-color="#ca8a04" /></radialGradient></defs><rect x="0.1" y="0.2" width="0.15" height="2.6" fill="url(#poleGrad)" rx="0.05"/><circle cx="0.175" cy="0.15" r="0.15" fill="url(#knobGrad)"/><g class="flag-cloth" transform="translate(0.25, 0.3)"><rect width="3" height="2" fill="#da251d" rx="0.05"/><polygon points="1.5,0.4 1.69,1.01 2.33,1.01 1.81,1.39 2.01,2 1.5,1.61 0.99,2 1.19,1.39 0.67,1.01 1.31,1.01" fill="#ffcd00"/></g></svg></span>
+            <span class="font-serif text-xl font-bold text-gold">Hành Tinh Chữ <svg class="flag-wrapper"
+                style="width: 1.8em; height: 1.4em;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3.6 2.8">
+                <defs>
+                  <linearGradient id="poleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#e0e0e0" />
+                    <stop offset="30%" stop-color="#ffffff" />
+                    <stop offset="100%" stop-color="#a0a0a0" />
+                  </linearGradient>
+                  <radialGradient id="knobGrad" cx="30%" cy="30%" r="70%">
+                    <stop offset="0%" stop-color="#fff4b3" />
+                    <stop offset="50%" stop-color="#facc15" />
+                    <stop offset="100%" stop-color="#ca8a04" />
+                  </radialGradient>
+                </defs>
+                <rect x="0.1" y="0.2" width="0.15" height="2.6" fill="url(#poleGrad)" rx="0.05" />
+                <circle cx="0.175" cy="0.15" r="0.15" fill="url(#knobGrad)" />
+                <g class="flag-cloth" transform="translate(0.25, 0.3)">
+                  <rect width="3" height="2" fill="#da251d" rx="0.05" />
+                  <polygon
+                    points="1.5,0.4 1.69,1.01 2.33,1.01 1.81,1.39 2.01,2 1.5,1.61 0.99,2 1.19,1.39 0.67,1.01 1.31,1.01"
+                    fill="#ffcd00" />
+                </g>
+              </svg></span>
           </div>
           <p class="text-gray-400 text-sm leading-relaxed">
             Thư viện sách trực tuyến cao cấp — nơi mỗi cuốn sách là một hành trình tri thức đáng giá.
@@ -761,10 +1050,14 @@
           <h4 class="font-serif font-bold text-cream mb-5">Danh Mục</h4>
           <ul class="space-y-2.5">
             <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Văn học</a></li>
-            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Kỹ năng sống</a></li>
-            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Kinh doanh</a></li>
-            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Thiếu nhi</a></li>
-            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Sách quý hiếm</a></li>
+            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Kỹ năng sống</a>
+            </li>
+            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Kinh doanh</a>
+            </li>
+            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Thiếu nhi</a>
+            </li>
+            <li><a href="products.html" class="text-gray-400 text-sm hover:text-gold transition-colors">Sách quý
+                hiếm</a></li>
           </ul>
         </div>
 
@@ -774,10 +1067,13 @@
           <ul class="space-y-2.5">
             <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">Hướng dẫn mua hàng</a></li>
             <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">Chính sách đổi trả</a></li>
-            <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">Chính sách vận chuyển</a></li>
+            <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">Chính sách vận chuyển</a>
+            </li>
             <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">Câu hỏi thường gặp</a></li>
             <li><a href="#" class="text-gray-400 text-sm hover:text-gold transition-colors">Liên hệ</a></li>
-            <li><a href="admin.html" class="text-gray-400 text-sm hover:text-gold transition-colors flex items-center gap-1"><i data-lucide="settings" class="w-3 h-3"></i> Quản trị</a></li>
+            <li><a href="admin.html"
+                class="text-gray-400 text-sm hover:text-gold transition-colors flex items-center gap-1"><i
+                  data-lucide="settings" class="w-3 h-3"></i> Quản trị</a></li>
           </ul>
         </div>
 
@@ -809,8 +1105,12 @@
       <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
         <p class="text-gray-500 text-xs">© 2024 Hành Tinh Chữ. All rights reserved.</p>
         <div class="flex items-center gap-4">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/100px-MasterCard_Logo.svg.png" alt="Mastercard" class="h-6 opacity-60 hover:opacity-100 transition-opacity">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/100px-Visa_Inc._logo.svg.png" alt="Visa" class="h-5 opacity-60 hover:opacity-100 transition-opacity">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/100px-MasterCard_Logo.svg.png"
+            alt="Mastercard" class="h-6 opacity-60 hover:opacity-100 transition-opacity">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/100px-Visa_Inc._logo.svg.png"
+            alt="Visa" class="h-5 opacity-60 hover:opacity-100 transition-opacity">
           <div class="text-gray-500 text-xs flex items-center gap-1">
             <i data-lucide="shield-check" class="w-4 h-4 text-gold"></i>
             SSL Secured
@@ -838,7 +1138,8 @@
 
     <!-- Empty State -->
     <div id="cart-empty" class="flex-1 flex flex-col items-center justify-center px-6" style="display: flex;">
-      <div class="w-24 h-24 rounded-full flex items-center justify-center mb-6" style="background: rgba(212,175,55,0.1); border: 1px dashed var(--gold);">
+      <div class="w-24 h-24 rounded-full flex items-center justify-center mb-6"
+        style="background: rgba(212,175,55,0.1); border: 1px dashed var(--gold);">
         <i data-lucide="book-open" class="w-10 h-10 text-gold opacity-40"></i>
       </div>
       <h4 class="font-serif text-lg font-bold text-charcoal mb-2">Giỏ hàng trống</h4>
@@ -856,7 +1157,8 @@
       <div class="px-4 py-3 border-t border-gray-100">
         <div class="flex gap-2">
           <input type="text" placeholder="Mã giảm giá" class="flex-1 px-4 py-2.5 rounded-lg text-sm input-gold">
-          <button class="btn-gold-outline px-4 py-2.5 rounded-lg text-sm font-semibold whitespace-nowrap">Áp dụng</button>
+          <button class="btn-gold-outline px-4 py-2.5 rounded-lg text-sm font-semibold whitespace-nowrap">Áp
+            dụng</button>
         </div>
       </div>
 
@@ -866,7 +1168,8 @@
           <span class="text-gray-600 font-medium">Tổng cộng:</span>
           <span id="cart-total" class="price-gold text-2xl">0đ</span>
         </div>
-        <a href="checkout.html" class="btn-gold ripple w-full py-3.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 text-center block">
+        <a href="checkout.html"
+          class="btn-gold ripple w-full py-3.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 text-center block">
           Tiến Hành Thanh Toán
           <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </a>
@@ -879,7 +1182,8 @@
        ============================================================ -->
   <div id="quick-view-modal" class="modal-overlay">
     <div class="modal-content p-6 md:p-8">
-      <button onclick="document.getElementById('quick-view-modal').classList.remove('active')" class="absolute top-4 right-4 text-gray-400 hover:text-charcoal transition-colors">
+      <button onclick="document.getElementById('quick-view-modal').classList.remove('active')"
+        class="absolute top-4 right-4 text-gray-400 hover:text-charcoal transition-colors">
         <i data-lucide="x" class="w-6 h-6"></i>
       </button>
       <div id="quick-view-content" class="flex flex-col md:flex-row gap-6">
@@ -1010,7 +1314,7 @@
       lucide.createIcons();
 
       // ===== Quick View =====
-      window.openQuickView = function(bookId) {
+      window.openQuickView = function (bookId) {
         const book = GoldPage.books.find(b => b.id === bookId);
         if (!book) return;
         const modal = document.getElementById('quick-view-modal');
@@ -1048,5 +1352,5 @@
     });
   </script>
 </body>
-</html>
 
+</html>

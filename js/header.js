@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    GoldPage — Header Module
    Mega menu, search dropdown, mobile menu
    ============================================================ */
@@ -121,4 +121,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // Expose for external use
   window.openCart = openCart;
   window.closeCart = closeCart;
+
+  // ========== Wishlist Header Icon Listener ==========
+  const wishlistBtns = document.querySelectorAll('a[href="#"], button');
+  wishlistBtns.forEach(btn => {
+    const icon = btn.querySelector('i[data-lucide="heart"]');
+    // Only attach if it's the header button (no other logic attached typically)
+    // We check if it's in the header or not.
+    if (icon && btn.closest('header')) {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (typeof GoldPage !== 'undefined') {
+          GoldPage.openWishlist();
+        }
+      });
+    }
+  });
 });
