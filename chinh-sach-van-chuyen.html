@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chính Sách Vận Chuyển — Hành Tinh Chữ</title>
+  <meta name="description" content="Chính sách vận chuyển tại Hành Tinh Chữ — Giao hàng toàn quốc, nhanh chóng, an toàn.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { ivory: '#FFFDF7', dark: '#12100D', gold: { DEFAULT: '#D4AF37', light: '#F4E5A1', dark: '#A67C00' }, wine: '#5C1A1B', navy: '#0B1E3D', cream: '#FDF6E3', charcoal: '#1A1A1A' }, fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] } } } }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    .support-hero { background: linear-gradient(135deg, #050d1a 0%, #0B1E3D 50%, #0f2847 100%); position: relative; overflow: hidden; }
+    .support-hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%); }
+    .shipping-card { background: white; border: 1px solid rgba(212, 175, 55, 0.15); border-radius: 16px; padding: 28px; transition: all 0.3s ease; }
+    .shipping-card:hover { box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1); border-color: var(--gold); transform: translateY(-4px); }
+    .shipping-icon { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s ease; }
+    .info-highlight { background: linear-gradient(135deg, rgba(244, 229, 161, 0.08), rgba(212, 175, 55, 0.04)); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 24px; }
+  </style>
+</head>
+
+<body class="bg-ivory font-sans text-charcoal">
+  <header id="main-header" class="sticky top-0 z-50 bg-ivory/95 backdrop-blur-md border-b" style="border-color: var(--gold);">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <div class="flex items-center justify-between gap-4">
+        <a href="index.html" class="flex items-center gap-2 flex-shrink-0">
+          <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00);"><i data-lucide="globe" class="w-5 h-5 text-dark"></i></div>
+          <div>
+            <span class="font-serif text-2xl font-bold tracking-tight" style="background: linear-gradient(135deg, #D4AF37, #A67C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Hành Tinh Chữ</span>
+            <p class="text-[10px] text-gray-400 -mt-1 tracking-widest uppercase">Thư Viện Sách Cao Cấp</p>
+          </div>
+        </a>
+        <a href="index.html" class="flex items-center gap-2 text-sm text-gold hover:text-gold-dark transition-colors"><i data-lucide="arrow-left" class="w-4 h-4"></i> Về trang chủ</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="support-hero py-16 md:py-24">
+    <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+      <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-6" style="background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.25);">
+        <i data-lucide="truck" class="w-4 h-4 text-gold"></i>
+        <span class="text-gold text-xs font-semibold tracking-[0.15em] uppercase">Vận Chuyển</span>
+      </div>
+      <h1 class="font-serif text-3xl md:text-5xl font-bold text-cream mb-4">Chính Sách Vận Chuyển</h1>
+      <p class="text-gray-400 max-w-lg mx-auto text-sm leading-relaxed">Giao hàng toàn quốc, đóng gói cẩn thận, đảm bảo sách đến tay bạn trong tình trạng hoàn hảo</p>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24">
+    <div class="max-w-4xl mx-auto px-4">
+      <!-- Shipping Methods -->
+      <h2 class="font-serif text-2xl font-bold text-charcoal mb-8 text-center">Phương Thức Vận Chuyển</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div class="shipping-card text-center">
+          <div class="shipping-icon mx-auto mb-4" style="background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(34,197,94,0.05)); color: #22c55e;">
+            <i data-lucide="zap" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-serif font-bold text-charcoal mb-1">Giao Hàng Nhanh</h3>
+          <p class="text-gold font-bold text-lg mb-2">1-2 ngày</p>
+          <p class="text-gray-500 text-xs leading-relaxed">Nội thành TP.HCM và Hà Nội</p>
+          <p class="text-sm font-semibold text-charcoal mt-3">20.000đ</p>
+          <p class="text-xs text-gray-400">Miễn phí cho đơn từ 500K</p>
+        </div>
+        <div class="shipping-card text-center">
+          <div class="shipping-icon mx-auto mb-4" style="background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(59,130,246,0.05)); color: #3b82f6;">
+            <i data-lucide="truck" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-serif font-bold text-charcoal mb-1">Giao Hàng Tiêu Chuẩn</h3>
+          <p class="text-gold font-bold text-lg mb-2">3-5 ngày</p>
+          <p class="text-gray-500 text-xs leading-relaxed">Toàn quốc (tỉnh/thành phố)</p>
+          <p class="text-sm font-semibold text-charcoal mt-3">15.000đ</p>
+          <p class="text-xs text-gray-400">Miễn phí cho đơn từ 500K</p>
+        </div>
+        <div class="shipping-card text-center">
+          <div class="shipping-icon mx-auto mb-4" style="background: linear-gradient(135deg, rgba(168,85,247,0.1), rgba(168,85,247,0.05)); color: #a855f7;">
+            <i data-lucide="map-pin" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-serif font-bold text-charcoal mb-1">Vùng Sâu / Vùng Xa</h3>
+          <p class="text-gold font-bold text-lg mb-2">5-7 ngày</p>
+          <p class="text-gray-500 text-xs leading-relaxed">Huyện đảo, vùng cao</p>
+          <p class="text-sm font-semibold text-charcoal mt-3">30.000đ</p>
+          <p class="text-xs text-gray-400">Phí thực tế tùy khu vực</p>
+        </div>
+      </div>
+
+      <!-- Packing Info -->
+      <div class="info-highlight mb-16">
+        <div class="flex items-start gap-4">
+          <div class="shipping-icon flex-shrink-0" style="background: linear-gradient(135deg, rgba(244,229,161,0.2), rgba(212,175,55,0.1)); color: var(--gold);">
+            <i data-lucide="package" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h3 class="font-serif font-bold text-charcoal mb-2">Đóng Gói Cẩn Thận</h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-3">Mỗi cuốn sách được bọc màng co nhiệt, đặt trong hộp carton cứng có lót xốp chống va đập. Chúng tôi cam kết sách đến tay bạn trong tình trạng nguyên vẹn, hoàn hảo.</p>
+            <ul class="space-y-2 text-sm text-gray-600">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i> Bọc màng co nhiệt từng cuốn</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i> Hộp carton 3 lớp chống va đập</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i> Lót xốp/bóng khí bảo vệ góc sách</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i> Dán nhãn "HÀNG DỄ VỠ" rõ ràng</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Note -->
+      <div class="info-highlight mb-12">
+        <h3 class="font-serif font-bold text-charcoal mb-3 flex items-center gap-2"><i data-lucide="info" class="w-5 h-5 text-gold"></i> Lưu Ý Quan Trọng</h3>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Thời gian giao hàng tính từ khi đơn hàng được xác nhận và thanh toán.</li>
+          <li>• Đơn hàng đặt sau 15:00 sẽ được xử lý vào ngày làm việc tiếp theo.</li>
+          <li>• Không giao hàng vào Chủ Nhật và các ngày lễ.</li>
+          <li>• Bạn sẽ nhận được mã vận đơn để theo dõi đơn hàng qua SMS/Email.</li>
+        </ul>
+      </div>
+
+      <div class="text-center">
+        <a href="index.html" class="btn-gold ripple px-8 py-3.5 rounded-xl text-sm font-bold inline-flex items-center gap-2"><i data-lucide="home" class="w-4 h-4"></i> Về Trang Chủ</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="section-navy py-8"><div class="max-w-7xl mx-auto px-4 text-center"><p class="text-gray-500 text-xs">© 2024 Hành Tinh Chữ. All rights reserved.</p></div></footer>
+  <script src="js/app.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liên Hệ — Hành Tinh Chữ</title>
+  <meta name="description" content="Liên hệ với Hành Tinh Chữ — Thư viện sách trực tuyến cao cấp. Hotline, email, địa chỉ.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { ivory: '#FFFDF7', dark: '#12100D', gold: { DEFAULT: '#D4AF37', light: '#F4E5A1', dark: '#A67C00' }, wine: '#5C1A1B', navy: '#0B1E3D', cream: '#FDF6E3', charcoal: '#1A1A1A' }, fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] } } } }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    .support-hero { background: linear-gradient(135deg, #050d1a 0%, #0B1E3D 50%, #0f2847 100%); position: relative; overflow: hidden; }
+    .support-hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%); }
+    .contact-card { background: white; border: 1px solid rgba(212, 175, 55, 0.15); border-radius: 16px; padding: 32px; transition: all 0.4s ease; text-align: center; position: relative; overflow: hidden; }
+    .contact-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00); transform: scaleX(0); transition: transform 0.4s ease; transform-origin: left; }
+    .contact-card:hover { transform: translateY(-6px); box-shadow: 0 15px 40px rgba(212, 175, 55, 0.12); border-color: var(--gold); }
+    .contact-card:hover::before { transform: scaleX(1); }
+    .contact-icon { width: 64px; height: 64px; border-radius: 20px; background: linear-gradient(135deg, rgba(244, 229, 161, 0.15), rgba(212, 175, 55, 0.08)); display: flex; align-items: center; justify-content: center; color: var(--gold); margin: 0 auto 16px; transition: all 0.4s ease; }
+    .contact-card:hover .contact-icon { background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00); color: var(--dark); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3); }
+    .contact-form-input { width: 100%; padding: 14px 18px; border: 1.5px solid #e0d8c8; border-radius: 12px; font-size: 14px; font-family: 'Inter', sans-serif; outline: none; transition: all 0.3s ease; background: white; }
+    .contact-form-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15); }
+    .contact-form-input::placeholder { color: #aaa; }
+  </style>
+</head>
+
+<body class="bg-ivory font-sans text-charcoal">
+  <header id="main-header" class="sticky top-0 z-50 bg-ivory/95 backdrop-blur-md border-b" style="border-color: var(--gold);">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <div class="flex items-center justify-between gap-4">
+        <a href="index.html" class="flex items-center gap-2 flex-shrink-0">
+          <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00);"><i data-lucide="globe" class="w-5 h-5 text-dark"></i></div>
+          <div>
+            <span class="font-serif text-2xl font-bold tracking-tight" style="background: linear-gradient(135deg, #D4AF37, #A67C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Hành Tinh Chữ</span>
+            <p class="text-[10px] text-gray-400 -mt-1 tracking-widest uppercase">Thư Viện Sách Cao Cấp</p>
+          </div>
+        </a>
+        <a href="index.html" class="flex items-center gap-2 text-sm text-gold hover:text-gold-dark transition-colors"><i data-lucide="arrow-left" class="w-4 h-4"></i> Về trang chủ</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="support-hero py-16 md:py-24">
+    <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+      <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-6" style="background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.25);">
+        <i data-lucide="mail" class="w-4 h-4 text-gold"></i>
+        <span class="text-gold text-xs font-semibold tracking-[0.15em] uppercase">Liên Hệ</span>
+      </div>
+      <h1 class="font-serif text-3xl md:text-5xl font-bold text-cream mb-4">Liên Hệ Với Chúng Tôi</h1>
+      <p class="text-gray-400 max-w-lg mx-auto text-sm leading-relaxed">Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn</p>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24">
+    <div class="max-w-5xl mx-auto px-4">
+      <!-- Contact Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div class="contact-card">
+          <div class="contact-icon"><i data-lucide="map-pin" class="w-6 h-6"></i></div>
+          <h3 class="font-serif font-bold text-charcoal mb-2">Địa Chỉ</h3>
+          <p class="text-gray-500 text-sm">123 Nguyễn Huệ, Q.1, TP.HCM</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon"><i data-lucide="phone" class="w-6 h-6"></i></div>
+          <h3 class="font-serif font-bold text-charcoal mb-2">Hotline</h3>
+          <p class="text-gold font-semibold">1900-GOLD-PAGE</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon"><i data-lucide="mail" class="w-6 h-6"></i></div>
+          <h3 class="font-serif font-bold text-charcoal mb-2">Email</h3>
+          <p class="text-gray-500 text-sm">hello@hanhtinhchu.vn</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon"><i data-lucide="clock" class="w-6 h-6"></i></div>
+          <h3 class="font-serif font-bold text-charcoal mb-2">Giờ Làm Việc</h3>
+          <p class="text-gray-500 text-sm">8:00 — 22:00<br>T2 — CN</p>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="max-w-2xl mx-auto">
+        <div class="text-center mb-10">
+          <h2 class="font-serif text-2xl font-bold text-charcoal mb-2">Gửi Tin Nhắn</h2>
+          <p class="text-gray-500 text-sm">Điền form bên dưới, chúng tôi sẽ phản hồi trong vòng 24 giờ</p>
+        </div>
+
+        <form onsubmit="event.preventDefault(); alert('Cảm ơn bạn! Chúng tôi đã nhận được tin nhắn và sẽ phản hồi sớm nhất.');" class="space-y-5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label class="text-sm font-semibold text-charcoal mb-2 block">Họ tên <span class="text-red-400">*</span></label>
+              <input type="text" required placeholder="Nguyễn Văn A" class="contact-form-input">
+            </div>
+            <div>
+              <label class="text-sm font-semibold text-charcoal mb-2 block">Email <span class="text-red-400">*</span></label>
+              <input type="email" required placeholder="email@example.com" class="contact-form-input">
+            </div>
+          </div>
+          <div>
+            <label class="text-sm font-semibold text-charcoal mb-2 block">Số điện thoại</label>
+            <input type="tel" placeholder="0901 234 567" class="contact-form-input">
+          </div>
+          <div>
+            <label class="text-sm font-semibold text-charcoal mb-2 block">Chủ đề <span class="text-red-400">*</span></label>
+            <select required class="contact-form-input" style="color: #555;">
+              <option value="" disabled selected>Chọn chủ đề</option>
+              <option>Hỏi về đơn hàng</option>
+              <option>Góp ý / Phản hồi</option>
+              <option>Yêu cầu đổi trả</option>
+              <option>Hợp tác kinh doanh</option>
+              <option>Khác</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-sm font-semibold text-charcoal mb-2 block">Nội dung <span class="text-red-400">*</span></label>
+            <textarea required rows="5" placeholder="Nhập nội dung tin nhắn..." class="contact-form-input" style="resize: vertical;"></textarea>
+          </div>
+          <div class="text-center pt-2">
+            <button type="submit" class="btn-gold ripple px-10 py-4 rounded-xl text-sm font-bold inline-flex items-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              Gửi Tin Nhắn
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Map placeholder -->
+      <div class="mt-16 rounded-2xl overflow-hidden border border-gold/20" style="height: 300px; background: linear-gradient(135deg, #f0ebe0, #e8e0d0);">
+        <div class="w-full h-full flex items-center justify-center">
+          <div class="text-center">
+            <i data-lucide="map" class="w-12 h-12 text-gold/30 mx-auto mb-3"></i>
+            <p class="text-gray-400 text-sm">123 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh</p>
+            <a href="https://maps.google.com/?q=123+Nguyen+Hue+Q1+TPHCM" target="_blank" class="text-gold text-sm font-semibold hover:underline mt-2 inline-block">Xem trên Google Maps →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="index.html" class="btn-gold-outline px-8 py-3.5 rounded-xl text-sm font-bold inline-flex items-center gap-2"><i data-lucide="home" class="w-4 h-4"></i> Về Trang Chủ</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="section-navy py-8"><div class="max-w-7xl mx-auto px-4 text-center"><p class="text-gray-500 text-xs">© 2024 Hành Tinh Chữ. All rights reserved.</p></div></footer>
+  <script src="js/app.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });</script>
+</body>
+</html>

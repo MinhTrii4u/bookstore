@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -538,6 +538,16 @@
 
 <body class="admin-bg font-sans">
 
+  <!-- Admin Auth Guard -->
+  <script>
+    (function() {
+      const session = localStorage.getItem('goldpage_admin_session');
+      if (!session) {
+        window.location.href = 'admin-login.html';
+      }
+    })();
+  </script>
+
   <!-- Mobile Sidebar Overlay -->
   <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
@@ -614,18 +624,23 @@
 
       <!-- Admin Profile -->
       <div class="mt-auto pt-6 border-t border-white/5">
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 mb-3">
           <div class="w-10 h-10 rounded-full flex items-center justify-center"
             style="background: linear-gradient(135deg, #D4AF37, #A67C00);">
             <i data-lucide="crown" class="w-4 h-4 text-dark"></i>
           </div>
           <div class="flex-1 min-w-0">
-            <p class="text-sm font-semibold text-gray-200">Admin</p>
-            <p class="text-[11px] text-gray-500 truncate">admin@goldpage.vn</p>
+            <p class="text-sm font-semibold text-gray-200" id="admin-name-display">Admin</p>
+            <p class="text-[11px] text-gray-500 truncate" id="admin-email-display">admin@goldpage.vn</p>
           </div>
           <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 flex-shrink-0"></div>
         </div>
+        <button onclick="adminLogout()" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-medium text-gray-500 hover:text-red-400 hover:bg-red-500/5 border border-white/5 hover:border-red-500/15 transition-all">
+          <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+          Đăng xuất
+        </button>
       </div>
+
     </aside>
 
     <!-- ============================================================
@@ -1866,6 +1881,24 @@
       GoldPage.showToast('Đã xóa tất cả đơn hàng! 🗑️');
       renderRevenue();
     }
+    // ===== Admin Logout =====
+    function adminLogout() {
+      if (confirm('Bạn có chắc muốn đăng xuất?')) {
+        localStorage.removeItem('goldpage_admin_session');
+        window.location.href = 'admin-login.html';
+      }
+    }
+
+    // ===== Display Admin Info from Session =====
+    (function() {
+      const session = JSON.parse(localStorage.getItem('goldpage_admin_session') || '{}');
+      if (session.name) {
+        const nameEl = document.getElementById('admin-name-display');
+        const emailEl = document.getElementById('admin-email-display');
+        if (nameEl) nameEl.textContent = session.name;
+        if (emailEl) emailEl.textContent = session.email || 'admin@goldpage.vn';
+      }
+    })();
   </script>
 </body>
 

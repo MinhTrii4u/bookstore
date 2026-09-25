@@ -820,3 +820,38 @@ const GoldPage = (() => {
     getNextId
   };
 })();
+
+// ========== Global UI Updates based on Session ==========
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    const storedUser = localStorage.getItem('goldpage_current_user');
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      if (user && user.name) {
+        // Lấy tên ngắn gọn (tên đầu tiên)
+        const shortName = user.name.split(' ').pop();
+        
+        // Tìm tất cả các link trỏ đến auth.html hoặc profile.html
+        const authLinks = document.querySelectorAll('a[href="auth.html"], a[href="profile.html"]');
+        authLinks.forEach(link => {
+          // Bỏ qua nếu đây là link ở trang admin-login
+          if (window.location.pathname.includes('admin-login')) return;
+
+          link.href = 'profile.html';
+          
+          const span = link.querySelector('span');
+          const icon = link.querySelector('i[data-lucide="user"]');
+          
+          if (span && span.textContent.includes('Tài khoản')) {
+            span.textContent = 'Xin chào, ' + shortName;
+          } else if (icon && link.textContent.includes('Tài khoản')) {
+            link.innerHTML = icon.outerHTML + ' Xin chào, ' + shortName;
+            if (window.lucide) window.lucide.createIcons({root: link});
+          }
+        });
+      }
+    }
+  } catch (e) {
+    console.warn('Error updating user session UI:', e);
+  }
+});

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Câu Hỏi Thường Gặp — Hành Tinh Chữ</title>
+  <meta name="description" content="Câu hỏi thường gặp tại Hành Tinh Chữ — Giải đáp mọi thắc mắc về mua hàng, vận chuyển, thanh toán.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { ivory: '#FFFDF7', dark: '#12100D', gold: { DEFAULT: '#D4AF37', light: '#F4E5A1', dark: '#A67C00' }, wine: '#5C1A1B', navy: '#0B1E3D', cream: '#FDF6E3', charcoal: '#1A1A1A' }, fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] } } } }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    .support-hero { background: linear-gradient(135deg, #050d1a 0%, #0B1E3D 50%, #0f2847 100%); position: relative; overflow: hidden; }
+    .support-hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%); }
+    .faq-item { background: white; border: 1px solid rgba(212, 175, 55, 0.12); border-radius: 14px; overflow: hidden; transition: all 0.3s ease; margin-bottom: 12px; }
+    .faq-item:hover { border-color: rgba(212, 175, 55, 0.3); }
+    .faq-item.active { border-color: var(--gold); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.1); }
+    .faq-question { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; cursor: pointer; transition: all 0.3s ease; gap: 12px; }
+    .faq-question:hover { background: rgba(212, 175, 55, 0.02); }
+    .faq-question h3 { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; color: var(--charcoal); margin: 0; line-height: 1.5; }
+    .faq-item.active .faq-question h3 { color: var(--gold-dark, #A67C00); }
+    .faq-toggle { width: 32px; height: 32px; border-radius: 10px; background: rgba(212, 175, 55, 0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s ease; }
+    .faq-item.active .faq-toggle { background: linear-gradient(135deg, #F4E5A1, #D4AF37); }
+    .faq-toggle i { width: 16px; height: 16px; color: var(--gold); transition: transform 0.3s ease; }
+    .faq-item.active .faq-toggle i { color: var(--dark); transform: rotate(180deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .faq-answer-inner { padding: 0 24px 20px 24px; color: #666; font-size: 14px; line-height: 1.7; }
+    .faq-item.active .faq-answer { max-height: 400px; }
+    .faq-category-tab { padding: 10px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; color: #888; }
+    .faq-category-tab:hover { color: var(--charcoal); background: rgba(212, 175, 55, 0.04); }
+    .faq-category-tab.active { background: linear-gradient(135deg, rgba(244,229,161,0.15), rgba(212,175,55,0.1)); color: var(--gold-dark, #A67C00); border-color: rgba(212,175,55,0.3); }
+  </style>
+</head>
+
+<body class="bg-ivory font-sans text-charcoal">
+  <header id="main-header" class="sticky top-0 z-50 bg-ivory/95 backdrop-blur-md border-b" style="border-color: var(--gold);">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <div class="flex items-center justify-between gap-4">
+        <a href="index.html" class="flex items-center gap-2 flex-shrink-0">
+          <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #F4E5A1, #D4AF37, #A67C00);"><i data-lucide="globe" class="w-5 h-5 text-dark"></i></div>
+          <div>
+            <span class="font-serif text-2xl font-bold tracking-tight" style="background: linear-gradient(135deg, #D4AF37, #A67C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Hành Tinh Chữ</span>
+            <p class="text-[10px] text-gray-400 -mt-1 tracking-widest uppercase">Thư Viện Sách Cao Cấp</p>
+          </div>
+        </a>
+        <a href="index.html" class="flex items-center gap-2 text-sm text-gold hover:text-gold-dark transition-colors"><i data-lucide="arrow-left" class="w-4 h-4"></i> Về trang chủ</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="support-hero py-16 md:py-24">
+    <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+      <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-6" style="background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.25);">
+        <i data-lucide="help-circle" class="w-4 h-4 text-gold"></i>
+        <span class="text-gold text-xs font-semibold tracking-[0.15em] uppercase">FAQ</span>
+      </div>
+      <h1 class="font-serif text-3xl md:text-5xl font-bold text-cream mb-4">Câu Hỏi Thường Gặp</h1>
+      <p class="text-gray-400 max-w-lg mx-auto text-sm leading-relaxed">Tìm câu trả lời nhanh cho những thắc mắc phổ biến nhất</p>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24">
+    <div class="max-w-3xl mx-auto px-4">
+      <!-- Category Tabs -->
+      <div class="flex flex-wrap gap-2 mb-10 justify-center">
+        <button class="faq-category-tab active" onclick="filterFaq('all', this)">Tất cả</button>
+        <button class="faq-category-tab" onclick="filterFaq('order', this)">Đặt hàng</button>
+        <button class="faq-category-tab" onclick="filterFaq('shipping', this)">Vận chuyển</button>
+        <button class="faq-category-tab" onclick="filterFaq('payment', this)">Thanh toán</button>
+        <button class="faq-category-tab" onclick="filterFaq('return', this)">Đổi trả</button>
+        <button class="faq-category-tab" onclick="filterFaq('account', this)">Tài khoản</button>
+      </div>
+
+      <!-- FAQ List -->
+      <div id="faq-list">
+        <div class="faq-item" data-category="order">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>Làm sao để đặt hàng trên Hành Tinh Chữ?</h3>
+            <div class="faq-toggle"><i data-lucide="chevron-down"></i></div>
+          </div>
+          <div class="faq-answer"><div class="faq-answer-inner">Bạn chỉ cần chọn sách yêu thích, thêm vào giỏ hàng, điền thông tin giao hàng và chọn phương thức thanh toán. Chi tiết xem thêm tại <a href="huong-dan-mua-hang.html" class="text-gold-dark font-semibold hover:underline">Hướng dẫn mua hàng</a>.</div></div>
+        </div>
+
+        <div class="faq-item" data-category="order">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>Tôi có cần tạo tài khoản để mua hàng không?</h3>
+            <div class="faq-toggle"><i data-lucide="chevron-down"></i></div>
+          </div>
+          <div class="faq-answer"><div class="faq-answer-inner">Không bắt buộc. Bạn có thể mua hàng với tư cách khách. Tuy nhiên, tạo tài khoản sẽ giúp bạn theo dõi đơn hàng, tích điểm và nhận ưu đãi thành viên.</div></div>
+        </div>
+
+        <div class="faq-item" data-category="shipping">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>Thời gian giao hàng là bao lâu?</h3>
+            <div class="faq-toggle"><i data-lucide="chevron-down"></i></div>
+          </div>
+          <div class="faq-answer"><div class="faq-answer-inner">Nội thành TP.HCM và Hà Nội: 1-2 ngày. Các tỉnh/thành khác: 3-5 ngày. Vùng sâu vùng xa: 5-7 ngày. Thời gian tính từ khi đơn hàng được xác nhận.</div></div>
+        </div>
+
+        <div class="faq-item" data-category="shipping">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>Phí vận chuyển là bao nhiêu?</h3>
+            <div class="faq-toggle"><i data-lucide="chevron-down"></i></div>
+          </div>
+          <div class="faq-answer"><div class="faq-answer-inner">Phí vận chuyển từ 15.000đ - 30.000đ tùy khu vực. <strong>Miễn phí vận chuyển cho đơn hàng từ 500.000đ.</strong> Chi tiết xem tại <a href="chinh-sach-van-chuyen.html" class="text-gold-dark font-semibold hover:underline">Chính sách vận chuyển</a>.</div></div>
+        </div>
+
+        <div class="faq-item" data-category="payment">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>Có những phương thức thanh toán nào?</h3>
+            <div class="faq-toggle"><i data-lucide="chevron-down"></i></div>
+          </div>
+          <div class="faq-answer"><div class="faq-answer-inner">Chúng tôi hỗ trợ: COD (thanh toán khi nhận hàng), chuyển khoản ngân hàng, thẻ Visa/Mastercard, ví điện tử MoMo và ZaloPay. Tất cả đều được bảo mật SSL.</div></div>
+        </div>
+
+        <div class="faq-item" data-category="payment">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>Thanh toán online có an toàn không?</h3>
+            <div class="faq-toggle"><i data-lucide="chevron-down"></i></div>
+          </div>
+          <div class="faq-answer"><div class="faq-answer-inner">Hoàn toàn an toàn. Chúng tôi sử dụng chứng chỉ SSL và đối tác thanh toán uy tín để bảo vệ thông tin của bạn. Không lưu trữ thông tin thẻ của khách hàng.</div></div>
+        </div>
+
+        <div class="faq-item" data-category="return">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>Tôi có thể đổi trả sách không?</h3>
+            <div class="faq-toggle"><i data-lucide="chevron-down"></i></div>
+          </div>
+          <div class="faq-answer"><div class="faq-answer-inner">Có! Chúng tôi chấp nhận đổi trả trong vòng 30 ngày cho sách bị lỗi, hư hỏng hoặc giao sai. Chi tiết tại <a href="chinh-sach-doi-tra.html" class="text-gold-dark font-semibold hover:underline">Chính sách đổi trả</a>.</div></div>
+        </div>
+
+        <div class="faq-item" data-category="return">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>Sau bao lâu tôi nhận được tiền hoàn?</h3>
+            <div class="faq-toggle"><i data-lucide="chevron-down"></i></div>
+          </div>
+          <div class="faq-answer"><div class="faq-answer-inner">Sau khi nhận và kiểm tra sản phẩm đổi trả (1-2 ngày), tiền sẽ được hoàn trong 3-5 ngày làm việc tùy phương thức thanh toán ban đầu.</div></div>
+        </div>
+
+        <div class="faq-item" data-category="account">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>Làm sao để tạo tài khoản?</h3>
+            <div class="faq-toggle"><i data-lucide="chevron-down"></i></div>
+          </div>
+          <div class="faq-answer"><div class="faq-answer-inner">Truy cập trang <a href="auth.html" class="text-gold-dark font-semibold hover:underline">Đăng ký</a>, điền email, mật khẩu và thông tin cá nhân. Bạn cũng có thể đăng nhập nhanh bằng Google hoặc Facebook.</div></div>
+        </div>
+
+        <div class="faq-item" data-category="account">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>Chương trình tích điểm hoạt động như thế nào?</h3>
+            <div class="faq-toggle"><i data-lucide="chevron-down"></i></div>
+          </div>
+          <div class="faq-answer"><div class="faq-answer-inner">Mỗi 10.000đ mua sắm bạn nhận được 1 điểm. Tích lũy điểm để đổi voucher giảm giá hoặc quà tặng. Thành viên VIP (từ 500 điểm) được giảm thêm 10% cho mọi đơn hàng.</div></div>
+        </div>
+      </div>
+
+      <!-- Contact CTA -->
+      <div class="mt-16 text-center p-10 rounded-2xl" style="background: linear-gradient(135deg, rgba(244,229,161,0.08), rgba(212,175,55,0.04)); border: 1px solid rgba(212,175,55,0.2);">
+        <i data-lucide="message-circle" class="w-10 h-10 text-gold mx-auto mb-4"></i>
+        <h3 class="font-serif text-xl font-bold text-charcoal mb-2">Không tìm thấy câu trả lời?</h3>
+        <p class="text-gray-500 text-sm mb-6">Liên hệ đội ngũ hỗ trợ qua hotline hoặc nhắn tin trực tuyến</p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="lien-he.html" class="btn-gold ripple px-8 py-3.5 rounded-xl text-sm font-bold inline-flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> Liên Hệ</a>
+          <a href="index.html" class="btn-gold-outline px-8 py-3.5 rounded-xl text-sm font-bold inline-flex items-center gap-2"><i data-lucide="home" class="w-4 h-4"></i> Về Trang Chủ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="section-navy py-8"><div class="max-w-7xl mx-auto px-4 text-center"><p class="text-gray-500 text-xs">© 2024 Hành Tinh Chữ. All rights reserved.</p></div></footer>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });
+
+    function toggleFaq(el) {
+      const item = el.parentElement;
+      const isActive = item.classList.contains('active');
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+      // Toggle current
+      if (!isActive) item.classList.add('active');
+    }
+
+    function filterFaq(category, btn) {
+      document.querySelectorAll('.faq-category-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.faq-item').forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
